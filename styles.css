@@ -1,0 +1,292 @@
+@charset "utf-8";
+
+/* CSS Document */
+body {
+    color: #404040;
+    font: 400 15px/22px 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.banner {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    top: 0;
+    left: 0;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+    top: 20%;
+}
+
+.sidebar {
+    position: absolute;
+    /* background: rgba(0,0,0,0.05);*/
+    width: 15%;
+    top:20%;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    border-right: 0.01px solid rgba(0, 0, 0, 0.2);
+}
+
+.photo {
+    position: absolute;
+    width: 42.5%;
+    left: 15%;
+    height: 34%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.status {
+    position: absolute;
+    left: 57.5%;
+    width: 42.5%;
+    top: 0;
+    height: 5%;
+    padding: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 200%;
+    text-align: right;
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    left: 57.5%;
+    width: 42.5%;
+    top: 0;
+    height: 34%;
+    bottom: 0;
+}
+
+.mapboxgl-ctrl mapboxgl-ctrl-attrib {
+    color: #ffffff00;
+}
+
+.narrative {
+    position: absolute;
+    left: 15%;
+    width: 42.5%;
+    top: 34%;
+    height: 66%;
+    bottom: 10%;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    font-size: 14px;
+    overflow-y: auto;
+    /*
+	column-count:2;
+	column-gap:40px;
+	column-rule-style: solid;
+	column-rule-width: 0.05px;
+	column-rule-color: rgba(0,0,0,0.25)*/
+}
+
+.links {
+    position: absolute;
+    left: 57.5%;
+    width: 42.5%;
+    top: 34%;
+    height: 66%;
+    padding: 20px;
+    background: rgba(0, 125, 188, 0.05);
+    font-size: 16px;
+    color: #007dbc;
+    line-height: 150%;
+    overflow-y: scroll;
+}
+
+hr {
+    display: block;
+    height: 0px;
+    border: 0;
+    border-top: 1px solid #b3d8eb;
+    margin: 1em 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 20px 2px;
+}
+
+a {
+    color: #007dbc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #66b1d7;
+}
+
+.heading {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    min-height: 60px;
+    line-height: 60px;
+    padding: 0 20px;
+    background-color: #007dbc;
+    color: #fff;
+}
+
+
+ul {
+    list-style-type: none;
+    font-size: 14px;
+    margin: 0;
+    padding: 20px;
+    line-height: 250%;
+}
+
+li {
+    cursor: pointer;
+}
+
+.elementToFadeIn {
+    animation: fader 1s linear forwards;
+}
+
+@keyframes fader {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b3d8eb;
+    border-radius: 0;
+}
+
+.marker {
+    border: none;
+    cursor: pointer;
+    height: 56px;
+    width: 56px;
+    background-image: url(https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png);
+}
+
+/* Marker tweaks */
+.mapboxgl-popup {
+    padding-bottom: 50px;
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+    padding: 0;
+    width: 180px;
+}
+
+.mapboxgl-popup-content h3 {
+    background: #91c949;
+    color: #fff;
+    margin: 0;
+    padding: 10px;
+    border-radius: 3px 3px 0 0;
+    font-weight: 700;
+    margin-top: -15px;
+}
+
+.mapboxgl-popup-content h4 {
+    margin: 0;
+    padding: 10px;
+    font-weight: 400;
+}
+
+.mapboxgl-popup-content div {
+    padding: 10px;
+}
+
+.mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+    margin-top: 15px;
+}
+
+.mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
+    border-bottom-color: #91c949;
+}
