@@ -89,11 +89,11 @@
 
     <script>
         const countryData = [
-            ["afg", "Afghanistan", "Test narrative about Afghanistan", "Concern"],
-            ["bgd", "Bangladesh", "Test narrative about Bangladesh", "Monitor"],
-            ["btn", "Bhutan", "Test narrative about Bhutan", "NA"],
-            ["ind", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
-                "NA"]
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Status", "Concern"],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Status", "Monitor"],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Status", "Concern"],
+            ["IND", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
+                "Status", "NA"]
         ];
         console.log(countryData)
 
@@ -104,15 +104,20 @@
         // First define the const match, then create the if actions
         items.addEventListener('change', function (e) {
             const match = countryData.find(countryArr => countryArr[1] === this.value);
-            console.log('You clicked ' + this.value)
+            console.log('You clicked a row containing ' + this.value)
             console.log(match)
-            if (match) document.getElementById('narrativeTitle').innerHTML = match[1];
+            //if (match) document.getElementById('narrativeTitle').innerHTML = match[1];
             //if (match) document.getElementById("narrativeText").innerHTML = match[2];
-            testFunction(match);
+            displayNarrativeTitle(match);
+            displayNarrativeText(match);
         });
 
-        function testFunction(testValue) {
-            if (testValue) document.getElementById("narrativeText").innerHTML = testValue[2];
+        function displayNarrativeTitle(filteredRow) {
+            if (filteredRow) document.getElementById("narrativeTitle").innerHTML = filteredRow[1];
+        }
+
+        function displayNarrativeText(filteredRow) {
+            if (filteredRow) document.getElementById("narrativeText").innerHTML = filteredRow[2];
         }
 
 
@@ -137,17 +142,18 @@
         });
 
         // Create a function 
-        function displayChloro(countryKey) {
-            const countryInfo = countryData[countryKey];
+        function displayChloro(filteredRow) {
+
             let addColor;
-            if (countryInfo.overallVulnerability == "Country of Concern") {
+            if (filteredRow[3] == "Concern") {
                 addColor = "#982b56";
-            } else if (countryInfo.overallVulnerability == "Country to Monitor") {
+            } else if (filteredRow[3] == "Monitor") {
                 addColor = "#f47847";
             } else {
                 addColor = "#007dbc"
             };
-            let countryLabel = countryInfo.countryName
+
+            let countryLabel = filteredRow[3]
 
             map.removeLayer("cf");
             map.removeLayer("cb");
@@ -161,38 +167,49 @@
                 "paint": {
                     "fill-color": addColor,
                     "fill-opacity": 0.1,
-                }
+                },
+                "filter": ["==", "adm0_a3", "AFG"]
             })
 
-            // country borders
             map.addLayer({
-                "id": "cb",
-                "type": "line",
+                "id": "cf",
+                "type": "fill",
                 "source": "cbs",
                 "layout": {},
                 "paint": {
-                    "line-color": addColor,
-                    "line-width": .5
-                }
-            });
+                    "fill-color": addColor,
+                    "fill-opacity": 0.1,
+                },
+                "filter": ["==", "adm0_a3", "BGD"]
+            })
+
+            // // country borders
+            // map.addLayer({
+            //     "id": "cb",
+            //     "type": "line",
+            //     "source": "cbs",
+            //     "layout": {},
+            //     "paint": {
+            //         "line-color": addColor,
+            //         "line-width": .5
+            //     }
+            // });
         }
 
 
         // Add the function 
         items.addEventListener('change', function (e) {
             const match = countryData.find(countryArr => countryArr[1] === this.value);
-            console.log('You clicked ' + this.value)
-            console.log(match)
-            if (match) document.getElementById('map').innerHTML = match[1];
+            displayChloro(match);
         });
 
 
-        Array.from(items).forEach(function (item) {
-            item.addEventListener('click', function () {
-                flyFunction(item.id);
-                displayChloro(item.id)
-            })
-        })
+        // Array.from(items).forEach(function (item) {
+        //     item.addEventListener('click', function () {
+        //         flyFunction(item.id);
+        //         displayChloro(item.id)
+        //     })
+        // })
 
     </script>
 </body>
