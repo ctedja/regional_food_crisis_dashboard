@@ -19,6 +19,31 @@
 	border-right: 0.01px solid rgba(0,0,0,0.2);
 }
 
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
+    font-size: 12px;
+    color: #767676;
+    margin: 0;
+    max-width: 100%;
+    cursor: inherit;
+    border: none;
+    /* background: url(https://stackoverflow.com/favicon.ico) 0% / 15% no-repeat white; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .status{
     position:absolute;
 	left: 57.5%;

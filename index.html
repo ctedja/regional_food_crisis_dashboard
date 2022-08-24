@@ -52,7 +52,12 @@
                 <a href="#tableTab" class="nav-link" data-bs-toggle="tab">Profile</a>
             </li>
         </ul>
+
+
         <div class="tab-content">
+            <br>
+
+            <!-- Map Tab -->
             <div class="tab-pane fade show active" id="mapTab">
                 <div class="sidebar">
                     <div class="select">
@@ -65,24 +70,58 @@
                             <option value="Bhutan">&nbsp;&nbsp;Bhutan</option>
                         </select>
                     </div>
-
-
                 </div>
             </div>
+            <div id="narrative"></div>
+            <div></div>
 
+
+            <!-- Table Tab -->
             <div class="tab-pane fade" id="tableTab">
                 <h4 class="mt-2">Profile tab content</h4>
-                <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut,
-                    mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit
-                    bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in
-                    rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+                <p>Insert a table here.</p>
             </div>
         </div>
-
-
     </div>
-    </div>
+
     <script>
+        // With Jquery
+        const countryData = new Array([
+            ["AFG", "Afghanistan", "Test info"],
+            ["BGD", "Bangladesh", "Test info"],
+            ["BTN", "Bhutan", "Test info"],
+            ["IND", "India", "Test info"]
+        ]
+        )
+
+        const items = document.getElementById('countrySelector')
+
+        let clickedItem = ''
+
+
+        items.addEventListener('change', function (item) {
+            console.log('You selected: ', this.value);
+            displayNarrative(this.value)
+        });
+
+       
+        function displayNarrative(countryKey) {
+            document.getElementById("narrative").innerHTML =
+                countryData.filter(function(countryRef) {
+                    return countryRef == countryKey;
+                })
+        }
+
+
+        $(document).ready(function () {
+            var narrative = $('.narrative');
+
+            $('select#countrySelector').change(function () {
+                narrative.columns(2).search($(this).val()).draw();
+            });
+        })
+
+
     </script>
 </body>
 
