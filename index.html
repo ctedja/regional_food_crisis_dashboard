@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
     <script src="https://kit.fontawesome.com/f3135b3376.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="countryDataTest.json"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet" />
     <!-- Bootstrap -->
@@ -16,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -53,12 +51,12 @@
             </li>
         </ul>
 
-
         <div class="tab-content">
             <br>
 
             <!-- Map Tab -->
             <div class="tab-pane fade show active" id="mapTab">
+
                 <div class="sidebar">
                     <div class="select">
                         <select id="countrySelector" class="form-select selectpicker" data-width="100%" data-size="8"
@@ -68,12 +66,15 @@
                             <option id="afg" value="Afghanistan">&nbsp;&nbsp;Afghanistan</option>
                             <option value="Bangladesh">&nbsp;&nbsp;Bangladesh</option>
                             <option value="Bhutan">&nbsp;&nbsp;Bhutan</option>
+                            <option value="India">&nbsp;&nbsp;India</option>
                         </select>
                     </div>
+                    <br>
+                    <div id="narrativeTitle"></div>
+                    <div id="narrativeText"></div>
                 </div>
+                <div id="map" class="map"></div>
             </div>
-            <div id="narrative"></div>
-            <div></div>
 
 
             <!-- Table Tab -->
@@ -84,43 +85,114 @@
         </div>
     </div>
 
+
+
     <script>
-        // With Jquery
-        const countryData = new Array([
-            ["AFG", "Afghanistan", "Test info"],
-            ["BGD", "Bangladesh", "Test info"],
-            ["BTN", "Bhutan", "Test info"],
-            ["IND", "India", "Test info"]
-        ]
-        )
+        const countryData = [
+            ["afg", "Afghanistan", "Test narrative about Afghanistan", "Concern"],
+            ["bgd", "Bangladesh", "Test narrative about Bangladesh", "Monitor"],
+            ["btn", "Bhutan", "Test narrative about Bhutan", "NA"],
+            ["ind", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
+                "NA"]
+        ];
+        console.log(countryData)
 
         const items = document.getElementById('countrySelector')
 
         let clickedItem = ''
 
-
-        items.addEventListener('change', function (item) {
-            console.log('You selected: ', this.value);
-            displayNarrative(this.value)
+        // First define the const match, then create the if actions
+        items.addEventListener('change', function (e) {
+            const match = countryData.find(countryArr => countryArr[1] === this.value);
+            console.log('You clicked ' + this.value)
+            console.log(match)
+            if (match) document.getElementById('narrativeTitle').innerHTML = match[1];
+            //if (match) document.getElementById("narrativeText").innerHTML = match[2];
+            testFunction(match);
         });
 
-       
-        function displayNarrative(countryKey) {
-            document.getElementById("narrative").innerHTML =
-                countryData.filter(function(countryRef) {
-                    return countryRef == countryKey;
-                })
+        function testFunction(testValue) {
+            if (testValue) document.getElementById("narrativeText").innerHTML = testValue[2];
         }
 
 
-        $(document).ready(function () {
-            var narrative = $('.narrative');
 
-            $('select#countrySelector').change(function () {
-                narrative.columns(2).search($(this).val()).draw();
+
+
+
+        // Mapping
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3RlZGphIiwiYSI6ImNraWk4OGd6aTA0dGQyeW1pbWF2Mm5qbTUifQ.H7qbJAdh988Vg7mq8Muvjw';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/ctedja/ckxf77dtjg8nx15o5bn7st070',
+            center: [80, 20],
+            zoom: 1.5
+        });
+
+        map.on('load', function () {
+            map.addSource('cbs', {  // country-boundaries-simplified
+                'type': 'geojson',
+                'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
             });
-        })
+        });
 
+        // Create a function 
+        function displayChloro(countryKey) {
+            const countryInfo = countryData[countryKey];
+            let addColor;
+            if (countryInfo.overallVulnerability == "Country of Concern") {
+                addColor = "#982b56";
+            } else if (countryInfo.overallVulnerability == "Country to Monitor") {
+                addColor = "#f47847";
+            } else {
+                addColor = "#007dbc"
+            };
+            let countryLabel = countryInfo.countryName
+
+            map.removeLayer("cf");
+            map.removeLayer("cb");
+
+            // country-fills
+            map.addLayer({
+                "id": "cf",
+                "type": "fill",
+                "source": "cbs",
+                "layout": {},
+                "paint": {
+                    "fill-color": addColor,
+                    "fill-opacity": 0.1,
+                }
+            })
+
+            // country borders
+            map.addLayer({
+                "id": "cb",
+                "type": "line",
+                "source": "cbs",
+                "layout": {},
+                "paint": {
+                    "line-color": addColor,
+                    "line-width": .5
+                }
+            });
+        }
+
+
+        // Add the function 
+        items.addEventListener('change', function (e) {
+            const match = countryData.find(countryArr => countryArr[1] === this.value);
+            console.log('You clicked ' + this.value)
+            console.log(match)
+            if (match) document.getElementById('map').innerHTML = match[1];
+        });
+
+
+        Array.from(items).forEach(function (item) {
+            item.addEventListener('click', function () {
+                flyFunction(item.id);
+                displayChloro(item.id)
+            })
+        })
 
     </script>
 </body>
