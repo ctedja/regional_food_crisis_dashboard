@@ -69,12 +69,13 @@
                             <option value="India">&nbsp;&nbsp;India</option>
                         </select>
                     </div>
+                    <br>
                     <div class="select">
                         <select id="indicatorSelector" class="form-select selectpicker" data-width="100%" data-size="8"
                             name="country" data-dropdown>
                             <option value="">&#xf3c5;&nbsp;&nbsp;Indicator</option>
-                            <option value="Status">&nbsp;&nbsp;Status</option>
-                            <option value="GDP">&nbsp;&nbsp;GDP</option>
+                            <option value="Indicator1">&nbsp;&nbsp;Indicator1</option>
+                            <option value="Indicator2">&nbsp;&nbsp;Indicator2</option>
                         </select>
                     </div>
                     <br>
@@ -97,16 +98,17 @@
 
     <script>
         const countryData = [
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Status", "Concern"],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Status", "Monitor"],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "Status", "Concern"],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator1", "Concern"],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator1", "Monitor"],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator1", "Concern"],
             ["IND", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
-                "Status", "Concern"],
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "GDP", "Monitor"],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "GDP", "Monitor"],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "GDP", "Concern"],
-            ["IND", "India", "Test narrative about India",
-                "GDP", "Monitor"]
+                "Indicator1", "Concern"],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator1", "Concern"],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator2", "Monitor"],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator2", "Monitor"],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator2", "Concern"],
+            ["IND", "India", "Test narrative about India", "Indicator2", "Monitor"],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator2", "Concern"]
         ];
         console.log(countryData)
 
@@ -127,15 +129,14 @@
             displayNarrativeText(match);
         });
 
-        // indicatorSelector.addEventListener('change', function (e) {
-        //     const match = countryData.filter(countryArr => countryArr[3] === this.value);
-        //     console.log('You clicked a row containing the indicator of ' + this.value)
-        //     console.log(match)
-        //     //if (match) document.getElementById('narrativeTitle').innerHTML = match[1];
-        //     //if (match) document.getElementById("narrativeText").innerHTML = match[2];
-        //     displayNarrativeTitle(match);
-        //     displayNarrativeText(match);
-        // });
+        indicatorSelector.addEventListener('change', function (e) {
+            const match = countryData.filter(countryArr => countryArr[3] === this.value);
+            console.log('You clicked a row containing the indicator of ' + this.value)
+            console.log(match)
+            for (let i = 0; i < match.length; i++) {
+                displayIndicator(match[2]);
+            }
+        });
 
         function displayNarrativeTitle(filteredRow) {
             if (filteredRow) document.getElementById("narrativeTitle").innerHTML = filteredRow[1];
@@ -145,18 +146,22 @@
             if (filteredRow) document.getElementById("narrativeText").innerHTML = filteredRow[2];
         }
 
+        function displayIndicator(filteredRow) {
+            if (filteredRow) document.getElementById("narrativeText").innerHTML = filteredRow[2];
+        }
 
 
 
 
 
-        // Mapping
+
+        // Load the map
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3RlZGphIiwiYSI6ImNraWk4OGd6aTA0dGQyeW1pbWF2Mm5qbTUifQ.H7qbJAdh988Vg7mq8Muvjw';
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/ctedja/ckxf77dtjg8nx15o5bn7st070',
-            center: [80, 20],
-            zoom: 1.5
+            center: [100, 20],
+            zoom: 2.5
         });
 
         map.on('load', function () {
@@ -166,52 +171,63 @@
             });
         });
 
+
+
         // Create a function 
         function displayChloro(filteredRow) {
 
-            map.removeLayer("cf");
-            map.removeLayer("cb");
-
             for (let i = 0; i < filteredRow.length; i++) {
+
+                map.removeLayer("cf" + [i]);
+                map.removeLayer("cb" + [i]);
 
                 console.log("one of these filtered rows is " + filteredRow[i][4])
 
 
                 let addColor;
                 if (filteredRow[i][4] == "Concern") {
-                    addColor = "#982b56";
+                    addColor = "#4da4d0";
                 } else if (filteredRow[i][4] == "Monitor") {
-                    addColor = "#f47847";
+                    addColor = "#8ac6ca";
                 } else {
-                    addColor = "#007dbc"
+                    addColor = "#bbbbbb"
                 };
 
-                let countryLabel = filteredRow[1]
+                // let countryLabel = filteredRow[1]
+                let filteredCountry = filteredRow[i][0]
+
+                // Fader
+                setTimeout(function () {
+                    map.setPaintProperty("cf" + [i], "fill-opacity", 1);
+                },
+                    0
+                );
 
                 // country-fills
                 map.addLayer({
-                    "id": "cf",
+                    "id": "cf" + [i],
                     "type": "fill",
                     "source": "cbs",
                     "layout": {},
                     "paint": {
                         "fill-color": addColor,
-                        "fill-opacity": 0.1,
+                        "fill-opacity": .25,
+                        "fill-opacity-transition": { duration: 1000 }
                     },
-                    "filter": ["==", "adm0_a3", filteredRow[i][0]]
+                    "filter": ["==", "adm0_a3", filteredCountry]
                 })
 
                 // country borders
                 map.addLayer({
-                    "id": "cb",
+                    "id": "cb" + [i],
                     "type": "line",
                     "source": "cbs",
                     "layout": {},
                     "paint": {
-                        "line-color": addColor,
-                        "line-width": .5
+                        "line-color": 'white',
+                        "line-width": .9
                     },
-                    "filter": ["==", "adm0_a3", filteredRow[i][0]]
+                    "filter": ["==", "adm0_a3", filteredCountry]
                 });
             }
         }
