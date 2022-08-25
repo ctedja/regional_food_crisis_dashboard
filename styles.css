@@ -191,43 +191,37 @@ li {
 
 
   /* Marker tweaks */
- .mapboxgl-popup {
-	padding-bottom: 50px;
-  }
+  .mapboxgl-popup {
+    max-width: 400px;
+    font: 10px 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
+    }
 
  .mapboxgl-popup-close-button {
 	display: none;
   }
+
  .mapboxgl-popup-content {
-	font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+	font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
 	padding: 0;
-	width: 180px;
   }
+
  .mapboxgl-popup-content h3 {
-	background: #91c949;
+	background: #007dbc;
 	color: #fff;
 	margin: 0;
 	padding: 10px;
+    font-size:12px;
 	border-radius: 3px 3px 0 0;
 	font-weight: 700;
-	margin-top: -15px;
   }
 
  .mapboxgl-popup-content h4 {
 	margin: 0;
 	padding: 10px;
-	font-weight: 400;
+    font-size:8px;
   }
 
  .mapboxgl-popup-content div {
 	padding: 10px;
-  }
-
- .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
-	margin-top: 15px;
-  }
-
- .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
-	border-bottom-color: #91c949;
   }
 

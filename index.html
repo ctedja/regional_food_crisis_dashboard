@@ -98,17 +98,17 @@
 
     <script>
         const countryData = [
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator1", "Concern"],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator1", "Monitor"],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator1", "Concern"],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator1", "Concern", 65, 34],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator1", "Monitor", 90, 24],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator1", "Concern", 90, 28],
             ["IND", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
-                "Indicator1", "Concern"],
-            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator1", "Concern"],
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator2", "Monitor"],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator2", "Monitor"],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator2", "Concern"],
-            ["IND", "India", "Test narrative about India", "Indicator2", "Monitor"],
-            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator2", "Concern"]
+                "Indicator1", "Concern", 79, 23],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator1", "Concern", 68, 30],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator2", "Monitor", 65, 34],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator2", "Monitor", 65, 34],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator2", "Concern", 65, 34],
+            ["IND", "India", "Test narrative about India", "Indicator2", "Monitor", 65, 34],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator2", "Concern", 65, 34]
         ];
         console.log(countryData)
 
@@ -138,16 +138,16 @@
             }
         });
 
-        function displayNarrativeTitle(filteredRow) {
-            if (filteredRow) document.getElementById("narrativeTitle").innerHTML = filteredRow[1];
+        function displayNarrativeTitle(filteredRows) {
+            if (filteredRows) document.getElementById("narrativeTitle").innerHTML = filteredRows[1];
         }
 
-        function displayNarrativeText(filteredRow) {
-            if (filteredRow) document.getElementById("narrativeText").innerHTML = filteredRow[2];
+        function displayNarrativeText(filteredRows) {
+            if (filteredRows) document.getElementById("narrativeText").innerHTML = filteredRows[2];
         }
 
-        function displayIndicator(filteredRow) {
-            if (filteredRow) document.getElementById("narrativeText").innerHTML = filteredRow[2];
+        function displayIndicator(filteredRows) {
+            if (filteredRows) document.getElementById("narrativeText").innerHTML = filteredRows[2];
         }
 
 
@@ -164,48 +164,48 @@
             zoom: 2.5
         });
 
+
         map.on('load', function () {
             map.addSource('cbs', {  // country-boundaries-simplified
                 'type': 'geojson',
-                'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+                'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson',
+                'generateId': true
             });
         });
 
+        let hoveredStateId = null;
 
+        // Create the function to display the map
+        function displayChloro(filteredRows) {
 
-        // Create a function 
-        function displayChloro(filteredRow) {
+            for (let i = 0; i < filteredRows.length; i++) {
 
-            for (let i = 0; i < filteredRow.length; i++) {
+                map.removeLayer("countryFill" + [i]);
+                map.removeLayer("countryBorder" + [i]);
 
-                map.removeLayer("cf" + [i]);
-                map.removeLayer("cb" + [i]);
-
-                console.log("one of these filtered rows is " + filteredRow[i][4])
-
+                console.log("one of these filtered rows is " + filteredRows[i][4])
 
                 let addColor;
-                if (filteredRow[i][4] == "Concern") {
+                if (filteredRows[i][4] == "Concern") {
                     addColor = "#4da4d0";
-                } else if (filteredRow[i][4] == "Monitor") {
+                } else if (filteredRows[i][4] == "Monitor") {
                     addColor = "#8ac6ca";
                 } else {
                     addColor = "#bbbbbb"
                 };
 
-                // let countryLabel = filteredRow[1]
-                let filteredCountry = filteredRow[i][0]
+                let filteredCountry = filteredRows[i][0]
 
                 // Fader
                 setTimeout(function () {
-                    map.setPaintProperty("cf" + [i], "fill-opacity", 1);
+                    map.setPaintProperty("countryFill" + [i], "fill-opacity", .75);
                 },
                     0
                 );
 
                 // country-fills
                 map.addLayer({
-                    "id": "cf" + [i],
+                    "id": "countryFill" + [i],
                     "type": "fill",
                     "source": "cbs",
                     "layout": {},
@@ -219,7 +219,7 @@
 
                 // country borders
                 map.addLayer({
-                    "id": "cb" + [i],
+                    "id": "countryBorder" + [i],
                     "type": "line",
                     "source": "cbs",
                     "layout": {},
@@ -229,6 +229,88 @@
                     },
                     "filter": ["==", "adm0_a3", filteredCountry]
                 });
+
+
+
+                // Popups
+                map.on('click', 'countryFill' + [i], (e) => {
+
+                    console.log('A mouseenter event occurred on ' + [i]);
+                    map.getCanvas().style.cursor = 'pointer';
+
+                    new mapboxgl.Popup().setLngLat({ lng: filteredRows[i][5], lat: filteredRows[i][6] })
+                        .setHTML('<h3>' + filteredRows[i][1] +
+                            '</h3><h4>' + filteredRows[i][3] + ': ' + filteredRows[i][4] + '</h4>')
+                        .addTo(map);
+                });
+
+
+
+
+
+
+                // Hover effects
+                map.addLayer({
+                    "id": "hoverBorder" + [i],
+                    "type": "fill",
+                    "source": "cbs",
+                    "layout": {},
+                    "paint": {
+                        "fill-color": addColor,
+                        "fill-outline-color": "white",
+                        "fill-opacity": [
+                            'case',
+                            ['boolean', ['feature-state', 'hover'], false],
+                            1,
+                            0
+                        ]
+                    },
+                    "filter": ["==", "adm0_a3", filteredCountry]
+                });
+
+                map.on('click', 'hoverBorder' + [i], (e) => {
+                    if (e.features.length > 0) {
+                        if (hoveredStateId !== null) {
+                            map.setFeatureState(
+                                { source: 'cbs', id: hoveredStateId },
+                                { hover: false }
+                            );
+                        }
+                        hoveredStateId = e.features[0].id;
+                        map.setFeatureState(
+                            { source: 'cbs', id: hoveredStateId },
+                            { hover: true }
+                        );
+                    }
+                });
+
+
+
+
+                // const countryChloro = map.queryRenderedFeatures(event.point, {
+                //     layers: ['statedata']
+                // });
+
+                // console.log(countryChloro)
+
+                // // Change the cursor style as a UI indicator.
+                // map.getCanvas().style.cursor = 'pointer';
+
+                // // Copy coordinates array.
+                // const coordinates = e.features[0].geometry.coordinates.slice();
+                // const description = e.features[0].properties.description;
+
+                // // Ensure that if the map is zoomed out such that multiple
+                // // copies of the feature are visible, the popup appears
+                // // over the copy being pointed to.
+                // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                // }
+
+                // // Populate the popup and set its coordinates
+                // // based on the feature found.
+                // popup.setLngLat(coordinates).setHTML(description).addTo(map);
+                // });
             }
         }
 
