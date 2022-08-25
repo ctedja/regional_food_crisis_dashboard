@@ -41,13 +41,13 @@
 <body>
 
     <div class="m-4">
-        <header>Regional Food Crisis</header>
+        <header>The Global Food Crisis: Asia-Pacific</header>
         <ul id="myTab" class="nav nav-tabs">
             <li class="nav-item">
-                <a href="#mapTab" class="nav-link active" data-bs-toggle="tab">Home</a>
+                <a href="#mapTab" class="nav-link active mapTabButton" data-bs-toggle="tab">MAP</a>
             </li>
             <li class="nav-item">
-                <a href="#tableTab" class="nav-link" data-bs-toggle="tab">Profile</a>
+                <a href="#tableTab" class="nav-link tableTabButton" data-bs-toggle="tab">TABLE</a>
             </li>
         </ul>
 
@@ -73,9 +73,9 @@
                     <div class="select">
                         <select id="indicatorSelector" class="form-select selectpicker" data-width="100%" data-size="8"
                             name="country" data-dropdown>
-                            <option value="">&#xf3c5;&nbsp;&nbsp;Indicator</option>
-                            <option value="Indicator1">&nbsp;&nbsp;Indicator1</option>
-                            <option value="Indicator2">&nbsp;&nbsp;Indicator2</option>
+                            <option value="">&#xf3c5;&nbsp;&nbsp;SELECT INDICATOR</option>
+                            <option value="Alert Status">&nbsp;&nbsp;Alert Status</option>
+                            <option value="Underlying Food Insecurity">&nbsp;&nbsp;Underlying Food Insecurity</option>
                         </select>
                     </div>
                     <br>
@@ -83,12 +83,12 @@
                     <div id="narrativeText"></div>
                 </div>
                 <div id="map" class="map"></div>
-            </div>
+            </div>image.png
 
 
             <!-- Table Tab -->
             <div class="tab-pane fade" id="tableTab">
-                <h4 class="mt-2">Profile tab content</h4>
+                <h4 class="mt-2">Table tab content</h4>
                 <p>Insert a table here.</p>
             </div>
         </div>
@@ -98,17 +98,18 @@
 
     <script>
         const countryData = [
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator1", "Concern", 65, 34],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator1", "Monitor", 90, 24],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator1", "Concern", 90, 28],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Alert Status", "Concern", 65, 34],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Alert Status", "Monitor", 90, 24],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Alert Status", "Concern", 90, 28],
             ["IND", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
-                "Indicator1", "Concern", 79, 23],
-            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator1", "Concern", 68, 30],
-            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Indicator2", "Monitor", 65, 34],
-            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Indicator2", "Monitor", 65, 34],
-            ["BTN", "Bhutan", "Test narrative about Bhutan", "Indicator2", "Concern", 65, 34],
-            ["IND", "India", "Test narrative about India", "Indicator2", "Monitor", 65, 34],
-            ["PAK", "Pakistan", "Test narrative about Pakistan", "Indicator2", "Concern", 65, 34]
+                "Alert Status", "Concern", 79, 23],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Alert Status", "Concern", 68, 30],
+            ["AFG", "Afghanistan", "Test narrative about Afghanistan", "Underlying Food Insecurity", "Concern", 65, 34],
+            ["BGD", "Bangladesh", "Test narrative about Bangladesh", "Underlying Food Insecurity", "Monitor", 90, 24],
+            ["BTN", "Bhutan", "Test narrative about Bhutan", "Underlying Food Insecurity", "Concern", 90, 28],
+            ["IND", "India", "Test narrative about India Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum augue, elementum at sodales quis, venenatis nec velit. Ut ut nunc est. Ut in lacus at augue imperdiet tempus. Pellentesque eleifend, lacus et sodales mattis, magna ex placerat nisi, nec cursus elit ligula at magna. Integer nec sem nec est mollis sagittis eu quis dui. Integer molestie tortor feugiat condimentum iaculis. Ut semper nisl vitae arcu porta, vel tristique lacus gravid Nam tempor, purus non eleifend vestibulum, urna leo aliquet diam, tempor faucibus orci neque id nulla. Ut pulvinar elit a posuere vehicula. Integer bibendum justo a tellus porta posuere. Vivamus aliquam vel nunc id accumsan. Etiam sed fermentum dolor. Quisque ac condimentum dui. Proin magna ipsum, vehicula tincidunt consequat in, pulvinar ac massa. Sed turpis elit, dapibus a malesuada rhoncus, tempor at metus. Vestibulum pellentesque, nisl nec sodales dictum, justo est fermentum tortor, quis scelerisque nisl urna vel ex. Maecenas efficitur felis eros, sit amet sollicitudin neque ultricies sit amet. Aenean sapien tellus, porta et rhoncus in, scelerisque volutpat lorem. Nulla vel libero nulla. Sed vulputate bibendum pretium. Phasellus eget leo a dolor eleifend sollicitudin",
+                "Underlying Food Insecurity", "Concern", 79, 23],
+            ["PAK", "Pakistan", "Test narrative about Pakistan", "Underlying Food Insecurity", "Concern", 68, 30]
         ];
         console.log(countryData)
 
@@ -149,9 +150,6 @@
         function displayIndicator(filteredRows) {
             if (filteredRows) document.getElementById("narrativeText").innerHTML = filteredRows[2];
         }
-
-
-
 
 
 
@@ -235,7 +233,7 @@
                     closeOnClick: false
                 });
 
-                
+
 
                 // Popups
                 map.on('mouseenter', 'countryFill' + [i], (e) => {
@@ -245,8 +243,8 @@
 
                     popup.setLngLat({ lng: filteredRows[i][5], lat: filteredRows[i][6] })
                         .setHTML('<h3>' + filteredRows[i][1] +
-                            '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' + 
-                                filteredRows[i][3] + ': ' + filteredRows[i][4] + '</h4>')
+                            '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' +
+                            filteredRows[i][3] + ': ' + filteredRows[i][4] + '</h4>')
                         .addTo(map);
                 });
 
@@ -307,10 +305,25 @@
 
 
 
+                // Event listeners for the map itself
+                map.on("click", "countryFill" + [i], () => {
+                    flyFunction(i)
+                    document.getElementById("narrativeTitle").innerHTML = filteredRows[i][1]
+                    document.getElementById("narrativeText").innerHTML = filteredRows[i][2]
+                });
+
+
+                function flyFunction() {
+                    map.flyTo({
+                        center: [filteredRows[i][5], filteredRows[i][6]],
+                        zoom: 3.5,
+                        speed: 0.4,
+                        curve: 2
+                    })
+                };
 
 
 
-                
 
                 // const countryChloro = map.queryRenderedFeatures(event.point, {
                 //     layers: ['statedata']
@@ -340,10 +353,10 @@
         }
 
         // Add the function 
-        countrySelector.addEventListener('change', function (e) {
-            const match = countryData.filter(countryArr => countryArr[1] === this.value);
-            displayChloro(match);
-        });
+        // countrySelector.addEventListener('change', function (e) {
+        //     const match = countryData.filter(countryArr => countryArr[1] === this.value);
+        //     displayChloro(match);
+        // });
 
         indicatorSelector.addEventListener('change', function (e) {
             const match = countryData.filter(countryArr => countryArr[3] === this.value);

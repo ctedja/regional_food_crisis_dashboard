@@ -1,32 +1,59 @@
 @charset "utf-8";
+
 /* CSS Document */
- body {
-	 color: #404040;
-	 font: 400 15px/22px 'Open Sans', 'Helvetica Neue', sans-serif;
-	 margin: 0;
-	 padding: 0;
-	 -webkit-font-smoothing: antialiased;
+body {
+    color: #404040;
+    font: 400 15px/22px 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 header {
-    font-size:20px;
-    color:#007dbc;
-    line-height:200%;
+    font-size: 20px;
+    color: #007dbc;
+    font-weight: bold;
+    height:50px;
+    background-color:white;
+}
+
+.nav {
+    border: 0px;
+    background-color: white;
+    padding: 0px;
+    font-size:10px;
+}
+
+
+/* Overwrite bootstrap's tabs a  bit */
+.mapTabButton {
+    color: #bbbbbb !important;
+}
+
+.mapTabButton.active {
+    color: #007dbc !important;
+    font-weight:700;
+}
+
+.tableTabButton {
+    color: #bbbbbb !important;
+}
+
+.tableTabButton.active {
+    color: #007dbc !important;
+    font-weight:700;
 }
 
 .sidebar {
-    position:absolute;
-	width: 20%;
-    height:80%;
-	overflow:auto;
-	border-right: 0.01px solid rgba(0,0,0,0.2);
+    position: absolute;
+    width: 23%;
+    height: 80%;
     padding: 10px;
-    background-color: #FFF;
-    overflow-y:scroll;
+    background-color: rgb(255, 255, 255, 0.8);
 }
 
 .form-select {
@@ -40,40 +67,43 @@ header {
 }
 
 #indicatorSelector {
-    font-size:10px;
+    font-size: 10px;
     color: #767676;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
     font-size: 10px;
 }
 
 #countrySelector {
-    font-size:10px;
+    font-size: 10px;
     color: #767676;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
     font-size: 10px;
 }
 
 #narrativeTitle {
-	font-size: 20px;
+    font-size: 20px;
     color: #007dbc;
     line-height: 200%;
 }
 
 #narrativeText {
-	font-size: 10px;
+    font-size: 10px;
 }
 
 #map {
-	position: absolute;
-	left: 22%;
-	width: 100%;
-	height:100%;
-    z-index:-1;
-    padding:10px;
+    position: absolute;
+    top:120px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    z-index: -1;
+    padding: 10px;
 }
 
 .mapboxgl-ctrl mapboxgl-ctrl-attrib {
-	color: #ffffff00;
+    color: #ffffff00;
 }
 
 
@@ -81,147 +111,160 @@ header {
 
 
 
-.status{
-    position:absolute;
-	left: 57.5%;
-	width:42.5%;
-	top: 0;
-	height:5%;
-	padding: 20px;
-	font-size:12px;
-    font-weight:700;
-	line-height:200%;
+.status {
+    position: absolute;
+    left: 57.5%;
+    width: 42.5%;
+    top: 0;
+    height: 5%;
+    padding: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 200%;
     text-align: right;
-	overflow:hidden;
+    overflow: hidden;
 }
 
 
 .links {
-	position:absolute;
-	left: 57.5%;
-	width:42.5%;
-	top: 34%;
-	height:66%;
-	padding: 20px;
-	background:rgba(0,125,188,0.05);
-	font-size:16px;
+    position: absolute;
+    left: 57.5%;
+    width: 42.5%;
+    top: 34%;
+    height: 66%;
+    padding: 20px;
+    background: rgba(0, 125, 188, 0.05);
+    font-size: 16px;
     color: #007dbc;
-	line-height:150%;
-	overflow-y:scroll;
+    line-height: 150%;
+    overflow-y: scroll;
 }
-hr { display: block; height: 0px;
-    border: 0; border-top: 1px solid #b3d8eb;
-    margin: 1em 0; padding: 0; }
+
+hr {
+    display: block;
+    height: 0px;
+    border: 0;
+    border-top: 1px solid #b3d8eb;
+    margin: 1em 0;
+    padding: 0;
+}
+
 h1 {
-	font-size: 16px;
-	margin: 0;
-	font-weight: 700;
-	line-height: 20px;
-	padding: 20px 2px;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 20px 2px;
 }
 
 a {
-	color: #007dbc;
-	text-decoration: none;
+    color: #007dbc;
+    text-decoration: none;
 }
 
 a:hover {
-	color: #66b1d7;
+    color: #66b1d7;
 }
 
 .heading {
-	background: #fff;
-	border-bottom: 1px solid #eee;
-	min-height: 60px;
-	line-height: 60px;
-	padding: 0 20px;
-	background-color: #007dbc;
-	color: #fff;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    min-height: 60px;
+    line-height: 60px;
+    padding: 0 20px;
+    background-color: #007dbc;
+    color: #fff;
 }
 
 
 ul {
-	list-style-type: none;
-	font-size:14px;
-	margin: 0;
-	padding-left: 20px;
-	line-height: 250%;
+    list-style-type: none;
+    font-size: 14px;
+    margin: 0;
+    padding-left: 20px;
+    line-height: 250%;
 }
 
 li {
-  cursor:pointer;
+    cursor: pointer;
 }
 
 .elementToFadeIn {
     animation: fader 1s linear forwards;
 }
 
-@keyframes fader{
-    from {opacity:0;}
-    to {opacity:1}
-}
-
- ::-webkit-scrollbar {
-	width: 3px;
-	height: 3px;
-	border-left: 0;
-	background: rgba(0, 0, 0, 0.05);
-  }
- ::-webkit-scrollbar-track {
-	background: none;
-  }
- ::-webkit-scrollbar-thumb {
-	background: #b3d8eb;
-	border-radius: 0;
-  }
-
- .marker {
-	border: none;
-	cursor: pointer;
-	height: 56px;
-	width: 56px;
-	background-image: url(https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png);
-  }
-
-
-
-
-
-
-
-
-  /* Marker tweaks */
-  .mapboxgl-popup {
-    max-width: 400px;
-    font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
+@keyframes fader {
+    from {
+        opacity: 0;
     }
 
- .mapboxgl-popup-close-button {
-	display: none;
-  }
+    to {
+        opacity: 1
+    }
+}
 
- .mapboxgl-popup-content {
-	font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-	padding: 0;
-  }
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.05);
+}
 
- .mapboxgl-popup-content h3 {
-	background: #007dbc;
-	color: #fff;
-	margin: 0;
-	padding: 10px;
-    font-size:14px;
-	border-radius: 3px 3px 0 0;
-	font-weight: 700;
-  }
+::-webkit-scrollbar-track {
+    background: none;
+}
 
- .mapboxgl-popup-content h4 {
-	margin: 0;
-	padding: 12px;
-    font-size:8px;
-  }
+::-webkit-scrollbar-thumb {
+    background: #b3d8eb;
+    border-radius: 0;
+}
 
- .mapboxgl-popup-content div {
-	padding: 10px;
-  }
+.marker {
+    border: none;
+    cursor: pointer;
+    height: 56px;
+    width: 56px;
+    background-image: url(https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png);
+}
 
+
+
+
+
+
+
+
+/* Marker tweaks */
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
+    padding: 0;
+}
+
+.mapboxgl-popup-content h3 {
+    background: #007dbc;
+    color: #fff;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 3px 3px 0 0;
+    font-weight: 700;
+}
+
+.mapboxgl-popup-content h4 {
+    margin: 0;
+    padding: 12px;
+    font-size: 8px;
+}
+
+.mapboxgl-popup-content div {
+    padding: 10px;
+}
