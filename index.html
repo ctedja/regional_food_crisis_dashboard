@@ -230,20 +230,30 @@
                     "filter": ["==", "adm0_a3", filteredCountry]
                 });
 
+                const popup = new mapboxgl.Popup({
+                    closeButton: false,
+                    closeOnClick: false
+                });
 
+                
 
                 // Popups
-                map.on('click', 'countryFill' + [i], (e) => {
+                map.on('mouseenter', 'countryFill' + [i], (e) => {
 
                     console.log('A mouseenter event occurred on ' + [i]);
                     map.getCanvas().style.cursor = 'pointer';
 
-                    new mapboxgl.Popup().setLngLat({ lng: filteredRows[i][5], lat: filteredRows[i][6] })
+                    popup.setLngLat({ lng: filteredRows[i][5], lat: filteredRows[i][6] })
                         .setHTML('<h3>' + filteredRows[i][1] +
-                            '</h3><h4>' + filteredRows[i][3] + ': ' + filteredRows[i][4] + '</h4>')
+                            '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' + 
+                                filteredRows[i][3] + ': ' + filteredRows[i][4] + '</h4>')
                         .addTo(map);
                 });
 
+                map.on("mouseleave", "countryFill" + [i], () => {
+                    popup.remove();
+                    map.getCanvas().style.cursor = '';
+                });
 
 
 
@@ -268,7 +278,7 @@
                     "filter": ["==", "adm0_a3", filteredCountry]
                 });
 
-                map.on('click', 'hoverBorder' + [i], (e) => {
+                map.on('mouseover', 'hoverBorder' + [i], (e) => {
                     if (e.features.length > 0) {
                         if (hoveredStateId !== null) {
                             map.setFeatureState(
@@ -284,8 +294,23 @@
                     }
                 });
 
+                map.on("mouseleave", "hoverBorder" + [i], () => {
+                    if (hoveredStateId !== null) {
+                        map.setFeatureState(
+                            { source: 'cbs', id: hoveredStateId },
+                            { hover: false }
+                        );
+                    }
+                    hoveredStateId = null;
+                });
 
 
+
+
+
+
+
+                
 
                 // const countryChloro = map.queryRenderedFeatures(event.point, {
                 //     layers: ['statedata']
