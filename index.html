@@ -68,11 +68,23 @@
                         <select id="countrySelector" class="form-select selectpicker" data-width="100%" data-size="8"
                             name="country" data-dropdown>
                             <option value="">SELECT COUNTRY</option>
-                            <option id="all" value="All">All</option>
-                            <option id="afg" value="Afghanistan">Afghanistan</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Bhutan">Bhutan</option>
-                            <option value="India">India</option>
+                            <option id="afg" value="AFG">Afghanistan</option>
+                            <option value="BGD">Bangladesh</option>
+                            <option value="BTN">Bhutan</option>
+                            <option value="KHM">Cambodia</option>
+                            <option value="PRK">DPRK</option>
+                            <option value="IND">India</option>
+                            <option value="IDN">Indonesia</option>
+                            <option value="KGZ">Kyrgyz Republic</option>
+                            <option value="LAO">Laos</option>
+                            <option value="MMR">Myanmar</option>
+                            <option value="NPL">Nepal</option>
+                            <option value="FOK">Fiji</option>
+                            <option value="PAK">Pakistan</option>
+                            <option value="PHL">Philippines</option>
+                            <option value="LKA">Sri Lanka</option>
+                            <option value="TAJ">Tajikistan</option>
+                            <option value="TLS">Timor-Leste</option>
                         </select>
                     </div>
                     <div class="select">
@@ -91,25 +103,24 @@
                             <option value="GDP">GDP</option>
                         </select>
                     </div>
-                    <br>
                 </div>
                 <div id="narrativeBox">
                     <div id="narrativeTitle"></div>
                     <div id="narrativeText"></div>
                 </div>
                 <div id="map" class="map"></div>
+                <div id="legend"></div>
+                <div id="research"></div>
             </div>
 
 
             <!-- Table Tab -->
             <div class="tab-pane fade" id="tableTab">
-                <h4 class="mt-2">Table tab content</h4>
-                <p>Insert a table here.</p>
+                <h4 class="mt-2">Table</h4>
+                <p>Table is still in development.</p>
             </div>
         </div>
     </div>
-
-
 
     <script>
         // Data
@@ -135,7 +146,7 @@
                 3.5,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "BGD",
@@ -158,7 +169,7 @@
                 4.0,
                 "Inflation",
                 0.0742,
-                3.0
+                3
             ],
             [
                 "BTN",
@@ -181,7 +192,7 @@
                 4.0,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -204,7 +215,7 @@
                 4.0,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KPR",
@@ -227,7 +238,7 @@
                 4.0,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -250,7 +261,7 @@
                 2.5,
                 "Inflation",
                 0.05,
-                3.0
+                3
             ],
             [
                 "IDN",
@@ -273,7 +284,7 @@
                 3.0,
                 "Inflation",
                 0.0704,
-                3.0
+                3
             ],
             [
                 "KGZ",
@@ -296,7 +307,7 @@
                 3.5,
                 "Inflation",
                 0.0355,
-                3.0
+                3
             ],
             [
                 "LAO",
@@ -319,7 +330,7 @@
                 3.5,
                 "Inflation",
                 0.14,
-                2.0
+                2
             ],
             [
                 "MMR",
@@ -342,7 +353,7 @@
                 3.0,
                 "Inflation",
                 0.128,
-                2.0
+                2
             ],
             [
                 "NPL",
@@ -365,7 +376,7 @@
                 4.0,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "FJI",
@@ -388,7 +399,7 @@
                 2.0,
                 "Inflation",
                 0.0728,
-                3.0
+                3
             ],
             [
                 "PAK",
@@ -411,7 +422,7 @@
                 3.0,
                 "Inflation",
                 0.138,
-                2.0
+                2
             ],
             [
                 "PHL",
@@ -434,7 +445,7 @@
                 3.5,
                 "Inflation",
                 0.054,
-                3.0
+                3
             ],
             [
                 "LKA",
@@ -457,7 +468,7 @@
                 4.5,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -480,7 +491,7 @@
                 4.0,
                 "Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -503,7 +514,7 @@
                 4.0,
                 "Inflation",
                 0.546,
-                1.0
+                1
             ],
             [
                 "AFG",
@@ -526,7 +537,7 @@
                 3.5,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "BGD",
@@ -549,7 +560,7 @@
                 4.0,
                 "Food Inflation",
                 0.083,
-                3.0
+                3
             ],
             [
                 "BTN",
@@ -572,7 +583,7 @@
                 4.0,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -595,7 +606,7 @@
                 4.0,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KPR",
@@ -618,7 +629,7 @@
                 4.0,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -641,7 +652,7 @@
                 2.5,
                 "Food Inflation",
                 0.036,
-                3.0
+                3
             ],
             [
                 "IDN",
@@ -664,7 +675,7 @@
                 3.0,
                 "Food Inflation",
                 0.0784,
-                3.0
+                3
             ],
             [
                 "KGZ",
@@ -687,7 +698,7 @@
                 3.5,
                 "Food Inflation",
                 0.0562,
-                3.0
+                3
             ],
             [
                 "LAO",
@@ -710,7 +721,7 @@
                 3.5,
                 "Food Inflation",
                 0.171,
-                2.0
+                2
             ],
             [
                 "MMR",
@@ -733,7 +744,7 @@
                 3.0,
                 "Food Inflation",
                 0.082,
-                3.0
+                3
             ],
             [
                 "NPL",
@@ -756,7 +767,7 @@
                 4.0,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "FJI",
@@ -779,7 +790,7 @@
                 2.0,
                 "Food Inflation",
                 0.074,
-                3.0
+                3
             ],
             [
                 "PAK",
@@ -802,7 +813,7 @@
                 3.0,
                 "Food Inflation",
                 0.1725,
-                2.0
+                2
             ],
             [
                 "PHL",
@@ -825,7 +836,7 @@
                 3.5,
                 "Food Inflation",
                 0.049,
-                3.0
+                3
             ],
             [
                 "LKA",
@@ -848,7 +859,7 @@
                 4.5,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -871,7 +882,7 @@
                 4.0,
                 "Food Inflation",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -894,7 +905,7 @@
                 4.0,
                 "Food Inflation",
                 0.801,
-                1.0
+                1
             ],
             [
                 "AFG",
@@ -917,7 +928,7 @@
                 3.5,
                 "Currency Exchange (YoY)",
                 0.153,
-                2.0
+                2
             ],
             [
                 "BGD",
@@ -940,7 +951,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 0.093,
-                3.0
+                3
             ],
             [
                 "BTN",
@@ -963,7 +974,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 0.061,
-                3.0
+                3
             ],
             [
                 "KHM",
@@ -986,7 +997,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 -0.003,
-                3.0
+                3
             ],
             [
                 "KPR",
@@ -1009,7 +1020,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -1032,7 +1043,7 @@
                 2.5,
                 "Currency Exchange (YoY)",
                 0.066,
-                3.0
+                3
             ],
             [
                 "IDN",
@@ -1055,7 +1066,7 @@
                 3.0,
                 "Currency Exchange (YoY)",
                 0.061,
-                3.0
+                3
             ],
             [
                 "KGZ",
@@ -1078,7 +1089,7 @@
                 3.5,
                 "Currency Exchange (YoY)",
                 0.026,
-                3.0
+                3
             ],
             [
                 "LAO",
@@ -1101,7 +1112,7 @@
                 3.5,
                 "Currency Exchange (YoY)",
                 -0.06,
-                3.0
+                3
             ],
             [
                 "MMR",
@@ -1124,7 +1135,7 @@
                 3.0,
                 "Currency Exchange (YoY)",
                 0.547,
-                1.0
+                1
             ],
             [
                 "NPL",
@@ -1147,7 +1158,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 0.127,
-                2.0
+                2
             ],
             [
                 "FJI",
@@ -1170,7 +1181,7 @@
                 2.0,
                 "Currency Exchange (YoY)",
                 0.061,
-                3.0
+                3
             ],
             [
                 "PAK",
@@ -1193,7 +1204,7 @@
                 3.0,
                 "Currency Exchange (YoY)",
                 0.309,
-                1.0
+                1
             ],
             [
                 "PHL",
@@ -1216,7 +1227,7 @@
                 3.5,
                 "Currency Exchange (YoY)",
                 0.115,
-                2.0
+                2
             ],
             [
                 "LKA",
@@ -1239,7 +1250,7 @@
                 4.5,
                 "Currency Exchange (YoY)",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -1262,7 +1273,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -1285,7 +1296,7 @@
                 4.0,
                 "Currency Exchange (YoY)",
                 0.802,
-                1.0
+                1
             ],
             [
                 "AFG",
@@ -1354,7 +1365,7 @@
                 4.0,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -1377,7 +1388,7 @@
                 4.0,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KPR",
@@ -1400,7 +1411,7 @@
                 4.0,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -1423,7 +1434,7 @@
                 2.5,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IDN",
@@ -1515,7 +1526,7 @@
                 3.0,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "NPL",
@@ -1630,7 +1641,7 @@
                 4.5,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -1653,7 +1664,7 @@
                 4.0,
                 "Dependency on Russia or Ukraine",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -1745,7 +1756,7 @@
                 4.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -1768,7 +1779,7 @@
                 4.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KPR",
@@ -1837,7 +1848,7 @@
                 3.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KGZ",
@@ -1906,7 +1917,7 @@
                 3.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "NPL",
@@ -1929,7 +1940,7 @@
                 4.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "FJI",
@@ -1975,7 +1986,7 @@
                 3.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "PHL",
@@ -2044,7 +2055,7 @@
                 4.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -2067,7 +2078,7 @@
                 4.0,
                 "Cereal Import Dependency",
                 null,
-                3.0
+                0.0
             ],
             [
                 "AFG",
@@ -2136,7 +2147,7 @@
                 4.0,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -2182,7 +2193,7 @@
                 4.0,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -2205,7 +2216,7 @@
                 2.5,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IDN",
@@ -2274,7 +2285,7 @@
                 3.5,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "MMR",
@@ -2297,7 +2308,7 @@
                 3.0,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "NPL",
@@ -2412,7 +2423,7 @@
                 4.5,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -2435,7 +2446,7 @@
                 4.0,
                 "Fertilizer Consumption",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -2573,7 +2584,7 @@
                 4.0,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -2596,7 +2607,7 @@
                 2.5,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IDN",
@@ -2619,7 +2630,7 @@
                 3.0,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KGZ",
@@ -2642,7 +2653,7 @@
                 3.5,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "LAO",
@@ -2780,7 +2791,7 @@
                 3.5,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "LKA",
@@ -2849,7 +2860,7 @@
                 4.0,
                 "Debt Distress",
                 null,
-                3.0
+                0.0
             ],
             [
                 "AFG",
@@ -2872,7 +2883,7 @@
                 3.5,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "BGD",
@@ -2895,7 +2906,7 @@
                 4.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "BTN",
@@ -2918,7 +2929,7 @@
                 4.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KHM",
@@ -2941,7 +2952,7 @@
                 4.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "KPR",
@@ -2964,7 +2975,7 @@
                 4.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -2987,7 +2998,7 @@
                 2.5,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IDN",
@@ -3033,7 +3044,7 @@
                 3.5,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "LAO",
@@ -3079,7 +3090,7 @@
                 3.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "NPL",
@@ -3125,7 +3136,7 @@
                 2.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "PAK",
@@ -3171,7 +3182,7 @@
                 3.5,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "LKA",
@@ -3194,7 +3205,7 @@
                 4.5,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TJK",
@@ -3217,7 +3228,7 @@
                 4.0,
                 "GDP",
                 null,
-                3.0
+                0.0
             ],
             [
                 "TLS",
@@ -3355,7 +3366,7 @@
                 4.0,
                 "Underlying Food Insecurity",
                 null,
-                3.0
+                0.0
             ],
             [
                 "IND",
@@ -4027,47 +4038,36 @@
         ];
 
         // Proceed
-        console.log(countryData)
-
         const countrySelector = document.getElementById('countrySelector')
         const indicatorSelector = document.getElementById('indicatorSelector')
 
 
         let clickedItem = ''
 
-        // First define the const match, then create the if actions
+        // Use the selectors to filter and fly
         countrySelector.addEventListener('change', function (e) {
-            const match = countryData.filter(countryArr => countryArr[1] === this.value);
+            const match = countryData.filter(countryArr => countryArr[0] === this.value);
             console.log('You clicked a row containing the country of ' + this.value)
-            console.log(match)
-            //if (match) document.getElementById('narrativeTitle').innerHTML = match[1];
-            //if (match) document.getElementById("narrativeText").innerHTML = match[2];
-            displayNarrativeTitle(match);
-            displayNarrativeText(match);
+            document.getElementById("narrativeTitle").innerHTML = match[1][1];
+            // document.getElementById("narrativeText").innerHTML = match[1][2];
+            displayNarrative(match[1][2], match[1][3], match[1][4]);
+            displayResearch(match[1][1], match[1][5], match[1][6], match[1][7], match[1][8], match[1][9], match[1][10], match[1][11], match[1][12], match[1][13])
+            // Each argument corresponds to: displayResearch(marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming)
+
+            map.flyTo({
+                center: [match[1][15], match[1][16]],
+                zoom: match[1][17],
+                speed: 0.4,
+                curve: 2
+            })
         });
 
         indicatorSelector.addEventListener('change', function (e) {
             const match = countryData.filter(countryArr => countryArr[18] === this.value);
             console.log('You clicked a row containing the indicator of ' + this.value)
             console.log(match)
-            for (let i = 0; i < match.length; i++) {
-                displayIndicator(match[2]);
-            }
+            displayChloro(match);
         });
-
-        function displayNarrativeTitle(filteredRows) {
-            if (filteredRows) document.getElementById("narrativeTitle").innerHTML = filteredRows[1];
-        }
-
-        function displayNarrativeText(filteredRows) {
-            if (filteredRows) document.getElementById("narrativeText").innerHTML = filteredRows[2];
-        }
-
-        function displayIndicator(filteredRows) {
-            if (filteredRows) document.getElementById("narrativeText").innerHTML = filteredRows[2];
-        }
-
-
 
         // Load the map
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3RlZGphIiwiYSI6ImNraWk4OGd6aTA0dGQyeW1pbWF2Mm5qbTUifQ.H7qbJAdh988Vg7mq8Muvjw';
@@ -4085,27 +4085,121 @@
                 'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson',
                 'generateId': true
             });
+            // Create a default layer
+            const defaultLayer = countryData.filter(countryArr => countryArr[18] === 'Overall Vulnerability')
+            displayChloro(defaultLayer)
         });
 
         let hoveredStateId = null;
 
-        // Create the function to display the map
+        // FUNCTIONS
+        // Create the function to change the research box 
+        function displayResearch(countryName, marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming) {
+            // marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming
+            let primaryText;
+            if (primaryHighlight == "") {
+                primaryText = "";
+            } else {
+                primaryText = "<i class='fa-solid fa-magnifying-glass-chart' style='font-size:14px'></i><br>" +
+                    "<span style='font-weight:700'>" + primaryHighlight + "</span><br>" +
+                    "LATEST  |  <a href='" + primaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
+            };
+
+            let secondaryText;
+            if (secondaryHighlight == "") {
+                secondaryText = "";
+            } else {
+                secondaryText = "<i class='fa-solid fa-newspaper' style='font-size:14px'></i><br>" +
+                    "<span style='font-weight:700'>" + secondaryHighlight + "</span><br>" +
+                    "LATEST  |  <a href='" + secondaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
+            };
+
+            let marketText;
+            if (marketAssessment == null) {
+                marketText = "";
+            } else {
+                marketText = "<i class='fa-solid fa-shop' style='font-size:14px'></i><br>" +
+                    "<span style='font-weight:700'>MARKET MONITOR</span><br>" +
+                    marketAssessment + "  |  <a href='" + marketLink + "' target='_blank'>LINK</a><br><br>"
+            };
+
+            let fngText;
+            if (fng == 0) {
+                fngText = "";
+            } else {
+                fngText = "<i class='fa-solid fa-bowl-food' style='font-size:14px'></i><br>" +
+                    "<span style='font-weight:700'>FILL THE NUTRIENT GAP</span><br>" +
+                    fng + "  |  <a href='" + fngLink + "' target='_blank'>LINK</a><br><br>"
+            };
+
+            let upcomingText;
+            if (upcoming == "") {
+                upcomingText = "";
+            } else {
+                upcomingText = "<hr><br><i class='fas fa-step-forward' style='font-size:14px'></i><br>" +
+                    "<span style='font-weight:700'>UPCOMING</span><br>" +
+                    upcoming
+            };
+
+            document.getElementById("research").innerHTML =
+                "<span style='font-size:12px;color:#007dbc;font-weight:700'>Evidence: " + countryName + "</span>" + "<br>" + "<br>" +
+                // primaryText + secondaryText + 
+                primaryText + marketText + fngText + secondaryText + upcomingText
+            //  + fngText + upcomingText
+        }
+
+        // Function to display narrative
+        function displayNarrative(fsnNarrative, wfpNarrative, stakeholderNarrative) {
+            let fsnText;
+            if (fsnNarrative == "") {
+                fsnText = "";
+            } else {
+                fsnText = "<span style='font-weight:700'>Food Security and Nutrition Implications: </span>" +
+                    fsnNarrative + "<br><br>"
+            };
+
+            let wfpText;
+            if (wfpNarrative == "") {
+                wfpText = "";
+            } else {
+                wfpText = "<span style='font-weight:700'>WFP Implications: </span>" +
+                    wfpNarrative + "<br><br>"
+            };
+
+            let stakeholderText;
+            if (stakeholderNarrative == "") {
+                stakeholderText = "";
+            } else {
+                stakeholderText = "<span style='font-weight:700'>WFP Implications: </span>" +
+                    wfpNarrative
+            };
+
+            document.getElementById("narrativeText").innerHTML = fsnText + wfpText + stakeholderText
+        }
+
+
+        // Create the function to change text in the form-select
+        function changeText(indicator) {
+            document.getElementById("countrySelector").value = indicator;;
+        }
+
+        // Create the map display function
         function displayChloro(filteredRows) {
 
             for (let i = 0; i < filteredRows.length; i++) {
 
                 map.removeLayer("countryFill" + [i]);
                 map.removeLayer("countryBorder" + [i]);
+                map.removeLayer("hoverFill" + [i]);
 
-                console.log("one of these filtered rows is " + filteredRows[i][19])
 
                 let addColor;
                 if (filteredRows[i][20] == 1) {
-                    addColor = "#4da4d0";
+                    addColor = "#b76b89";
                 } else if (filteredRows[i][20] == 2) {
-                    addColor = "#8ac6ca";
+                    addColor = "#d4c9a8";
                 } else if (filteredRows[i][20] == 3) {
-                    addColor = "#ecdfbb";
+                    addColor = "#99cbe4";
                 } else {
                     addColor = "#bbbbbb"
                 };
@@ -4146,21 +4240,21 @@
                     "filter": ["==", "adm0_a3", filteredCountry]
                 });
 
+
+
+                // Popups
                 const popup = new mapboxgl.Popup({
                     closeButton: false,
                     closeOnClick: false
                 });
 
-
-
-                // Popups
                 map.on('mouseenter', 'countryFill' + [i], (e) => {
 
                     console.log('A mouseenter event occurred on ' + [i]);
                     map.getCanvas().style.cursor = 'pointer';
 
                     popup.setLngLat({ lng: filteredRows[i][15], lat: filteredRows[i][16] })
-                        .setHTML('<h3>' + filteredRows[i][1] +
+                        .setHTML('<h3>' + '<span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span>" +
                             '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' +
                             filteredRows[i][18] + ': ' + filteredRows[i][19] + '</h4>')
                         .addTo(map);
@@ -4170,8 +4264,6 @@
                     popup.remove();
                     map.getCanvas().style.cursor = '';
                 });
-
-
 
 
 
@@ -4220,14 +4312,13 @@
                     hoveredStateId = null;
                 });
 
-
-
-
                 // Event listeners for the map itself
                 map.on("click", "countryFill" + [i], () => {
                     flyFunction(i)
                     document.getElementById("narrativeTitle").innerHTML = filteredRows[i][1]
-                    document.getElementById("narrativeText").innerHTML = filteredRows[i][2]
+                    displayNarrative(filteredRows[i][2], filteredRows[i][3], filteredRows[i][4])
+                    changeText(filteredRows[i][0])
+                    displayResearch(filteredRows[i][1], filteredRows[i][5], filteredRows[i][6], filteredRows[i][7], filteredRows[i][8], filteredRows[i][9], filteredRows[i][10], filteredRows[i][11], filteredRows[i][12], filteredRows[i][13])
                 });
 
 
@@ -4239,55 +4330,53 @@
                         curve: 2
                     })
                 };
-
-
-
-
-                // const countryChloro = map.queryRenderedFeatures(event.point, {
-                //     layers: ['statedata']
-                // });
-
-                // console.log(countryChloro)
-
-                // // Change the cursor style as a UI indicator.
-                // map.getCanvas().style.cursor = 'pointer';
-
-                // // Copy coordinates array.
-                // const coordinates = e.features[0].geometry.coordinates.slice();
-                // const description = e.features[0].properties.description;
-
-                // // Ensure that if the map is zoomed out such that multiple
-                // // copies of the feature are visible, the popup appears
-                // // over the copy being pointed to.
-                // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                // }
-
-                // // Populate the popup and set its coordinates
-                // // based on the feature found.
-                // popup.setLngLat(coordinates).setHTML(description).addTo(map);
-                // });
             }
+
+            // Create legend
+            var filteredIndicator = filteredRows[1][18]
+            console.log('you look for : ' + filteredIndicator)
+
+            var layers;
+            if (filteredIndicator == "Overall Vulnerability")
+                layers = ["Country of Concern",
+                    "Country to Monitor",
+                    "NA"];
+            else if (filteredIndicator == "Underlying Food Insecurity" |
+                filteredIndicator == "GDP" |
+                filteredIndicator == "Debt Distress" |
+                filteredIndicator == "Fertilizer Consumption" |
+                filteredIndicator == "Cereal Import Dependency" |
+                filteredIndicator == "Dependency on Russia or Ukraine")
+                layers = ["High",
+                    "Moderate",
+                    "Low"];
+            else {
+                layers = [">=30%",
+                    "10-30%",
+                    "<=10%"]
+            }
+
+            const colors = [
+                '#b76b89', '#d4c9a8', '#99cbe4'
+            ];
+
+            legend.innerHTML = "";
+            legend.innerHTML = ("<span style='font-size:20px;color:#007dbc'>" + filteredIndicator + "<br><br>");
+
+            layers.forEach((layer, i) => {
+                const color = colors[i];
+                const item = document.createElement('div');
+                const key = document.createElement('span');
+                key.className = 'legend-key';
+                key.style.backgroundColor = color;
+
+                const value = document.createElement('span');
+                value.innerHTML = `${layer}`;
+                item.appendChild(key);
+                item.appendChild(value);
+                legend.appendChild(item);
+            });
         }
-
-        // Add the function 
-        // countrySelector.addEventListener('change', function (e) {
-        //     const match = countryData.filter(countryArr => countryArr[1] === this.value);
-        //     displayChloro(match);
-        // });
-
-        indicatorSelector.addEventListener('change', function (e) {
-            const match = countryData.filter(countryArr => countryArr[18] === this.value);
-            displayChloro(match);
-        });
-
-
-        // Array.from(countrySelector).forEach(function (item) {
-        //     item.addEventListener('click', function () {
-        //         flyFunction(item.id);
-        //         displayChloro(item.id)
-        //     })
-        // })
 
     </script>
 </body>

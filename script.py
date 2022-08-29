@@ -61,12 +61,17 @@ df.info()
 conditions = [
     (df['valueInt'] > 0.3) & (df['valueInt'] < 1),
     (df['valueInt'] >= 0.1) & (df['valueInt'] <= 0.3),
-    (df['valueInt'] > -1.0) & (df['valueInt'] < 0.1),
+    (df['valueInt'] > 0) & (df['valueInt'] < 0.1),
+    (df['valueInt'] > -1.0) & (df['valueInt'] < 0),
+    (df['value'] == "")
 ]
 
-values = [1, 2, 3]
+values = [1, 2, 3, 3, None]
 
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
+
+df.info()
+df.head()
 
 df.to_json(path_or_buf="output.json", orient='values')
 
