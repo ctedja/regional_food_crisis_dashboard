@@ -31,7 +31,6 @@ colIds = list(df.columns[list(range(0, 18))])
 colVals = list(df.columns[list(range(18, 28))])
 
 
-
 # Pivot Longer
 df = pd.melt(df,
              id_vars=colIds,
@@ -58,11 +57,13 @@ df['valueInt'] = pd.to_numeric(df['valueInt'])
 
 df.info()
 
+subCondition = ((df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Food Inflation (%)') | (df['indicator'] == 'Currency Exchange (YoY, %)'))
+
 conditions = [
-    (df['valueInt'] > 0.3) & (df['valueInt'] < 1),
-    (df['valueInt'] >= 0.1) & (df['valueInt'] <= 0.3),
-    (df['valueInt'] > 0) & (df['valueInt'] < 0.1),
-    (df['valueInt'] > -1.0) & (df['valueInt'] < 0),
+    (df['valueInt'] > 30) & (df['valueInt'] < 100) & subCondition,
+    (df['valueInt'] >= 10) & (df['valueInt'] <= 30) & subCondition,
+    (df['valueInt'] > 0) & (df['valueInt'] < 10) & subCondition,
+    (df['valueInt'] > -100) & (df['valueInt'] < 0) & subCondition,
     (df['value'] == "")
 ]
 
@@ -73,7 +74,11 @@ df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 df.info()
 df.head()
 
-df.to_json(path_or_buf="output.json", orient='values')
+
+
+df.to_json(path_or_buf="dataFull.json", orient='values')
+
+indicators.to_json(path_or_buf="dataIndicators.json", orient='values')
 
 df.to_csv("output_filename.csv", index=False, encoding='utf8')
 # jsonOutput = dfPivoted.to_json(orient='values')
