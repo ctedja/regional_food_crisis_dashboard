@@ -4,6 +4,7 @@ body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
     min-width:864px;
+    overflow:auto;
 }
 
 * {
@@ -52,7 +53,6 @@ h1 {
 
 .narrative {
     position: absolute;
-    overflow-y:auto;
     width: 50%;
     height: 100%;
     top: 130px;
