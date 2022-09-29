@@ -1,243 +1,206 @@
-@charset "utf-8";
-
-/* CSS Document */
 body {
     color: #404040;
     font: 400 15px/22px 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
+    min-width:1060px;
+    /* overflow:hidden; */
 }
 
-
-#logo {
-    overflow-y: auto;
-    width: 42px;
-    position: absolute;
-    top: 30px;
-    left: 28px;
+* {
+    box-sizing: border-box;
 }
 
-header {
-    font-size: 24px;
+.title span {
     color: #007dbc;
-    height: 40px;
-    padding-left: 60px;
-    background-color: white;
-}
-
-#subheader {
-    font-size: 12px;
-    color: #bbbbbb;
-    padding-left: 60px;
-    font-weight: 700;
-    background-color: white;
-}
-
-.nav {
-    border: 0px;
-    background-color: white;
-    padding: 0px;
-    font-size: 10px;
-}
-
-
-/* Overwrite bootstrap's tabs a  bit */
-.mapTabButton {
-    color: #bbbbbb !important;
-}
-
-.mapTabButton.active {
-    color: #007dbc !important;
-    font-weight: 700;
-}
-
-
-.tableTabButton {
-    color: #bbbbbb !important;
-}
-
-.tableTabButton.active {
-    color: #007dbc !important;
-    font-weight: 700;
-}
-
-.sidebar {
-    position: absolute;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    width: 23%;
-    padding: 10px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    background-color: rgb(255, 255, 255, 0.8);
-}
-
-.indicatorName {
-    font-size: 12px;
-    color: #767676;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-}
-
-.form-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0;
-    max-width: 100%;
-    cursor: inherit;
-    border: none;
-}
-
-#countrySelector {
-    font-size: 10px;
-    color: #767676;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    font-size: 10px;
-}
-
-#indicatorSelector {
-    margin-top: 10px;
-    font-size: 10px;
-    color: #767676;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    font-size: 10px;
-}
-
-#narrativeBox {
-    position: absolute;
-    overflow-y: scroll;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    top: 287px;
-    bottom: 20px;
-    max-height: 100%;
-    width: 23%;
-    padding: 10px;
-    padding-top: 0px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    background-color: rgb(255, 255, 255, 0.8);
-}
-
-#narrativeTitle {
-    font-size: 20px;
-    color: #007dbc;
-    line-height: 200%;
-}
-
-#narrativeText {
-    font-size: 11px;
-    color: #767676;
-}
-
-#map {
-    position: absolute;
-    top: 115px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-    padding: 10px;
-    margin: 24px;
-}
-
-
-#map div {
-    cursor: pointer;
-}
-
-.mapboxgl-ctrl mapboxgl-ctrl-attrib {
-    color: #ffffff00;
-}
-
-#legend {
-    position: absolute;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 0.5px solid #e4e4e4;
-    margin-right: 20px;
-    width: 15%;
-    font-size: 10px;
-    color: #767676;
-    overflow: auto;
-    border-radius: 20px;
-    padding: 10px;
-    line-height: 18px;
-    margin-bottom: 40px;
-}
-
-.legend-key {
-    display: inline-block;
-    border-radius: 100%;
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
-}
-
-#research {
-    position: absolute;
-    overflow-y: scroll;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    top: 320px;
-    right: 20px;
-    bottom: 20px;
-    width: 15%;
-    max-height: 100%;
-    font-size: 10px;
-    color: #767676;
-    padding: 10px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    background-color: rgb(255, 255, 255, 0.8);
-}
-
-.status {
-    position: absolute;
-    left: 57.5%;
-    width: 42.5%;
-    top: 0;
-    height: 5%;
-    padding: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 200%;
-    text-align: right;
-    overflow: hidden;
-}
-
-.links {
-    position: absolute;
-    left: 57.5%;
-    width: 42.5%;
-    top: 34%;
-    height: 66%;
-    padding: 20px;
-    background: rgba(0, 125, 188, 0.05);
-    font-size: 16px;
-    color: #007dbc;
-    line-height: 150%;
-    overflow-y: scroll;
-}
-
-hr {
-    display: block;
-    height: 0px;
-    border: 0;
-    border-top: 1px solid #b3d8eb;
-    margin: 1em 0;
-    padding: 0;
+    font-size: 22px;
 }
 
 h1 {
+    color: #007dbc;
+    font-size: 20px;
+}
+/* 
+#intro {
+    font-size: 12px;
+} */
+
+.filters {
+    position: fixed;
+    /* height: 15%; */
+    width:100%;
+    overflow: hidden;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    background-color: #f3f9fc;
+    z-index:3;
+}
+
+.main {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 100px;
+    left:0;
+    overflow: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    z-index:1;
+}
+
+.narrative {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 130px;
+    right:0;
+    background-color:white;
+    font-size:12px;
+    overflow: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    z-index:1;
+}
+
+.btn-group {
+    font:'Open Sans', 'Helvetica Neue', sans-serif;
+    color:#4da4d0;
+    font-size:12px !important;
+}
+
+.btn-outline-primary {
+    color:#4da4d0;
+    border-color:#4da4d0;
+    
+    font-size:12px !important;
+    font-weight:700 !important;
+} 
+
+.btn-outline-primary:active, .btn-outline-primary:hover, .btn-outline-primary:visited, .btn-outline-primary:focus {
+    background-color:#4da4d0 !important;
+} 
+
+.btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+    color: #fff;
+    background-color: #4da4d0;
+    border-color: #4da4d0;
+}
+
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #007dbc;
+}
+
+
+
+/* Table Options */
+table {
+    font-size: 10px;
+    padding-left: 10px;
+    border-bottom: 0px;
+}
+
+
+
+table td {
+    font-size: 10px;
+    margin: 10px;
+    border-bottom: 0px;
+    vertical-align: top;
+    line-height: 250%;
+}
+
+thead {
+    visibility: hidden;
+}
+
+
+.tableTitle {
+    top: 0;
+    font-size: 18px;
+}
+
+.tableStatus {
+    top: 0;
+    font-size: 10px;
+}
+
+.tableUpcoming {
+    font-size: 10px;
+    color: #007dbc;
+    background-color: #e6f2f8;
+    border-bottom: 0px;
+    padding-left:5px;
+    padding-right:5px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.tableRegularity {
+    font-size: 10px;
+    color: #767676;
+    background-color: #f1f1f1;
+    padding-left:5px;
+    padding-right:5px;
+    border-bottom: 0px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* .hover:hover tr{
+    background-color:#007dbc;
+    color:red;
+} */
+
+#mydatatable tbody tr:hover {
+    background-color: #f3f9fc;
+    cursor: pointer;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-weight:600;
+}
+
+
+
+#narrativeTitle {
     font-size: 16px;
-    margin: 0;
-    font-weight: 700;
-    line-height: 20px;
-    padding: 20px 2px;
+    color: #007dbc;
+}
+
+#narrativeLink {
+    font-size: 12px;
+    font-weight:700;
+    line-height:400%;
+    padding-left:20px;
+    border:solid 0.5px #4da4d0;
+    /* background-color:#4da4d0; */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+/* 
+#narrativeLink a {
+    color: #FFFFFF;
+} */
+
+
+/* Fade */
+.elementToFadeIn {
+    animation: fader 1s linear forwards;
+}
+
+@keyframes fader{
+    from {opacity:0;}
+    to {opacity:1}
 }
 
 a {
@@ -245,69 +208,18 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    color: #66b1d7;
-}
-
-a:link {
-    color: #007dbc;
-}
-
-/* visited link */
 a:visited {
     color: #007dbc;
+    text-decoration: none;
 }
 
-/* mouse over link */
 a:hover {
-    color: #007dbc;
-}
-
-/* selected link */
-a:active {
-    color: #007dbc;
-}
-
-.heading {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    min-height: 60px;
-    line-height: 60px;
-    padding: 0 20px;
-    background-color: #007dbc;
-    color: #fff;
-}
-
-
-ul {
-    list-style-type: none;
-    font-size: 14px;
-    margin: 0;
-    padding-left: 20px;
-    line-height: 250%;
-}
-
-li {
-    cursor: pointer;
-}
-
-.elementToFadeIn {
-    animation: fader 1s linear forwards;
-}
-
-@keyframes fader {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1
-    }
+    opacity: 0.5;
 }
 
 ::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-left: 0;
     background: rgba(0, 0, 0, 0.05);
 }
@@ -319,85 +231,4 @@ li {
 ::-webkit-scrollbar-thumb {
     background: #b3d8eb;
     border-radius: 0;
-}
-
-.marker {
-    border: none;
-    cursor: pointer;
-    height: 56px;
-    width: 56px;
-    background-image: url(https://docs.mapbox.com/help/demos/building-a-store-locator/marker.png);
-}
-
-
-
-
-/* Marker tweaks */
-.mapboxgl-popup {
-    width: 200px;
-    height: 150px;
-    font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    pointer-events: none;
-}
-
-.mapboxgl-popup-close-button {
-    display: none;
-    pointer-events: none;
-}
-
-.mapboxgl-popup-content {
-    font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    padding: 0;
-    pointer-events: none;
-}
-
-.mapboxgl-popup-content h3 {
-    margin: 0;
-    padding: 12px;
-    font-size: 14px;
-    border-radius: 3px 3px 0 0;
-    font-weight: 700;
-    pointer-events: none;
-}
-
-.mapboxgl-popup-content h4 {
-    margin: 0;
-    padding: 12px;
-    font-size: 12px;
-    pointer-events: none;
-}
-
-.mapboxgl-popup-content div {
-    padding: 12px;
-    pointer-events: none;
-}
-
-
-
-
-
-
-
-
-/* TABLE */
-
-#tableTab {
-    position: absolute;
-    overflow: auto;
-    height:100%;
-    width:95%;
-}
-
-
-th {
-    cursor: pointer;
-    font-size: 12px;
-}
-
-td.color {
-    color:red;
-}
-
-#mydatatable {
-    font-size: 12px;
 }

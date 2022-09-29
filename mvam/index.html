@@ -3,866 +3,232 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Build</title>
+    <title>mVAM Food Security Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
-    <script src="https://kit.fontawesome.com/f3135b3376.js" crossorigin="anonymous"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet" />
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
+
     <!-- Datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 
-    <script>
-        $(document).ready(function () {
-            $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
-                var activeTab = $(e.target).text(); // Get the name of active tab
-                var previousTab = $(e.relatedTarget).text(); // Get the name of previous active tab
-                $(".active-tab span").html(activeTab);
-                $(".previous-tab span").html(previousTab);
-            });
-        });
-    </script>
+    <!-- For Bootstrap Select -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/f3135b3376.js" crossorigin="anonymous"></script>
+
+    <!-- Own Style Sheet -->
+    <link href="styles.css" rel="stylesheet" />
+
 </head>
 
 
 <body>
 
-    <div class="m-4">
-        <img id="logo" src="logo.png">
-        <div style="
-        display:inline-block;">
-            <header>The Global Food Crisis: Asia-Pacific</header>
-            <p id="subheader">COUNTRY SUMMARIES AND KEY INDICATORS FOR THE REGION</p>
+
+    <div class="filters">
+        <div class="title">
+            <span><img src="https://raw.githubusercontent.com/ctedja/assets/main/logo_wfp_007dbc.png"
+                    style="height:22px;" />
+                &nbsp;mVAM Food Security Survey Schedule
+                <br><br>
+            </span>
         </div>
-        <ul id="myTab" class="nav nav-tabs">
-            <li class="nav-item">
-                <a href="#mapTab" class="nav-link active mapTabButton" data-bs-toggle="tab">MAP</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tableTab" class="nav-link tableTabButton" data-bs-toggle="tab">TABLE</a>
-            </li>
-        </ul>
-
-        <div class="tab-content">
-            <br>
-
-            <!-- Map Tab -->
-            <div class="tab-pane fade show active" id="mapTab">
-
-                <div class="sidebar">
-                    <div class="select">
-                        <p class="indicatorName">&nbsp;&#xf002;&nbsp;&nbsp;Search by Indicator or Country</p>
-                        <select id="countrySelector" class="form-select selectpicker" data-width="100%" data-size="8"
-                            name="country" data-dropdown>
-                            <option value="">SELECT COUNTRY</option>
-                            <option id="afg" value="AFG">Afghanistan</option>
-                            <option value="BGD">Bangladesh</option>
-                            <option value="BTN">Bhutan</option>
-                            <option value="KHM">Cambodia</option>
-                            <option value="PRK">DPRK</option>
-                            <option value="IND">India</option>
-                            <option value="IDN">Indonesia</option>
-                            <option value="KGZ">Kyrgyz Republic</option>
-                            <option value="LAO">Laos</option>
-                            <option value="MMR">Myanmar</option>
-                            <option value="NPL">Nepal</option>
-                            <option value="FOK">Fiji</option>
-                            <option value="PAK">Pakistan</option>
-                            <option value="PHL">Philippines</option>
-                            <option value="LKA">Sri Lanka</option>
-                            <option value="TAJ">Tajikistan</option>
-                            <option value="TLS">Timor-Leste</option>
-                        </select>
-                    </div>
-                    <div class="select">
-                        <select id="indicatorSelector" class="form-select selectpicker" data-width="100%" data-size="8"
-                            name="country" data-dropdown>
-                            <option value="">SELECT INDICATOR</option>
-                            <option value="Overall Vulnerability">Overall Vulnerability</option>
-                            <option value="Underlying Food Insecurity">Underlying Food Insecurity</option>
-                            <option value="Inflation (%)">Inflation (%)</option>
-                            <option value="Food Inflation (%)">Food Inflation (%)</option>
-                            <option value="Currency Exchange (YoY, %)">Currency Exchange (YoY)</option>
-                            <option value="Dependency on Russia or Ukraine">Dependency on Russia or Ukraine
-                            </option>
-                            <option value="Cereal Import Dependency">Cereal Import Dependency</option>
-                            <option value="Fertilizer Consumption">Debt Distress</option>
-                            <option value="GDP">GDP</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="narrativeBox">
-                    <div id="narrativeTitle"></div>
-                    <div id="narrativeText"></div>
-                </div>
-                <div id="map" class="map"></div>
-                <div id="legend"></div>
-                <div id="research"></div>
-            </div>
-
-
-            <!-- Table Tab -->
-            <div class="tab-pane fade" id="tableTab">
-                <div id="tableWrapper">
-                    <table class="display" id="mydatatable">
-                        <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Overall Vulnerability</th>
-                                <th>Underlying Food Insecurity</th>
-                                <th>Russia/Ukraine Dependency</th>
-                                <th>Cereal Import Dependency (%)</th>
-                                <th>Fertilizer Consumption</th>
-                                <th>Debt Distress</th>
-                                <th>GDP</th>
-                                <th>Inflation (%)</th>
-                                <th>Food Inflation (%)</th>
-                                <th>Currency Exchange (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
 
 
+        &nbsp; <span style="font-size:12px;color:#007dbc;font-weight:600;">Status:</span>&nbsp;&nbsp;
+        <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary btn-sm" id="selectActive" for="btnradio1">Active</label>
 
-
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" id="selectSetup" for="btnradio2">Setup</label>
         </div>
+
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span style="font-size:12px;color:#007dbc;font-weight:700;">Sort:</span>&nbsp;&nbsp;
+        <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
+            <label class="btn btn-outline-primary btn-sm" id="selectAny" for="btnradio3">Status</label>
+
+            <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" id="selectReports" for="btnradio4">Next Report</label>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>&nbsp;
+    </div>
+
+
+    <div class="main">
+        <table class="table mydatatable" id="mydatatable">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="narrative">
+        <p id="narrativeTitle">Select Value</p>
+        <p id="narrativeLink"></p>
+        <p id="narrativeText"></p>
     </div>
 
     <script>
-        // Data
-        
-        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/output.json';
+        // Pull in the Data Tables via jQuery
 
-        async function getISS() {
+        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/mvam/data.json';
+
+        async function populate() {
             const response = await fetch(api_url);
-            const countryData = await response.json();
+            const mvamData = await response.json();
+
+            console.log(mvamData)
 
 
-
-            console.log(countryData)
-            // Proceed
-            const countrySelector = document.getElementById('countrySelector')
-            const indicatorSelector = document.getElementById('indicatorSelector')
-
-
-            let clickedItem = ''
-
-            // Use the selectors to filter and fly
-            countrySelector.addEventListener('change', function (e) {
-                const match = countryData.filter(countryArr => countryArr[0] === this.value);
-                console.log('You clicked a row containing the country of ' + this.value)
-                document.getElementById("narrativeTitle").innerHTML = match[1][1];
-                // document.getElementById("narrativeText").innerHTML = match[1][2];
-                displayNarrative(match[1][2], match[1][3], match[1][4]);
-                displayResearch(match[1][1], match[1][5], match[1][6], match[1][7], match[1][8], match[1][9], match[1][10], match[1][11], match[1][12], match[1][13])
-                // Each argument corresponds to: displayResearch(marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming)
-
-                map.flyTo({
-                    center: [match[1][15], match[1][16]],
-                    zoom: match[1][17],
-                    speed: 0.4,
-                    curve: 2
-                })
-
-            });
-
-            indicatorSelector.addEventListener('change', function (e) {
-                const match = countryData.filter(countryArr => countryArr[18] === this.value);
-                console.log('You clicked a row containing the indicator of ' + this.value)
-                console.log(match)
-                displayChloro(match);
-            });
-
-            // Load the map
-            mapboxgl.accessToken = 'pk.eyJ1IjoiY3RlZGphIiwiYSI6ImNraWk4OGd6aTA0dGQyeW1pbWF2Mm5qbTUifQ.H7qbJAdh988Vg7mq8Muvjw';
-            const map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/ctedja/ckxf77dtjg8nx15o5bn7st070',
-                center: [105, 20],
-                zoom: 2.25
-            });
-
-
-            map.on('load', function () {
-                map.addSource('cbs', {  // country-boundaries-simplified
-                    'type': 'geojson',
-                    'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson',
-                    'generateId': true
-                });
-                // Create a default layer
-                const defaultLayer = countryData.filter(countryArr => countryArr[18] === 'Overall Vulnerability')
-                displayChloro(defaultLayer)
-            });
-
-            let hoveredStateId = null;
-
-            // FUNCTIONS
-            // Create the function to change the research box 
-            function displayResearch(countryName, marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming) {
-                // marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming
-                let primaryText;
-                if (primaryHighlight == "") {
-                    primaryText = "";
-                } else {
-                    primaryText = "<i class='fa-solid fa-magnifying-glass-chart' style='font-size:14px'></i><br>" +
-                        "<span style='font-weight:700'>" + primaryHighlight + "</span><br>" +
-                        "LATEST  |  <a href='" + primaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
-                };
-
-                let secondaryText;
-                if (secondaryHighlight == "") {
-                    secondaryText = "";
-                } else {
-                    secondaryText = "<i class='fa-solid fa-newspaper' style='font-size:14px'></i><br>" +
-                        "<span style='font-weight:700'>" + secondaryHighlight + "</span><br>" +
-                        "LATEST  |  <a href='" + secondaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
-                };
-
-                let marketText;
-                if (marketAssessment == null) {
-                    marketText = "";
-                } else {
-                    marketText = "<i class='fa-solid fa-shop' style='font-size:14px'></i><br>" +
-                        "<span style='font-weight:700'>MARKET MONITOR</span><br>" +
-                        marketAssessment + "  |  <a href='" + marketLink + "' target='_blank'>LINK</a><br><br>"
-                };
-
-                let fngText;
-                if (fng == 0) {
-                    fngText = "";
-                } else {
-                    fngText = "<i class='fa-solid fa-bowl-food' style='font-size:14px'></i><br>" +
-                        "<span style='font-weight:700'>FILL THE NUTRIENT GAP</span><br>" +
-                        fng + "  |  <a href='" + fngLink + "' target='_blank'>LINK</a><br><br>"
-                };
-
-                let upcomingText;
-                if (upcoming == "") {
-                    upcomingText = "";
-                } else {
-                    upcomingText = "<hr><br><i class='fas fa-step-forward' style='font-size:14px'></i><br>" +
-                        "<span style='font-weight:700'>UPCOMING</span><br>" +
-                        upcoming
-                };
-
-                document.getElementById("research").innerHTML =
-                    "<span style='font-size:12px;color:#007dbc;font-weight:700'>Evidence: " + countryName + "</span>" + "<br>" + "<br>" +
-                    // primaryText + secondaryText + 
-                    primaryText + marketText + fngText + secondaryText + upcomingText
-                //  + fngText + upcomingText
-            }
-
-            // Function to display narrative
-            function displayNarrative(fsnNarrative, wfpNarrative, stakeholderNarrative) {
-                let fsnText;
-                if (fsnNarrative == "") {
-                    fsnText = "";
-                } else {
-                    fsnText = "<span style='font-weight:700'>Food Security and Nutrition Implications: </span>" +
-                        fsnNarrative + "<br><br>"
-                };
-
-                let wfpText;
-                if (wfpNarrative == "") {
-                    wfpText = "";
-                } else {
-                    wfpText = "<span style='font-weight:700'>WFP Implications: </span>" +
-                        wfpNarrative + "<br><br>"
-                };
-
-                let stakeholderText;
-                if (stakeholderNarrative == "") {
-                    stakeholderText = "";
-                } else {
-                    stakeholderText = "<span style='font-weight:700'>Gov/Other Stakeholders: </span>" +
-                        stakeholderNarrative
-                };
-
-                document.getElementById("narrativeText").innerHTML = fsnText + wfpText + stakeholderText
-            }
-
-
-            // Create the function to change text in the form-select
-            function changeText(indicator) {
-                document.getElementById("countrySelector").value = indicator;;
-            }
-
-            // Create the map display function
-            function displayChloro(filteredRows) {
-
-                for (let i = 0; i < filteredRows.length; i++) {
-
-                    map.removeLayer("countryFill" + [i]);
-                    map.removeLayer("countryBorder" + [i]);
-                    map.removeLayer("hoverFill" + [i]);
-
-
-                    let addColor;
-                    if (filteredRows[i][20] == 1) {
-                        addColor = "#b76b89";
-                    } else if (filteredRows[i][20] == 2) {
-                        addColor = "#d4c9a8";
-                    } else if (filteredRows[i][20] == 3) {
-                        addColor = "#99cbe4";
-                    } else {
-                        addColor = "#bbbbbb"
-                    };
-
-                    let filteredCountry = filteredRows[i][0]
-
-                    // Fader
-                    setTimeout(function () {
-                        map.setPaintProperty("countryFill" + [i], "fill-opacity", 0.7);
-                    },
-                        0
-                    );
-
-                    // country-fills
-                    map.addLayer({
-                        "id": "countryFill" + [i],
-                        "type": "fill",
-                        "source": "cbs",
-                        "layout": {},
-                        "paint": {
-                            "fill-color": addColor,
-                            "fill-opacity": .25,
-                            "fill-opacity-transition": { duration: 1000 }
-                        },
-                        "filter": ["==", "adm0_a3", filteredCountry]
-                    })
-
-                    // country borders
-                    map.addLayer({
-                        "id": "countryBorder" + [i],
-                        "type": "line",
-                        "source": "cbs",
-                        "layout": {},
-                        "paint": {
-                            "line-color": 'white',
-                            "line-width": .9
-                        },
-                        "filter": ["==", "adm0_a3", filteredCountry]
-                    });
-
-
-
-                    // Popups
-                    const popup = new mapboxgl.Popup({
-                        closeButton: false,
-                        closeOnClick: false
-                    });
-
-                    map.on('mouseenter', 'countryFill' + [i], (e) => {
-
-                        console.log('A mouseenter event occurred on ' + [i]);
-                        map.getCanvas().style.cursor = 'pointer';
-
-                        popup.setLngLat({ lng: filteredRows[i][15], lat: filteredRows[i][16] })
-                            .setHTML('<h3>' + '<span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span>" +
-                                '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' +
-                                filteredRows[i][18] + ': ' + filteredRows[i][19] + '</h4>')
-                            .addTo(map);
-                    });
-
-                    map.on("mouseleave", "countryFill" + [i], () => {
-                        popup.remove();
-                        map.getCanvas().style.cursor = '';
-                    });
-
-
-
-                    // Hover effects
-                    map.addLayer({
-                        "id": "hoverFill" + [i],
-                        "type": "fill",
-                        "source": "cbs",
-                        "layout": {},
-                        "paint": {
-                            "fill-color": addColor,
-                            "fill-outline-color": "white",
-                            "fill-opacity": [
-                                'case',
-                                ['boolean', ['feature-state', 'hover'], false],
-                                1,
-                                0
-                            ]
-                        },
-                        "filter": ["==", "adm0_a3", filteredCountry]
-                    });
-
-                    map.on('mouseover', 'hoverFill' + [i], (e) => {
-                        if (e.features.length > 0) {
-                            if (hoveredStateId !== null) {
-                                map.setFeatureState(
-                                    { source: 'cbs', id: hoveredStateId },
-                                    { hover: false }
-                                );
-                            }
-                            hoveredStateId = e.features[0].id;
-                            map.setFeatureState(
-                                { source: 'cbs', id: hoveredStateId },
-                                { hover: true }
-                            );
-                        }
-                    });
-
-                    map.on("mouseleave", "hoverFill" + [i], () => {
-                        if (hoveredStateId !== null) {
-                            map.setFeatureState(
-                                { source: 'cbs', id: hoveredStateId },
-                                { hover: false }
-                            );
-                        }
-                        hoveredStateId = null;
-                    });
-
-                    // Event listeners for the map itself
-                    map.on("click", "countryFill" + [i], () => {
-                        flyFunction(i)
-                        document.getElementById("narrativeTitle").innerHTML = filteredRows[i][1]
-                        displayNarrative(filteredRows[i][2], filteredRows[i][3], filteredRows[i][4])
-                        changeText(filteredRows[i][0])
-                        displayResearch(filteredRows[i][1], filteredRows[i][5], filteredRows[i][6], filteredRows[i][7], filteredRows[i][8], filteredRows[i][9], filteredRows[i][10], filteredRows[i][11], filteredRows[i][12], filteredRows[i][13])
-                    });
-
-
-                    function flyFunction() {
-                        map.flyTo({
-                            center: [filteredRows[i][15], filteredRows[i][16]],
-                            zoom: filteredRows[i][17],
-                            speed: 0.4,
-                            curve: 2
-                        })
-                    };
-                }
-
-                // Create legend
-                var filteredIndicator = filteredRows[1][18]
-                console.log('you look for : ' + filteredIndicator)
-
-                var layers;
-                if (filteredIndicator == "Overall Vulnerability")
-                    layers = ["Country of Concern",
-                        "Country to Monitor",
-                        "NA"];
-                else if (filteredIndicator == "Underlying Food Insecurity" |
-                    filteredIndicator == "GDP" |
-                    filteredIndicator == "Debt Distress" |
-                    filteredIndicator == "Fertilizer Consumption" |
-                    filteredIndicator == "Cereal Import Dependency" |
-                    filteredIndicator == "Dependency on Russia or Ukraine")
-                    layers = ["High",
-                        "Moderate",
-                        "Low"];
-                else {
-                    layers = [">=30%",
-                        "10-30%",
-                        "<=10%"]
-                }
-
-                const colors = [
-                    '#b76b89', '#d4c9a8', '#99cbe4'
-                ];
-
-                legend.innerHTML = "";
-                legend.innerHTML = ("<span style='font-size:20px;color:#007dbc'>" + filteredIndicator + "<br><br>");
-
-                layers.forEach((layer, i) => {
-                    const color = colors[i];
-                    const item = document.createElement('div');
-                    const key = document.createElement('span');
-                    key.className = 'legend-key';
-                    key.style.backgroundColor = color;
-
-                    const value = document.createElement('span');
-                    value.innerHTML = `${layer}`;
-                    item.appendChild(key);
-                    item.appendChild(value);
-                    legend.appendChild(item);
-                });
-            }
-
-            const tableData = [
-                [
-                    "AFG",
-                    "Afghanistan",
-                    null,
-                    null,
-                    15.3,
-                    "Low",
-                    "Mod",
-                    "Mod",
-                    "High",
-                    null,
-                    "High",
-                    "Concern"
-                ],
-                [
-                    "BGD",
-                    "Bangladesh",
-                    7.42,
-                    8.3,
-                    9.3,
-                    "Mod",
-                    "Low",
-                    "Mod",
-                    "Low",
-                    null,
-                    "Mod",
-                    "Monitor"
-                ],
-                [
-                    "BTN",
-                    "Bhutan",
-                    null,
-                    null,
-                    6.1,
-                    null,
-                    null,
-                    null,
-                    "Mod",
-                    null,
-                    "Low",
-                    "Low"
-                ],
-                [
-                    "KHM",
-                    "Cambodia",
-                    null,
-                    null,
-                    -0.3,
-                    null,
-                    null,
-                    "Low",
-                    "Low",
-                    null,
-                    "Mod",
-                    "Low"
-                ],
-                [
-                    "KPR",
-                    "DPRK",
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Low",
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Low"
-                ],
-                [
-                    "FJI",
-                    "Fiji",
-                    5.0,
-                    3.6,
-                    6.6,
-                    null,
-                    "High",
-                    null,
-                    null,
-                    null,
-                    "Low",
-                    "Monitor"
-                ],
-                [
-                    "IND",
-                    "India",
-                    7.04,
-                    7.84,
-                    6.1,
-                    "Mod",
-                    null,
-                    "Low",
-                    null,
-                    "Low",
-                    "Mod",
-                    "Low"
-                ],
-                [
-                    "IDN",
-                    "Indonesia",
-                    3.55,
-                    5.62,
-                    2.6,
-                    "Low",
-                    "Low",
-                    "Low",
-                    null,
-                    null,
-                    "Low",
-                    "Low"
-                ],
-                [
-                    "KGZ",
-                    "Kyrgyz Rep",
-                    14.0,
-                    17.1,
-                    -6.0,
-                    "High",
-                    "Low",
-                    null,
-                    "Mod",
-                    "Low",
-                    "Mod",
-                    "Concern"
-                ],
-                [
-                    "LAO",
-                    "Laos",
-                    12.8,
-                    8.2,
-                    54.7,
-                    null,
-                    null,
-                    null,
-                    "High",
-                    null,
-                    "Low",
-                    "Monitor"
-                ],
-                [
-                    "MMR",
-                    "Myanmar",
-                    null,
-                    null,
-                    12.7,
-                    "Low",
-                    null,
-                    "High",
-                    "Low",
-                    "Mod",
-                    "High",
-                    "Concern"
-                ],
-                [
-                    "NPL",
-                    "Nepal",
-                    7.28,
-                    7.4,
-                    6.1,
-                    "Low",
-                    "Low",
-                    "Low",
-                    "Low",
-                    null,
-                    "Mod",
-                    "Low"
-                ],
-                [
-                    "PAK",
-                    "Pakistan",
-                    13.8,
-                    17.25,
-                    30.9,
-                    "High",
-                    null,
-                    "Low",
-                    "High",
-                    "Low",
-                    "Mod",
-                    "Concern"
-                ],
-                [
-                    "PHL",
-                    "Philippines",
-                    5.4,
-                    4.9,
-                    11.5,
-                    "Low",
-                    "Low",
-                    "Mod",
-                    null,
-                    null,
-                    "Mod",
-                    "Low"
-                ],
-                [
-                    null,
-                    "Samoa",
-                    null,
-                    null,
-                    null,
-                    null,
-                    "High",
-                    null,
-                    "High",
-                    null,
-                    "Low",
-                    "Low"
-                ],
-                [
-                    null,
-                    "Solomon Islands",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Mod",
-                    null,
-                    "Mod",
-                    "Low"
-                ],
-                [
-                    "LKA",
-                    "Sri Lanka",
-                    54.6,
-                    80.1,
-                    80.2,
-                    "Low",
-                    null,
-                    "High",
-                    null,
-                    "Low",
-                    "Mod",
-                    "Concern"
-                ],
-                [
-                    "TJK",
-                    "Tajikistan",
-                    7.3,
-                    8.1,
-                    -4.8,
-                    "Mod",
-                    "Mod",
-                    null,
-                    "High",
-                    "Low",
-                    "High",
-                    "Concern"
-                ],
-                [
-                    "TLS",
-                    "Timor Leste",
-                    7.4,
-                    8.0,
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Mod",
-                    null,
-                    "High",
-                    "Low"
-                ],
-                [
-                    null,
-                    "Tonga",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    "High",
-                    null,
-                    "Low",
-                    "Low"
-                ],
-                [
-                    null,
-                    "Vanuatu",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Mod",
-                    null,
-                    "Low",
-                    "Low"
-                ]
-            ]
-
-
-            // TABLE BUILDING
             function buildTable(data) {
                 var table = document.getElementById('myTable')
                 table.innerHTML = data.map(function (row) {
-                    let [id, country, inflation, foodInflation, currencyExchange, russiaUkraineDependency, cerealImportDependency, fertilizerConsumption, debtDistress, gdp, underlyingFoodInsecurity, overallVulnerability] = row;
+                    let [ID, Country, Status, Regularity, RBBLead, LastMonth, Link, NextMonth, Narrative, Icon] = row;
                     return `<tr>
-                <td>${country}</td>
-                <td>${overallVulnerability}</td>
-                <td>${underlyingFoodInsecurity}</td>
-                <td>${russiaUkraineDependency}</td>
-                <td>${cerealImportDependency}</td>
-                <td>${fertilizerConsumption}</td>
-                <td>${debtDistress}</td>
-                <td>${gdp}</td>
-                <td>${inflation}</td>
-                <td>${foodInflation}</td>
-                <td>${currencyExchange}</td>
-                </tr>`;
+                <td>
+                <a href="${Link}" target='_blank'>
+                    ${Icon}<br>
+                    <span class="tableStatus">${Status}</span><br></td></a>
+                <td>
+                    <span class="tableTitle"><a href="${Link}" target='_blank'>${Country}</a><br></span>
+                    <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Upcoming:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
+                    <span class="tableRegularity">${Regularity}&nbsp;&nbsp;</span>
+                </td>
+                <td>
+                    ${Status}
+                </td>
+                <td>
+                    ${Country}
+                </td>
+                <td>
+                    ${Narrative}
+                </td>
+                <td>
+                    ${LastMonth}
+                </td>
+                <td>
+                    ${Link}
+                </td>
+            </tr>`;
                 }).join('');
+
             }
 
-            buildTable(tableData)
-
-            $("#mydatatable td").each(function () {
-                if (this.textContent === "null")
-                    this.textContent = "-"
-            })
 
             $(document).ready(function () {
-                $('#mydatatable').DataTable({
-                    order: [[0, 'desc']],
-                    stripeClasses: [],
-                    // scrollY: '600px',
-                    // scrollCollapse: true,
-                    info: false,
-                    paging: false,
-                    searching: false,
-                    columnDefs: [{
-                        targets: [8, 9, 10],
-                        className: 'dt-body-right',
+                var oTable = $('.mydatatable').DataTable({
+                    "pageLength": 50,
+                    "search": { regex: true },
+                    "dom": "<<t>>",
+                    // We need those columns to be searchable, but not visible
+                    "columnDefs": [{
+                        targets: [2, 3, 4, 5, 6],
+                        visible: false,
+                        searchable: true,
                     },
                     {
-                        targets: [8, 9, 10],
-                        className: 'dt-head-right'
-                    }],
-                    aoColumns: [
-                        null,
-                        null,
-                        { orderSequence: ['asc'] },
-                        { orderSequence: ['desc', 'asc', 'asc'] },
-                        { orderSequence: ['desc'] },
-                        null
-                    ],
-
+                        targets: 0,
+                        width: "6%",
+                    }
+                    ]
                 });
-            });
 
+                // Create actions for the table
+                oTable.on('click', 'tr', function () {
 
+                    var data = oTable.row(this).data();
+
+                    let narrativeTitle;
+                    if (data[6] == "null") {
+                        narrativeTitle = "";
+                    } else {
+                        narrativeTitle = "<a href='" + data[6] + "'target='_blank'><i class='fas fa-external-link-alt'></i>&nbsp;&nbsp;Latest mVAM Household Food Security Survey (" + data[5] + ")</a>";
+                    };
+
+                    $("#narrativeTitle").html(data[3]);
+                    $("#narrativeLink").html(narrativeTitle)
+                    $("#narrativeText").html(data[4]);
+                    console.log('You clicked on ' + data[6]);
+                });
+
+                oTable.hover(
+                    function () {
+                        $(this).addClass('tableHover');
+  },
+                    function () {
+                        $(this).removeClass("tableHover");
+                    }
+                );
+
+                // oTable.on('hover', 'tr', function () {
+                //     fi$(this).addClass("tableHover");
+
+                // });
+
+                // Newbie Selector
+                $("#selectActive").on('click', function () {
+                    oTable.columns(2).search('Active|Setup', true, false).draw();
+                });
+                $("#selectSetup").on('click', function () {
+                    oTable.columns(2).search('Setup', true, false).draw();
+                });
+                // Function Selector
+                $("#selectAny").on('click', function () {
+                    oTable.columns(3).search('Reports|Monitoring|All Functions', true, false).draw();
+                });
+                $("#selectReports").on('click', function () {
+                    oTable.columns(3).search('Reports|All Functions', true, false).draw();
+                });
+                $("#selectMonitoring").on('click', function () {
+                    oTable.columns(3).search('Monitoring|All Functions', true, false).draw();
+                });
+                // var testerDate = $('.tester')
+                // $.each(evidenceData, function (index, item) {
+                //     testerDate.append('Date : ' + item['Date']);
+                // });
+
+            })
+
+            buildTable(mvamData)
 
         }
-        getISS();
+
+        populate();
 
     </script>
 </body>
