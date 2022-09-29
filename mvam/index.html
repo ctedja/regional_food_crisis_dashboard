@@ -56,7 +56,10 @@
 
         &nbsp; <span style="font-size:12px;color:#007dbc;font-weight:600;">Status:</span>&nbsp;&nbsp;
         <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
+            <label class="btn btn-outline-primary btn-sm" id="selectAny" for="btnradio0">Any</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
             <label class="btn btn-outline-primary btn-sm" id="selectActive" for="btnradio1">Active</label>
 
             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
@@ -128,7 +131,7 @@
                     <span class="tableStatus">${Status}</span></td></a>
                 <td>
                     <span class="tableTitle"><a href="${Link}" target='_blank'>${Country}</a><br></span>
-                    <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Upcoming:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
+                    <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Next Report:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
                     <span class="tableRegularity">${Regularity}&nbsp;&nbsp;</span>
                 </td>
                 <td>
@@ -208,8 +211,11 @@
                 // });
 
                 // Newbie Selector
-                $("#selectActive").on('click', function () {
+                $("#selectAny").on('click', function () {
                     oTable.columns(2).search('Active|Setup', true, false).draw();
+                });
+                $("#selectActive").on('click', function () {
+                    oTable.columns(2).search('Active', true, false).draw();
                 });
                 $("#selectSetup").on('click', function () {
                     oTable.columns(2).search('Setup', true, false).draw();

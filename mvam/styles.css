@@ -52,13 +52,13 @@ h1 {
 
 .narrative {
     position: absolute;
+    overflow:scroll;
     width: 50%;
     height: 100%;
     top: 130px;
     right:0;
     background-color:white;
     font-size:12px;
-    overflow: auto;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
