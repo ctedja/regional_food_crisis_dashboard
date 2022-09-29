@@ -89,6 +89,7 @@
                     <th> </th>
                     <th> </th>
                     <th> </th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -98,9 +99,10 @@
 
 
     <div class="narrative">
-        <p id="narrativeTitle">Select Value</p>
+        <p id="narrativeTitle">Select Country</p>
         <p id="narrativeLink"></p>
         <p id="narrativeText"></p>
+        <p id="narrativeUpcoming"></p>
     </div>
 
     <script>
@@ -144,6 +146,9 @@
                 <td>
                     ${Link}
                 </td>
+                <td>
+                    ${NextMonth}
+                </td>
             </tr>`;
                 }).join('');
 
@@ -157,7 +162,7 @@
                     "dom": "<<t>>",
                     // We need those columns to be searchable, but not visible
                     "columnDefs": [{
-                        targets: [2, 3, 4, 5, 6],
+                        targets: [2, 3, 4, 5, 6, 7],
                         visible: false,
                         searchable: true,
                     },
@@ -183,17 +188,19 @@
                     $("#narrativeTitle").html(data[3]);
                     $("#narrativeLink").html(narrativeTitle)
                     $("#narrativeText").html(data[4]);
-                    console.log('You clicked on ' + data[6]);
+                    $("#narrativeUpcoming").html("The upcoming round is planned to be ready for " + data[7]);
+                    console.log('You clicked on ' + data[7]);
+
+                    $("#narrativeTitle").addClass("elementToFadeIn");
+                    setTimeout(function () { $("#narrativeTitle").removeClass("elementToFadeIn"); }, 1000);
+                    $("#narrativeText").addClass("elementToFadeIn");
+                    setTimeout(function () { $("#narrativeText").removeClass("elementToFadeIn"); }, 1000);
+                    $("#narrativeLink").addClass("elementToFadeIn");
+                    setTimeout(function () { $("#narrativeLink").removeClass("elementToFadeIn"); }, 1000);
+                    $("#narrativeUpcoming").addClass("elementToFadeIn");
+                    setTimeout(function () { $("#narrativeUpcoming").removeClass("elementToFadeIn"); }, 1000);
                 });
 
-                oTable.hover(
-                    function () {
-                        $(this).addClass('tableHover');
-  },
-                    function () {
-                        $(this).removeClass("tableHover");
-                    }
-                );
 
                 // oTable.on('hover', 'tr', function () {
                 //     fi$(this).addClass("tableHover");
@@ -206,6 +213,7 @@
                 });
                 $("#selectSetup").on('click', function () {
                     oTable.columns(2).search('Setup', true, false).draw();
+                    console.log(oTable.columns(2))
                 });
                 // Function Selector
                 $("#selectAny").on('click', function () {
