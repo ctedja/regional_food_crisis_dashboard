@@ -71,7 +71,7 @@
             <label class="btn btn-outline-primary btn-sm" id="sortStatus" for="btnradio3">Status</label>
 
             <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="sortDate" for="btnradio4">Upcoming Date</label>
+            <label class="btn btn-outline-primary btn-sm" id="sortDate" for="btnradio4">Next Report Date</label>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>&nbsp;
@@ -188,7 +188,7 @@
                     $("#narrativeTitle").html(data[3]);
                     $("#narrativeLink").html(narrativeTitle)
                     $("#narrativeText").html(data[4]);
-                    $("#narrativeUpcoming").html("The upcoming round is planned to be ready for " + data[7]);
+                    $("#narrativeUpcoming").html("The next report is planned to be ready in " + data[7]);
                     console.log('You clicked on ' + data[7]);
 
                     $("#narrativeTitle").addClass("elementToFadeIn");
