@@ -68,10 +68,10 @@
         <span style="font-size:12px;color:#007dbc;font-weight:700;">Sort:</span>&nbsp;&nbsp;
         <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-            <label class="btn btn-outline-primary btn-sm" id="selectAny" for="btnradio3">Status</label>
+            <label class="btn btn-outline-primary btn-sm" id="sortStatus" for="btnradio3">Status</label>
 
             <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="selectReports" for="btnradio4">Next Report</label>
+            <label class="btn btn-outline-primary btn-sm" id="sortDate" for="btnradio4">Upcoming Date</label>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>&nbsp;
@@ -125,7 +125,7 @@
                 <td>
                 <a href="${Link}" target='_blank'>
                     ${Icon}<br>
-                    <span class="tableStatus">${Status}</span><br></td></a>
+                    <span class="tableStatus">${Status}</span></td></a>
                 <td>
                     <span class="tableTitle"><a href="${Link}" target='_blank'>${Country}</a><br></span>
                     <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Upcoming:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
@@ -216,14 +216,11 @@
                     console.log(oTable.columns(2))
                 });
                 // Function Selector
-                $("#selectAny").on('click', function () {
-                    oTable.columns(3).search('Reports|Monitoring|All Functions', true, false).draw();
+                $("#sortStatus").on('click', function () {
+                    oTable.order(2, 'asc').draw();
                 });
-                $("#selectReports").on('click', function () {
-                    oTable.columns(3).search('Reports|All Functions', true, false).draw();
-                });
-                $("#selectMonitoring").on('click', function () {
-                    oTable.columns(3).search('Monitoring|All Functions', true, false).draw();
+                $("#sortDate").on('click', function () {
+                    oTable.order(7).draw();
                 });
                 // var testerDate = $('.tester')
                 // $.each(evidenceData, function (index, item) {

@@ -160,6 +160,10 @@ thead {
     color:red;
 } */
 
+table.dataTable tbody th, table.dataTable tbody td {
+    padding-top: 25px;
+}
+
 #mydatatable tbody tr:hover {
     background-color: #f3f9fc;
     cursor: pointer;
