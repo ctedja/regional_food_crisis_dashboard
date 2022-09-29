@@ -39,11 +39,12 @@ h1 {
 
 .main {
     position: absolute;
+    overflow-y: auto;
+    overflow-x:hidden;
     width: 50%;
     height: 100%;
     top: 100px;
     left:0;
-    overflow: auto;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 20px;
@@ -52,7 +53,7 @@ h1 {
 
 .narrative {
     position: absolute;
-    overflow:auto;
+    overflow-y:auto;
     width: 50%;
     height: 100%;
     top: 130px;
