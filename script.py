@@ -73,7 +73,8 @@ values = [1, 2, 3, 3, None]
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
 
-# Then add a column of icons for our mvam data
+
+# Then add a column of icons for the mvam data
 conditions = [
     (mvam['status'] == 'Active'),
     (mvam['status'] == 'Setup')
@@ -84,8 +85,11 @@ values = ["<span style='font-size:24px;color:#80bede'><i class='fas fa-wifi'></i
 
 mvam['icon'] = np.select(conditions, values, default=mvam['status'])
 
+
+# View
 mvam.info()
 df.info()
+
 
 # Export
 df.to_json(path_or_buf="data2.json", orient='values')

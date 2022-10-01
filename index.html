@@ -82,7 +82,7 @@
                             <option value="LAO">Laos</option>
                             <option value="MMR">Myanmar</option>
                             <option value="NPL">Nepal</option>
-                            <option value="FOK">Fiji</option>
+                            <option value="FJI">Pacific</option>
                             <option value="PAK">Pakistan</option>
                             <option value="PHL">Philippines</option>
                             <option value="LKA">Sri Lanka</option>
@@ -102,7 +102,7 @@
                             <option value="Dependency on Russia or Ukraine">Dependency on Russia or Ukraine
                             </option>
                             <option value="Cereal Import Dependency">Cereal Import Dependency</option>
-                            <option value="Fertilizer Consumption">Debt Distress</option>
+                            <option value="Fertilizer Consumption">Fertilizer Consumption</option>
                             <option value="GDP">GDP</option>
                         </select>
                     </div>
@@ -168,10 +168,12 @@
             countrySelector.addEventListener('change', function (e) {
                 const match = countryData.filter(countryArr => countryArr[0] === this.value);
                 console.log('You clicked a row containing the country of ' + this.value)
+                console.log('You clicked a match for the country of ' + match[1][0])
                 document.getElementById("narrativeTitle").innerHTML = match[1][1];
                 // document.getElementById("narrativeText").innerHTML = match[1][2];
                 displayNarrative(match[1][2]);
-                displayResearch(match[1][1], match[1][5], match[1][6], match[1][7], match[1][8], match[1][9], match[1][10], match[1][11], match[1][12], match[1][13])
+                displayResearch(match[1][1], match[1][5], match[1][6], match[1][7], match[1][8], match[1][9], match[1][10], match[1][11], match[1][12], match[1][13]);
+                displayChloroSingle(match[1][0])
                 // Each argument corresponds to: displayResearch(marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming)
 
                 map.flyTo({
@@ -186,8 +188,8 @@
             indicatorSelector.addEventListener('change', function (e) {
                 const match = countryData.filter(countryArr => countryArr[20] === this.value);
                 console.log('You clicked a row containing the indicator of ' + this.value)
-                console.log(match)
                 displayChloro(match);
+                displayChloroSingle(match);
             });
 
             // Load the map
@@ -211,6 +213,7 @@
                 displayChloro(defaultLayer)
             });
 
+
             let hoveredStateId = null;
 
             // FUNCTIONS
@@ -218,7 +221,7 @@
             function displayResearch(countryName, marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming) {
                 // marketAssessment, marketLink, fng, fngLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming
                 let primaryText;
-                if (primaryHighlight == "") {
+                if (primaryHighlight == null) {
                     primaryText = "";
                 } else {
                     primaryText = "<i class='fa-solid fa-magnifying-glass-chart' style='font-size:14px'></i><br>" +
@@ -227,7 +230,7 @@
                 };
 
                 let secondaryText;
-                if (secondaryHighlight == "") {
+                if (secondaryHighlight == null) {
                     secondaryText = "";
                 } else {
                     secondaryText = "<i class='fa-solid fa-newspaper' style='font-size:14px'></i><br>" +
@@ -245,7 +248,7 @@
                 };
 
                 let fngText;
-                if (fng == 0) {
+                if (fng == null) {
                     fngText = "";
                 } else {
                     fngText = "<i class='fa-solid fa-bowl-food' style='font-size:14px'></i><br>" +
@@ -254,7 +257,7 @@
                 };
 
                 let upcomingText;
-                if (upcoming == "") {
+                if (upcoming == null) {
                     upcomingText = "";
                 } else {
                     upcomingText = "<hr><br><i class='fas fa-step-forward' style='font-size:14px'></i><br>" +
@@ -310,14 +313,23 @@
                 document.getElementById("countrySelector").value = indicator;;
             }
 
-            // Create the map display function
+            // Create the map display function. Use the 'for' to add the value for each individual country.
             function displayChloro(filteredRows) {
 
                 for (let i = 0; i < filteredRows.length; i++) {
 
-                    map.removeLayer("countryFill" + [i]);
-                    map.removeLayer("countryBorder" + [i]);
-                    map.removeLayer("hoverFill" + [i]);
+                    // Remove the layer if it exists, so that each time it can refresh anew.
+                    if (map.getLayer("countryFill" + [i])) {
+                        map.removeLayer("countryFill" + [i]);
+                    }
+
+                    if (map.getLayer("countryBorder" + [i])) {
+                        map.removeLayer("countryBorder" + [i]);
+                    }
+
+                    if (map.getLayer("hoverFill" + [i])) {
+                        map.removeLayer("hoverFill" + [i]);
+                    }
 
 
                     let addColor;
@@ -441,10 +453,11 @@
 
                     // Event listeners for the map itself
                     map.on("click", "countryFill" + [i], () => {
-                        flyFunction(i)
-                        document.getElementById("narrativeTitle").innerHTML = filteredRows[i][1]
-                        displayNarrative(filteredRows[i][2], filteredRows[i][3], filteredRows[i][4])
-                        changeText(filteredRows[i][0])
+                        flyFunction(i);
+                        document.getElementById("narrativeTitle").innerHTML = filteredRows[i][1];
+                        displayNarrative(filteredRows[i][2], filteredRows[i][3], filteredRows[i][4]);
+                        changeText(filteredRows[i][0]);
+                        displayChloroSingle(filteredRows[i][0]);
                         displayResearch(filteredRows[i][1], filteredRows[i][5], filteredRows[i][6], filteredRows[i][7], filteredRows[i][8], filteredRows[i][9], filteredRows[i][10], filteredRows[i][11], filteredRows[i][12], filteredRows[i][13])
                     });
 
@@ -458,6 +471,8 @@
                         })
                     };
                 }
+
+
 
                 // Create legend
                 var filteredIndicator = filteredRows[1][20]
@@ -503,6 +518,59 @@
                     item.appendChild(value);
                     legend.appendChild(item);
                 });
+            }
+
+
+
+
+
+
+            function displayChloroSingle(filteredCountry) {
+
+
+                    // Remove the layer if it exists, so that each time it can refresh anew.
+
+                    if (map.getLayer("countryBorder")) {
+                        map.removeLayer("countryBorder");
+                    }
+
+
+                    // let filteredCountry = filteredRows[i][0]
+
+                    // // Fader
+                    // setTimeout(function () {
+                    //     map.setPaintProperty("countryFill", "fill-opacity", 0.7);
+                    // },
+                    //     0
+                    // );
+
+                    // country-fills
+                    // map.addLayer({
+                    //     "id": "countryFill",
+                    //     "type": "fill",
+                    //     "source": "cbs",
+                    //     "layout": {},
+                    //     "paint": {
+                    //         "fill-color": addColor,
+                    //         "fill-opacity": 1,
+                    //         "fill-opacity-transition": { duration: 1000 }
+                    //     },
+                    //     "filter": ["==", "adm0_a3", filteredCountry]
+                    // })
+
+                    // country borders
+                    map.addLayer({
+                        "id": "countryBorder",
+                        "type": "line",
+                        "source": "cbs",
+                        "layout": {},
+                        "paint": {
+                            "line-color": '#3b3b3b',
+                            "line-width": 2
+                        },
+                        "filter": ["==", "adm0_a3", filteredCountry]
+                    });
+               
             }
 
 
