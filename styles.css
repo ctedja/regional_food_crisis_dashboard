@@ -29,7 +29,7 @@ header {
 
 #subheader {
     font-size: 12px;
-    color: #bbbbbb;
+    color: #767676;
     padding-left: 60px;
     font-weight: 700;
     background-color: white;
@@ -45,7 +45,7 @@ header {
 
 /* Overwrite bootstrap's tabs a  bit */
 .mapTabButton {
-    color: #bbbbbb !important;
+    color: #767676 !important;
 }
 
 .mapTabButton.active {
@@ -55,7 +55,7 @@ header {
 
 
 .tableTabButton {
-    color: #bbbbbb !important;
+    color: #767676 !important;
 }
 
 .tableTabButton.active {
@@ -71,12 +71,12 @@ header {
     padding: 10px;
     margin-left: 20px;
     margin-bottom: 20px;
-    background-color: rgb(255, 255, 255, 0.8);
+    background-color: rgb(255, 255, 255, 0.85);
 }
 
 .indicatorName {
     font-size: 12px;
-    color: #767676;
+    color: #3b3b3b;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
 }
 
@@ -91,18 +91,16 @@ header {
 }
 
 #countrySelector {
-    font-size: 10px;
-    color: #767676;
+    font-size: 12px;
+    color: #3b3b3b;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    font-size: 10px;
 }
 
 #indicatorSelector {
     margin-top: 10px;
-    font-size: 10px;
-    color: #767676;
+    font-size: 12px;
+    color: #3b3b3b;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
-    font-size: 10px;
 }
 
 #narrativeBox {
@@ -110,15 +108,15 @@ header {
     overflow-y: scroll;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    top: 287px;
+    top: 288px;
     bottom: 20px;
     max-height: 100%;
     width: 23%;
     padding: 10px;
     padding-top: 0px;
     margin-left: 20px;
-    margin-bottom: 20px;
-    background-color: rgb(255, 255, 255, 0.8);
+    margin-bottom: 40px;
+    background-color: rgb(255, 255, 255, 0.85);
 }
 
 #narrativeTitle {
@@ -128,8 +126,8 @@ header {
 }
 
 #narrativeText {
-    font-size: 11px;
-    color: #767676;
+    font-size: 12px;
+    color: #3b3b3b;
 }
 
 #map {
@@ -161,7 +159,7 @@ header {
     margin-right: 20px;
     width: 15%;
     font-size: 10px;
-    color: #767676;
+    color: #3b3b3b;
     overflow: auto;
     border-radius: 20px;
     padding: 10px;
@@ -188,10 +186,10 @@ header {
     width: 15%;
     max-height: 100%;
     font-size: 10px;
-    color: #767676;
+    color: #3b3b3b;
     padding: 10px;
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     background-color: rgb(255, 255, 255, 0.8);
 }
 
@@ -380,14 +378,12 @@ li {
 
 
 /* TABLE */
-
 #tableTab {
     position: absolute;
     overflow: auto;
     height:100%;
     width:95%;
 }
-
 
 th {
     cursor: pointer;

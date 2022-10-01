@@ -11,6 +11,7 @@ pd.options.display.max_rows = None
 
 summaries = pd.read_excel('data_entry.xlsx', 'summaries')
 indicators = pd.read_excel('data_entry.xlsx', 'indicators')
+mvam = pd.read_excel('data_entry.xlsx', 'mvam')
 
 # Inspect
 summaries.describe()
@@ -27,8 +28,8 @@ df = summaries.join(indicators,
 df = df.drop(['ID', 'Country'], axis=1)
 df.info()
 
-colIds = list(df.columns[list(range(0, 18))])
-colVals = list(df.columns[list(range(18, 28))])
+colIds = list(df.columns[list(range(0, 20))])
+colVals = list(df.columns[list(range(20, 30))])
 
 
 # Pivot Longer
@@ -55,9 +56,9 @@ df['valueInt'] = np.select(conditions, values, default=df['value'])
 df['valueInt'] = df['valueInt'].fillna(0)
 df['valueInt'] = pd.to_numeric(df['valueInt'])
 
-df.info()
-
-subCondition = ((df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Food Inflation (%)') | (df['indicator'] == 'Currency Exchange (YoY, %)'))
+# Convert additional indicator valueInt column to discrete categorical variables for color scheme
+subCondition = ((df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Inflation (%)') | (
+    df['indicator'] == 'Food Inflation (%)') | (df['indicator'] == 'Currency Exchange (YoY, %)'))
 
 conditions = [
     (df['valueInt'] > 30) & (df['valueInt'] < 100) & subCondition,
@@ -71,16 +72,26 @@ values = [1, 2, 3, 3, None]
 
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
+
+# Then add a column of icons for our mvam data
+conditions = [
+    (mvam['status'] == 'Active'),
+    (mvam['status'] == 'Setup')
+]
+
+values = ["<span style='font-size:24px;color:#80bede'><i class='fas fa-wifi'></i>",
+          "<span style='font-size:24px;color:#bbbbbb'><i class='fas fa-expand'></i>"]
+
+mvam['icon'] = np.select(conditions, values, default=mvam['status'])
+
+mvam.info()
 df.info()
-df.head()
 
-
-
-df.to_json(path_or_buf="dataFull.json", orient='values')
+# Export
+df.to_json(path_or_buf="data2.json", orient='values')
 
 indicators.to_json(path_or_buf="dataIndicators.json", orient='values')
 
-df.to_csv("output_filename.csv", index=False, encoding='utf8')
-# jsonOutput = dfPivoted.to_json(orient='values')
-# parsed = json.loads(jsonOutput)
-# json.dumps(parsed, indent=4)
+mvam.to_json(path_or_buf="mvam/data.json", orient='values')
+
+df.to_csv("output2.csv", index=False, encoding='utf8')
