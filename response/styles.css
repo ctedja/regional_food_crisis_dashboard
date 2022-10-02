@@ -5,7 +5,7 @@ body {
     -webkit-font-smoothing: antialiased;
     min-width: 864px;
     height: 550px;
-    border: solid 0.5px #f1f1f1;
+    border: solid 1px #767676;
 }
 
 .filters {
