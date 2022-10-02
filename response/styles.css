@@ -5,7 +5,6 @@ body {
     -webkit-font-smoothing: antialiased;
     min-width: 864px;
     height: 550px;
-    border: solid 1px #767676;
 }
 
 .filters {
@@ -101,9 +100,9 @@ li:hover {
 }
 
 li.active {
-    border: solid 0.5px white;
-    transition: 0.3s ease border;
-    color:white !important;
+    background-color:white;
+    transition: 0.3s ease background-color;
+    color:#007dbc !important;
 }
 
 
