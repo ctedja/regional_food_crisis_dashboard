@@ -124,11 +124,10 @@
                     let [ID, Country, Status, Regularity, RBBLead, LastMonth, Link, NextMonth, Narrative, Icon] = row;
                     return `<tr>
                 <td>
-                <a href="${Link}" target='_blank'>
-                    ${Icon}<br>
-                    <span class="tableStatus">${Status}</span></td></a>
+                ${Icon}<br>
+                    <span class="tableStatus">${Status}</span></td>
                 <td>
-                    <span class="tableTitle"><a href="${Link}" target='_blank'>${Country}</a><br></span>
+                    <span class="tableTitle">${Country}<br></span>
                     <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Next Report:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
                     <span class="tableRegularity">${Regularity}&nbsp;&nbsp;</span>
                 </td>
