@@ -50,28 +50,27 @@
 
         </div>
         <ul class="countryList">
-            <li class="links" id="AFGlink">&nbsp;AFG&nbsp;</li>
-            <li class="links" id="BGDlink">&nbsp;Bangladesh&nbsp;</li>
-            <li class="links" id="BTNlink">&nbsp;Bhutan&nbsp;</li>
-            <li class="links" id="KHMlink">&nbsp;Cambodia&nbsp;</li>
-            <li class="links" id="PRKlink">&nbsp;DPR Korea&nbsp;</li>
-            <li class="links" id="INDlink">&nbsp;India&nbsp;</li>
-            <li class="links" id="IDNlink">&nbsp;Indonesia&nbsp;</li>
-            <li class="links" id="KGZlink">&nbsp;Kyrgyz Republic&nbsp;</li>
-            <li class="links" id="LAOlink">&nbsp;LAO&nbsp;</li>
-            <li class="links" id="MMRlink">&nbsp;Myanmar&nbsp;</li>
-            <li class="links" id="FJIlink">&nbsp;Pacific&nbsp;</li>
-            <li class="links" id="PAKlink">&nbsp;Pakistan&nbsp;</li>
-            <li class="links" id="PHLlink">&nbsp;Philippines&nbsp;</li>
-            <li class="links" id="LKAlink">&nbsp;Sri Lanka&nbsp;</li>
-            <li class="links" id="TJKlink">&nbsp;Tajikistan&nbsp;</li>
-            <li class="links" id="TLSlink">&nbsp;Timor-Leste&nbsp;</li>
+            <li class="AFG links" id="AFGlink">&nbsp;AFG&nbsp;</li>
+            <li class="BGD links" id="BGDlink">&nbsp;BGD&nbsp;</li>
+            <li class="BTN links" id="BTNlink">&nbsp;BTN&nbsp;</li>
+            <li class="KHM links" id="KHMlink">&nbsp;KHM&nbsp;</li>
+            <li class="PRK links" id="PRKlink">&nbsp;PRK&nbsp;</li>
+            <li class="IND links" id="PRKlink">&nbsp;IND&nbsp;</li>
+            <li class="IDN links" id="IDNlink">&nbsp;IDN&nbsp;</li>
+            <li class="KGZ links" id="KGZlink">&nbsp;KGZ&nbsp;</li>
+            <li class="LAO links" id="LAOlink">&nbsp;LAO&nbsp;</li>
+            <li class="MMR links" id="MMRlink">&nbsp;MMR&nbsp;</li>
+            <li class="FJI links" id="PAClink">&nbsp;PAC&nbsp;</li>
+            <li class="PAK links" id="PAKlink">&nbsp;PAK&nbsp;</li>
+            <li class="PHL links" id="PHLlink">&nbsp;PHL&nbsp;</li>
+            <li class="LKA links" id="LKAlink">&nbsp;LKA&nbsp;</li>
+            <li class="TJK links" id="TJKlink">&nbsp;TJK&nbsp;</li>
+            <li class="TLS links" id="TLSlink">&nbsp;TLS&nbsp;</li>
         </ul>
     </div>
 
 
-    <div class="narrative">
-        <p id="narrativeText"></p>
+    <div id="narrative">
     </div>
 
 
@@ -86,18 +85,106 @@
             const summariesData = await response.json();
 
             function buildNarrative(data) {
-                var narrative = document.getElementById('narrativeText')
+                var narrative = document.getElementById('narrative')
                 narrative.innerHTML = data.map(function (row) {
                     let [id, countryName, fsnNarrative, wfpNarrative, stakeholderNarrative, marketAssessment, marketLink, fng, fngLink, mvamFoodSecurity, mvamFoodSecurityLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming, overallVulnerability, centerLng, centerLat, zoom
                     ] = row;
+
+                    let mvamText;
+                    if (mvamFoodSecurity == null) {
+                        mvamText = "";
+                    } else {
+                        mvamText = "<i class='fas fa-wifi' style='font-size:12px'></i>&nbsp;&nbsp;" +
+                            "<span style='font-size:13px'>mVAM Food Survey (" + mvamFoodSecurity + ")</span><br>" +
+                            "LATEST  |  <a href='" + mvamFoodSecurityLink + "' target='_blank'>LINK</a><br><br>"
+                    };
+
+                    let primaryText;
+                    if (primaryHighlight == null) {
+                        primaryText = "";
+                    } else {
+                        primaryText = "<i class='fa-solid fa-magnifying-glass-chart' style='font-size:12px'></i>&nbsp;&nbsp;" +
+                            "<span style='font-size:13px'>" + primaryHighlight + "</span><br>" +
+                            "LATEST  |  <a href='" + primaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
+                    };
+
+                    let secondaryText;
+                    if (secondaryHighlight == null) {
+                        secondaryText = "";
+                    } else {
+                        secondaryText = "<i class='fa-solid fa-newspaper' style='font-size:12px'></i>&nbsp;&nbsp;" +
+                            "<span style='font-size:13px'>" + secondaryHighlight + "</span><br>" +
+                            "LATEST  |  <a href='" + secondaryHighlightLink + "' target='_blank'>LINK</a><br><br>"
+                    };
+
+                    let marketText;
+                    if (marketAssessment == null) {
+                        marketText = "";
+                    } else {
+                        marketText = "<i class='fa-solid fa-shop' style='font-size:12px'></i>&nbsp;&nbsp;" +
+                            "<span style='font-size:13px'>MARKET MONITOR</span><br>" +
+                            marketAssessment + "  |  <a href='" + marketLink + "' target='_blank'>LINK</a><br><br>"
+                    };
+
+                    let fngText;
+                    if (fng == null) {
+                        fngText = "";
+                    } else {
+                        fngText = "<i class='fa-solid fa-bowl-food' style='font-size:12px'></i>&nbsp;&nbsp;" +
+                            "<span style='font-size:13px'>FILL THE NUTRIENT GAP</span><br>" +
+                            fng + "  |  <a href='" + fngLink + "' target='_blank'>LINK</a><br><br>"
+                    };
+
+
+
                     return `
                     <section id="${id}" class="section">
-                    <span class="narrativeTitle">${countryName}<br></span>
-                    <span class="narrativeText">${wfpNarrative}<br><br><br></span><hr><br>
+                        <table>
+                            <tr>
+                                <td class="col1">
+                                    <span class="narrativeTitle">${countryName}<br></span>
+                                    <span class="narrativeText">${wfpNarrative}<br><br></span>
+                                </td>
+                                <td>
+                                    <span class="narrativeResearch"><br>${mvamText}${primaryText}${marketText}${fngText}${secondaryText}
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
                     </section>`;
                 }).join('');
-
             }
+
+
+            buildNarrative(summariesData)
+            var links = document.getElementsByClassName('links')
+            let clickedItem = ''
+
+            const sections = document.querySelectorAll("section");
+            const navLi = document.querySelectorAll("ul li");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach((section) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+
+                    console.log("this is section top " + sectionTop)
+                    console.log("this is section height " + sectionHeight)
+
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute("id");
+                        console.log("this is current " + current)
+                    }
+                });
+
+                navLi.forEach((li) => {
+                    li.classList.remove("active");
+                    if (li.classList.contains(current)) {
+                        li.classList.add("active");
+                    }
+                });
+            });
 
             function goToByScroll(id) {
                 // Remove "link" from the ID
@@ -106,54 +193,18 @@
                 $('html, body').animate({
                     scrollTop: $("#" + id).offset().top - 130
                 },
-                    200, 'swing');
+                    350, 'swing');
             }
 
-            // $(".countryList > ul > li > a").click(function (e) {
-            //     // Prevent a page reload when a link is pressed
-            //     e.preventDefault();
-            //     // Call the scroll function
-            //     goToByScroll($(this).attr("id"));
-            // });
-
-            var links = document.getElementsByClassName('links')
-            let clickedItem = ''
-
-            const sections = document.querySelectorAll("section");
-
-
-            // Create an array for these items, then make it so that we're listening for a click from each of these country names, and returning the function below
             Array.from(links).forEach(function (link) {
                 $(link).click(function (e) {
+                    // Prevent a page reload when a link is pressed
                     e.preventDefault();
                     // Call the scroll function
                     goToByScroll(link.id);
                 })
-            })
-
-
-            window.addEventListener("scroll", () => {
-                let current = "";
-                sections.forEach((section) => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                        current = section.getAttribute("id");
-                    }
-                });
-
-                console.log("this is current " + current)
-
-                Array.from(links).forEach((li) => {
-                    li.classList.remove("active");
-                    if (li.classList.contains(current)) {
-                        li.classList.add("active");
-                    }
-                });
             });
 
-
-            buildNarrative(summariesData)
 
         }
 
