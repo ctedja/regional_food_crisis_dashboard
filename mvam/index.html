@@ -45,9 +45,7 @@
 
     <div class="filters">
         <div class="title">
-            <span><img src="https://raw.githubusercontent.com/ctedja/assets/main/logo_wfp_007dbc.png"
-                    style="height:22px;" />
-                &nbsp;mVAM Food Security Surveys
+            <span>mVAM Food Security Surveys
                 <br><br>
             </span>
         </div>
@@ -63,7 +61,7 @@
             <label class="btn btn-outline-primary btn-sm" id="selectActive" for="btnradio1">Active</label>
 
             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="selectSetup" for="btnradio2">Setup</label>
+            <label class="btn btn-outline-primary btn-sm" id="selectUpcoming" for="btnradio2">Upcoming</label>
         </div>
 
 
@@ -111,7 +109,7 @@
     <script>
         // Pull in the Data Tables via jQuery
 
-        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/mvam/data.json';
+        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/data/mvam.json';
 
         async function populate() {
             const response = await fetch(api_url);
@@ -212,13 +210,13 @@
 
                 // Newbie Selector
                 $("#selectAny").on('click', function () {
-                    oTable.columns(2).search('Active|Setup', true, false).draw();
+                    oTable.columns(2).search('Active|Upcoming', true, false).draw();
                 });
                 $("#selectActive").on('click', function () {
                     oTable.columns(2).search('Active', true, false).draw();
                 });
-                $("#selectSetup").on('click', function () {
-                    oTable.columns(2).search('Setup', true, false).draw();
+                $("#selectUpcoming").on('click', function () {
+                    oTable.columns(2).search('Upcoming', true, false).draw();
                     console.log(oTable.columns(2))
                 });
                 // Function Selector
