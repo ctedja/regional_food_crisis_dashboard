@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>mVAM Food Security Tracker</title>
+    <title>WFP Response</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -45,197 +45,115 @@
 
     <div class="filters">
         <div class="title">
-            <span><img src="https://raw.githubusercontent.com/ctedja/assets/main/logo_wfp_007dbc.png"
-                    style="height:22px;" />
-                &nbsp;mVAM Food Security Surveys
-                <br><br>
+            <span>How is WFP responding to the Global Food Crisis?<br><br>
             </span>
+
         </div>
-
-
-
-        &nbsp; <span style="font-size:12px;color:#007dbc;font-weight:600;">Status:</span>&nbsp;&nbsp;
-        <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
-            <label class="btn btn-outline-primary btn-sm" id="selectAny" for="btnradio0">Any</label>
-
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="selectActive" for="btnradio1">Active</label>
-
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="selectSetup" for="btnradio2">Setup</label>
-        </div>
-
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <span style="font-size:12px;color:#007dbc;font-weight:600;">Sort:</span>&nbsp;&nbsp;
-        <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-            <label class="btn btn-outline-primary btn-sm" id="sortStatus" for="btnradio3">Status</label>
-
-            <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" id="sortDate" for="btnradio4">Next Report Date</label>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>&nbsp;
-    </div>
-
-
-    <div class="main">
-        <table class="table mydatatable" id="mydatatable">
-            <thead>
-                <tr>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody id="myTable">
-            </tbody>
-        </table>
+        <ul class="countryList">
+            <li class="links" id="AFGlink">&nbsp;AFG&nbsp;</li>
+            <li class="links" id="BGDlink">&nbsp;Bangladesh&nbsp;</li>
+            <li class="links" id="BTNlink">&nbsp;Bhutan&nbsp;</li>
+            <li class="links" id="KHMlink">&nbsp;Cambodia&nbsp;</li>
+            <li class="links" id="PRKlink">&nbsp;DPR Korea&nbsp;</li>
+            <li class="links" id="INDlink">&nbsp;India&nbsp;</li>
+            <li class="links" id="IDNlink">&nbsp;Indonesia&nbsp;</li>
+            <li class="links" id="KGZlink">&nbsp;Kyrgyz Republic&nbsp;</li>
+            <li class="links" id="LAOlink">&nbsp;LAO&nbsp;</li>
+            <li class="links" id="MMRlink">&nbsp;Myanmar&nbsp;</li>
+            <li class="links" id="FJIlink">&nbsp;Pacific&nbsp;</li>
+            <li class="links" id="PAKlink">&nbsp;Pakistan&nbsp;</li>
+            <li class="links" id="PHLlink">&nbsp;Philippines&nbsp;</li>
+            <li class="links" id="LKAlink">&nbsp;Sri Lanka&nbsp;</li>
+            <li class="links" id="TJKlink">&nbsp;Tajikistan&nbsp;</li>
+            <li class="links" id="TLSlink">&nbsp;Timor-Leste&nbsp;</li>
+        </ul>
     </div>
 
 
     <div class="narrative">
-        <p id="narrativeTitle">Select Country</p>
-        <p id="narrativeLink"></p>
-        <p id="narrativeText">WFP has been rolling out mobile vulnerability analysis and mapping (mVAM) remote surveys across the region to form a better understanding of household food security.</p>
-        <p id="narrativeUpcoming"></p>
+        <p id="narrativeText"></p>
     </div>
+
+
 
     <script>
         // Pull in the Data Tables via jQuery
 
-        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/mvam/data.json';
+        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/data/summaries.json';
 
         async function populate() {
             const response = await fetch(api_url);
-            const mvamData = await response.json();
+            const summariesData = await response.json();
 
-            console.log(mvamData)
-
-
-            function buildTable(data) {
-                var table = document.getElementById('myTable')
-                table.innerHTML = data.map(function (row) {
-                    let [ID, Country, Status, Regularity, RBBLead, LastMonth, Link, NextMonth, Narrative, Icon] = row;
-                    return `<tr>
-                <td>
-                <a href="${Link}" target='_blank'>
-                    ${Icon}<br>
-                    <span class="tableStatus">${Status}</span></td></a>
-                <td>
-                    <span class="tableTitle"><a href="${Link}" target='_blank'>${Country}</a><br></span>
-                    <span class="tableUpcoming">&nbsp;&nbsp;<i class="far fa-calendar"></i>&nbsp;&nbsp;Next Report:&nbsp;${NextMonth}&nbsp;&nbsp;</span>
-                    <span class="tableRegularity">${Regularity}&nbsp;&nbsp;</span>
-                </td>
-                <td>
-                    ${Status}
-                </td>
-                <td>
-                    ${Country}
-                </td>
-                <td>
-                    ${Narrative}
-                </td>
-                <td>
-                    ${LastMonth}
-                </td>
-                <td>
-                    ${Link}
-                </td>
-                <td>
-                    ${NextMonth}
-                </td>
-            </tr>`;
+            function buildNarrative(data) {
+                var narrative = document.getElementById('narrativeText')
+                narrative.innerHTML = data.map(function (row) {
+                    let [id, countryName, fsnNarrative, wfpNarrative, stakeholderNarrative, marketAssessment, marketLink, fng, fngLink, mvamFoodSecurity, mvamFoodSecurityLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming, overallVulnerability, centerLng, centerLat, zoom
+                    ] = row;
+                    return `
+                    <section id="${id}" class="section">
+                    <span class="narrativeTitle">${countryName}<br></span>
+                    <span class="narrativeText">${wfpNarrative}<br><br><br></span><hr><br>
+                    </section>`;
                 }).join('');
 
             }
 
+            function goToByScroll(id) {
+                // Remove "link" from the ID
+                id = id.replace("link", "");
+                // Scroll
+                $('html, body').animate({
+                    scrollTop: $("#" + id).offset().top - 130
+                },
+                    200, 'swing');
+            }
 
-            $(document).ready(function () {
-                var oTable = $('.mydatatable').DataTable({
-                    "pageLength": 50,
-                    "search": { regex: true },
-                    "dom": "<<t>>",
-                    // We need those columns to be searchable, but not visible
-                    "columnDefs": [{
-                        targets: [2, 3, 4, 5, 6, 7],
-                        visible: false,
-                        searchable: true,
-                    },
-                    {
-                        targets: 0,
-                        width: "6%",
-                    }
-                    ]
-                });
+            // $(".countryList > ul > li > a").click(function (e) {
+            //     // Prevent a page reload when a link is pressed
+            //     e.preventDefault();
+            //     // Call the scroll function
+            //     goToByScroll($(this).attr("id"));
+            // });
 
-                // Create actions for the table
-                oTable.on('click', 'tr', function () {
+            var links = document.getElementsByClassName('links')
+            let clickedItem = ''
 
-                    var data = oTable.row(this).data();
-
-                    let narrativeTitle;
-                    if (data[6] == "null") {
-                        narrativeTitle = "";
-                    } else {
-                        narrativeTitle = "<a href='" + data[6] + "'target='_blank'><i class='fas fa-external-link-alt'></i>&nbsp;&nbsp;Latest mVAM Household Food Security Survey (" + data[5] + ")</a>";
-                    };
-
-                    $("#narrativeTitle").html(data[3]);
-                    $("#narrativeLink").html(narrativeTitle)
-                    $("#narrativeText").html(data[4]);
-                    $("#narrativeUpcoming").html("The next update is planned to be ready in " + data[7]);
-                    console.log('You clicked on ' + data[7]);
-
-                    $("#narrativeTitle").addClass("elementToFadeIn");
-                    setTimeout(function () { $("#narrativeTitle").removeClass("elementToFadeIn"); }, 1000);
-                    $("#narrativeText").addClass("elementToFadeIn");
-                    setTimeout(function () { $("#narrativeText").removeClass("elementToFadeIn"); }, 1000);
-                    $("#narrativeLink").addClass("elementToFadeIn");
-                    setTimeout(function () { $("#narrativeLink").removeClass("elementToFadeIn"); }, 1000);
-                    $("#narrativeUpcoming").addClass("elementToFadeIn");
-                    setTimeout(function () { $("#narrativeUpcoming").removeClass("elementToFadeIn"); }, 1000);
-                });
+            const sections = document.querySelectorAll("section");
 
 
-                // oTable.on('hover', 'tr', function () {
-                //     fi$(this).addClass("tableHover");
-
-                // });
-
-                // Newbie Selector
-                $("#selectAny").on('click', function () {
-                    oTable.columns(2).search('Active|Setup', true, false).draw();
-                });
-                $("#selectActive").on('click', function () {
-                    oTable.columns(2).search('Active', true, false).draw();
-                });
-                $("#selectSetup").on('click', function () {
-                    oTable.columns(2).search('Setup', true, false).draw();
-                    console.log(oTable.columns(2))
-                });
-                // Function Selector
-                $("#sortStatus").on('click', function () {
-                    oTable.order(2, 'asc').draw();
-                });
-                $("#sortDate").on('click', function () {
-                    oTable.order(7).draw();
-                });
-                // var testerDate = $('.tester')
-                // $.each(evidenceData, function (index, item) {
-                //     testerDate.append('Date : ' + item['Date']);
-                // });
-
+            // Create an array for these items, then make it so that we're listening for a click from each of these country names, and returning the function below
+            Array.from(links).forEach(function (link) {
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    // Call the scroll function
+                    goToByScroll(link.id);
+                })
             })
 
-            buildTable(mvamData)
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach((section) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                console.log("this is current " + current)
+
+                Array.from(links).forEach((li) => {
+                    li.classList.remove("active");
+                    if (li.classList.contains(current)) {
+                        li.classList.add("active");
+                    }
+                });
+            });
+
+
+            buildNarrative(summariesData)
 
         }
 
