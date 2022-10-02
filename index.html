@@ -99,11 +99,11 @@
                             <option value="Inflation (%)">Inflation (%)</option>
                             <option value="Food Inflation (%)">Food Inflation (%)</option>
                             <option value="Currency Exchange (YoY, %)">Currency Exchange (YoY)</option>
-                            <option value="Dependency on Russia or Ukraine">Dependency on Russia or Ukraine
+                            <!-- <option value="Dependency on Russia or Ukraine">Dependency on Russia or Ukraine
                             </option>
                             <option value="Cereal Import Dependency">Cereal Import Dependency</option>
                             <option value="Fertilizer Consumption">Fertilizer Consumption</option>
-                            <option value="GDP">GDP</option>
+                            <option value="GDP">GDP</option> -->
                         </select>
                     </div>
                 </div>
@@ -388,14 +388,21 @@
                     });
 
                     map.on('mouseenter', 'countryFill' + [i], (e) => {
-
-                        console.log('A mouseenter event occurred on ' + [i]);
+                        // console.log('A mouseenter event occurred on ' + [i]);
                         map.getCanvas().style.cursor = 'pointer';
 
+                        let popupValueText;
+                        if (filteredRows[i][21] == null) {
+                            popupValueText = "Value not available"
+                        } else {
+                            popupValueText = filteredRows[i][21]
+                        }
+
+
                         popup.setLngLat({ lng: filteredRows[i][17], lat: filteredRows[i][18] })
-                            .setHTML('<h3>' + '<span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span>" +
-                                '</h3><h4><i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;' +
-                                filteredRows[i][20] + ': ' + filteredRows[i][21] + '</h4>')
+                            .setHTML('<h3><span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span></h3><br><h4>"+
+                                '<i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;'
+                                + popupValueText + '</h4><h5>' + filteredRows[i][20] + '' + '</h5>')
                             .addTo(map);
                     });
 
@@ -528,49 +535,49 @@
             function displayChloroSingle(filteredCountry) {
 
 
-                    // Remove the layer if it exists, so that each time it can refresh anew.
+                // Remove the layer if it exists, so that each time it can refresh anew.
 
-                    if (map.getLayer("countryBorder")) {
-                        map.removeLayer("countryBorder");
-                    }
+                if (map.getLayer("countryBorder")) {
+                    map.removeLayer("countryBorder");
+                }
 
 
-                    // let filteredCountry = filteredRows[i][0]
+                // let filteredCountry = filteredRows[i][0]
 
-                    // // Fader
-                    // setTimeout(function () {
-                    //     map.setPaintProperty("countryFill", "fill-opacity", 0.7);
-                    // },
-                    //     0
-                    // );
+                // // Fader
+                // setTimeout(function () {
+                //     map.setPaintProperty("countryFill", "fill-opacity", 0.7);
+                // },
+                //     0
+                // );
 
-                    // country-fills
-                    // map.addLayer({
-                    //     "id": "countryFill",
-                    //     "type": "fill",
-                    //     "source": "cbs",
-                    //     "layout": {},
-                    //     "paint": {
-                    //         "fill-color": addColor,
-                    //         "fill-opacity": 1,
-                    //         "fill-opacity-transition": { duration: 1000 }
-                    //     },
-                    //     "filter": ["==", "adm0_a3", filteredCountry]
-                    // })
+                // country-fills
+                // map.addLayer({
+                //     "id": "countryFill",
+                //     "type": "fill",
+                //     "source": "cbs",
+                //     "layout": {},
+                //     "paint": {
+                //         "fill-color": addColor,
+                //         "fill-opacity": 1,
+                //         "fill-opacity-transition": { duration: 1000 }
+                //     },
+                //     "filter": ["==", "adm0_a3", filteredCountry]
+                // })
 
-                    // country borders
-                    map.addLayer({
-                        "id": "countryBorder",
-                        "type": "line",
-                        "source": "cbs",
-                        "layout": {},
-                        "paint": {
-                            "line-color": '#3b3b3b',
-                            "line-width": 2
-                        },
-                        "filter": ["==", "adm0_a3", filteredCountry]
-                    });
-               
+                // country borders
+                map.addLayer({
+                    "id": "countryBorder",
+                    "type": "line",
+                    "source": "cbs",
+                    "layout": {},
+                    "paint": {
+                        "line-color": '#3b3b3b',
+                        "line-width": 2
+                    },
+                    "filter": ["==", "adm0_a3", filteredCountry]
+                });
+
             }
 
 
@@ -605,7 +612,7 @@
 
             $(document).ready(function () {
                 $('#mydatatable').DataTable({
-                    order: [[0, 'desc']],
+                    order: [[0, 'asc']],
                     stripeClasses: [],
                     // scrollY: '600px',
                     // scrollCollapse: true,
