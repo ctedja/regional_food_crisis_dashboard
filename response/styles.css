@@ -112,7 +112,10 @@ li {
 
 li:hover {
     font-weight: 700;
-    border: solid 0.5px #58adb3;
+    background-color: #007dbc !important;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 li.active {
