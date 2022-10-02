@@ -108,6 +108,7 @@ h1 {
 li {
     display: inline-block;
     cursor: pointer;
+    
 }
 
 li:hover {
@@ -115,6 +116,7 @@ li:hover {
     background-color: #007dbc !important;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    color:white;
     border-radius: 5px;
 }
 
@@ -178,7 +180,6 @@ table td{
     padding-left:20px;
     padding-top:20px;
     padding-bottom:20px;
-    border-right: solid 0.5px #e4e4e4;
 }
 
 
