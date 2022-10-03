@@ -108,8 +108,17 @@
                     </div>
                 </div>
                 <div id="narrativeBox">
-                    <div id="narrativeTitle"></div>
-                    <div id="narrativeText"></div>
+                    <div id="narrativeTitle">Select Country</div>
+                    <div id="narrativeText">The global food crisis is impacting each individual country in unique
+                        ways.<br><br>
+                        There are four countries of highest concern (Afghanistan, Myanmar, Pakistan and Sri Lanka) and
+                        four
+                        countries marked as countries for close monitoring (Bangladesh, Laos, Kyrgyz Republic,
+                        Tajikistan).
+                        <br><br>
+                        WFP is continuing to monitor the situation and respond accordingly. Select a country or use the
+                        filter to learn more.
+                    </div>
                 </div>
                 <div id="map" class="map"></div>
                 <div id="legend"></div>
@@ -119,31 +128,70 @@
 
             <!-- Table Tab -->
             <div class="tab-pane fade" id="tableTab">
-                <div id="tableWrapper">
-                    <table class="display" id="mydatatable">
+
+
+                <span style="font-size:16px;color:#007dbc;font-weight:400;">&nbsp;&nbsp;Sort: </span>&nbsp;&nbsp;
+                <div class="btn-group" data-toggle="buttons" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary btn-sm" id="sortVulnerability"
+                        for="btnradio0">Vulnerability</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" id="sortFoodSecurity" for="btnradio1">Underlying Food
+                        Security</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" id="sortInflation" for="btnradio2">Inflation</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" id="sortFoodInflation" for="btnradio3">Food
+                        Inflation</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                    <label class="btn btn-outline-primary btn-sm" id="sortCurrency" for="btnradio4">Currency</label>
+
+
+                </div>
+                <br><br>
+
+                <div id="tableWrapper" style="width:100%">
+                    <table class="display" style="width:100%" id="mydatatable">
                         <thead>
                             <tr>
                                 <th>Country</th>
                                 <th>Overall Vulnerability</th>
                                 <th>Underlying Food Insecurity</th>
+                                <th>Inflation (%)</th>
+                                <th>Food Inflation (%)</th>
+                                <th>Currency Exchange (%)</th>
                                 <th>Russia/Ukraine Dependency</th>
                                 <th>Cereal Import Dependency (%)</th>
                                 <th>Fertilizer Consumption</th>
                                 <th>Debt Distress</th>
                                 <th>GDP</th>
-                                <th>Inflation (%)</th>
-                                <th>Food Inflation (%)</th>
-                                <th>Currency Exchange (%)</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
                         </tbody>
                     </table>
                 </div>
+                <div><span style="text-align:right;font-size:12px;color:#767676;">Data are the latest available (as of
+                        early
+                        October), but months may not be consistent. Learn more <a
+                            href="https://docs.wfp.org/api/documents/WFP-0000142386/download/"
+                            target="_blank">here</a>.</span>
+                </div>
             </div>
-
         </div>
     </div>
+
+
+
+
+
+
+
+
 
     <script>
         // Data
@@ -227,8 +275,8 @@
                     mvamText = "<i class='fas fa-wifi' style='font-size:14px'></i><br>" +
                         "<span style='font-weight:700'>mVAM Food Survey (" + mvamFoodSecurity + ")</span><br>" +
                         "LATEST  |  <a href='" + mvamFoodSecurityLink + "' target='_blank'>LINK</a><br><br>"
-                };                
-                
+                };
+
                 let primaryText;
                 if (primaryHighlight == null) {
                     primaryText = "";
@@ -277,7 +325,7 @@
                 document.getElementById("research").innerHTML =
                     "<span style='font-size:12px;color:#007dbc;font-weight:700'>Evidence: " + countryName + "</span>" + "<br>" + "<br>" +
                     // primaryText + secondaryText + 
-                    mvamText +primaryText + marketText + fngText + secondaryText + upcomingText
+                    mvamText + primaryText + marketText + fngText + secondaryText + upcomingText
                 //  + fngText + upcomingText
             }
 
@@ -409,7 +457,7 @@
 
 
                         popup.setLngLat({ lng: filteredRows[i][17], lat: filteredRows[i][18] })
-                            .setHTML('<h3><span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span></h3><br><h4>"+
+                            .setHTML('<h3><span style="color:' + addColor + '";>' + filteredRows[i][1] + "</span></h3><br><h4>" +
                                 '<i class="fas fa-circle" style="color:' + addColor + '";></i>&nbsp;&nbsp;'
                                 + popupValueText + '</h4><h5>' + filteredRows[i][20] + '' + '</h5>')
                             .addTo(map);
@@ -553,27 +601,6 @@
 
                 // let filteredCountry = filteredRows[i][0]
 
-                // // Fader
-                // setTimeout(function () {
-                //     map.setPaintProperty("countryFill", "fill-opacity", 0.7);
-                // },
-                //     0
-                // );
-
-                // country-fills
-                // map.addLayer({
-                //     "id": "countryFill",
-                //     "type": "fill",
-                //     "source": "cbs",
-                //     "layout": {},
-                //     "paint": {
-                //         "fill-color": addColor,
-                //         "fill-opacity": 1,
-                //         "fill-opacity-transition": { duration: 1000 }
-                //     },
-                //     "filter": ["==", "adm0_a3", filteredCountry]
-                // })
-
                 // country borders
                 map.addLayer({
                     "id": "countryBorder",
@@ -595,57 +622,288 @@
             function buildTable(data) {
                 var table = document.getElementById('myTable')
                 table.innerHTML = data.map(function (row) {
-                    let [id, country, inflation, foodInflation, currencyExchange, russiaUkraineDependency, cerealImportDependency, fertilizerConsumption, debtDistress, gdp, underlyingFoodInsecurity, overallVulnerability] = row;
+                    let [id, country, inflation, foodInflation, currencyExchange, russiaUkraineDependency, cerealImportDependency,
+                        fertilizerConsumption, debtDistress, gdp, underlyingFoodInsecurity, overallVulnerability,
+                        inflationHidden, foodInflationHidden, currencyExchangeHidden] = row;
                     return `<tr>
                 <td>${country}</td>
                 <td>${overallVulnerability}</td>
                 <td>${underlyingFoodInsecurity}</td>
+                <td>${inflation}</td>
+                <td>${foodInflation}</td>
+                <td>${currencyExchange}</td>
                 <td>${russiaUkraineDependency}</td>
                 <td>${cerealImportDependency}</td>
                 <td>${fertilizerConsumption}</td>
                 <td>${debtDistress}</td>
                 <td>${gdp}</td>
-                <td>${inflation}</td>
-                <td>${foodInflation}</td>
-                <td>${currencyExchange}</td>
+                <td>${inflationHidden}</td>
+                <td>${foodInflationHidden}</td>
+                <td>${currencyExchangeHidden}</td>
                 </tr>`;
                 }).join('');
             }
 
             buildTable(indicatorData)
 
-            $("#mydatatable td").each(function () {
-                if (this.textContent === "null")
-                    this.textContent = "-"
-            })
 
             $(document).ready(function () {
-                $('#mydatatable').DataTable({
+                var oTable = $('#mydatatable').DataTable({
+                    rowCallback: function (row, data, index) {
+
+                        function removeNull(columnNumber) {
+                            if (data[columnNumber] == 'null') {
+                                $(row).find('td:eq(' + columnNumber + ')').text('Unavailable')
+                                $(row).find('td:eq(' + columnNumber + ')').css('color', '#bbbbbb');
+                            }
+                        }
+                        removeNull(2)
+                        removeNull(3)
+                        removeNull(4)
+                        removeNull(5)
+                        removeNull(6)
+                        removeNull(7)
+                        removeNull(8)
+                        removeNull(9)
+                        removeNull(10)
+
+                        $(row).find('td:eq(1)').css('background-color', '#acd6d9');
+                        if (data[1] == "Concern") {
+                            $(row).find('td:eq(1)').css('background-color', '#2c575a');
+                            $(row).find('td:eq(1)').css('color', 'white');
+                            $(row).find('td:eq(1)').css('font-weight', '700');
+                        }
+                        if (data[1] == "Monitor") {
+                            $(row).find('td:eq(1)').css('background-color', '#58adb3');
+                            $(row).find('td:eq(1)').css('color', 'white');
+                            $(row).find('td:eq(1)').css('font-weight', '600');
+                        }
+
+
+                        $("#sortVulnerability").on('click', function () {
+                            $(row).find('td').css('background-color', 'white');
+                            $(row).find('td').css('color', '#404040');
+                            $(row).find('td').css('font-weight', '400');
+                            $(row).find('td:eq(1)').css('background-color', '#acd6d9');
+                            $(row).find('td:eq(6)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(7)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(8)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(9)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(10)').css('background-color', '#f1f1f1');
+                            if (data[1] == "Concern") {
+                                $(row).find('td:eq(1)').css('background-color', '#2c575a');
+                                $(row).find('td:eq(1)').css('color', 'white');
+                                $(row).find('td:eq(1)').css('font-weight', '700');
+                            }
+                            if (data[1] == "Monitor") {
+                                $(row).find('td:eq(1)').css('background-color', '#58adb3');
+                                $(row).find('td:eq(1)').css('color', 'white');
+                                $(row).find('td:eq(1)').css('font-weight', '600');
+                            }
+                        });
+
+
+                        $("#sortFoodSecurity").on('click', function () {
+                            $(row).find('td').css('background-color', 'white');
+                            $(row).find('td').css('color', '#404040');
+                            $(row).find('td').css('font-weight', '400');
+                            $(row).find('td:eq(2)').css('background-color', '#e4e4e4');
+                            $(row).find('td:eq(6)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(7)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(8)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(9)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(10)').css('background-color', '#f1f1f1');
+                            if (data[2] == "High") {
+                                $(row).find('td:eq(2)').css('background-color', '#2c575a');
+                                $(row).find('td:eq(2)').css('color', 'white');
+                                $(row).find('td:eq(2)').css('font-weight', '700');
+                            }
+                            if (data[2] == "Moderate") {
+                                $(row).find('td:eq(2)').css('background-color', '#58adb3');
+                                $(row).find('td:eq(2)').css('color', 'white');
+                                $(row).find('td:eq(2)').css('font-weight', '600');
+                            }
+                            if (data[2] == "Low") {
+                                $(row).find('td:eq(2)').css('background-color', '#acd6d9');
+                                $(row).find('td:eq(2)').css('color', 'white');
+                                $(row).find('td:eq(2)').css('font-weight', '400');
+                            }
+                        })
+
+                        function customValueSorter(numberColumn, tdeqColumn) {
+                            $(row).find('td').css('background-color', 'white');
+                            $(row).find('td').css('color', '#404040');
+                            $(row).find('td').css('font-weight', '400');
+                            $(row).find('td:eq(6)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(7)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(8)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(9)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(10)').css('background-color', '#f1f1f1');
+                            $(row).find(tdeqColumn).css('background-color', '#e4e4e4');
+                            if (data[numberColumn] >= 50) {
+                                $(row).find(tdeqColumn).css('background-color', '#122324');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '700');
+                            }
+                            if (data[numberColumn] >= 40 && data[numberColumn] < 50) {
+                                $(row).find(tdeqColumn).css('background-color', '#2c575a');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '600');
+                            }
+                            if (data[numberColumn] >= 30 && data[numberColumn] < 40) {
+                                $(row).find(tdeqColumn).css('background-color', '#468a8f');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '400');
+                            }
+                            if (data[numberColumn] >= 20 && data[numberColumn] < 30) {
+                                $(row).find(tdeqColumn).css('background-color', '#58adb3');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '400');
+                            }
+                            if (data[numberColumn] >= 10 && data[numberColumn] < 20) {
+                                $(row).find(tdeqColumn).css('background-color', '#79bdc2');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '400');
+                            }
+                            if (data[numberColumn] >= 0 && data[numberColumn] < 10) {
+                                $(row).find(tdeqColumn).css('background-color', '#8ac6ca');
+                                $(row).find(tdeqColumn).css('color', 'white');
+                                $(row).find(tdeqColumn).css('font-weight', '400');
+                            }
+                        }
+
+                        $("#sortInflation").on('click', function () {
+                            customValueSorter(3, 'td:eq(3)')
+                        })
+
+                        $("#sortFoodInflation").on('click', function () {
+                            customValueSorter(4, 'td:eq(4)')
+                        })
+
+                        $("#sortCurrency").on('click', function () {
+                            $(row).find('td').css('background-color', 'white');
+                            $(row).find('td').css('color', '#404040');
+                            $(row).find('td').css('font-weight', '400');
+                            $(row).find('td:eq(5)').css('background-color', '#e4e4e4');
+                            $(row).find('td:eq(6)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(7)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(8)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(9)').css('background-color', '#f1f1f1');
+                            $(row).find('td:eq(10)').css('background-color', '#f1f1f1');
+                            if (data[5] <= -50) {
+                                $(row).find('td:eq(5)').css('background-color', '#122324');
+                                $(row).find('td:eq(5)').css('color', 'white');
+                                $(row).find('td:eq(5)').css('font-weight', '700');
+                            }
+                            if (data[5] <= -40 && data[5] > -50) {
+                                $(row).find('td:eq(5)').css('background-color', '#2c575a');
+                                $(row).find('td:eq(5)').css('color', 'white');
+                                $(row).find('td:eq(5)').css('font-weight', '600');
+                            }
+                            if (data[5] <= -30 && data[5] > -40) {
+                                $(row).find('td:eq(5)').css('background-color', '#468a8f');
+                                $(row).find('td:eq(5)').css('color', 'white');
+                                $(row).find('td:eq(5)').css('font-weight', '400');
+                            }
+                            if (data[5] <= -20 && data[5] > -30) {
+                                $(row).find('td:eq(5)').css('background-color', '#58adb3');
+                                $(row).find('td:eq(5)').css('color', 'white');
+                                $(row).find('td:eq(5)').css('font-weight', '400');
+                            }
+                            if (data[5] < 0 && data[5] > -20) {
+                                $(row).find('td:eq(5)').css('background-color', '#79bdc2');
+                                $(row).find('td:eq(5)').css('color', 'white');
+                                $(row).find('td:eq(5)').css('font-weight', '400');
+                            }
+                            if (data[5] > 0) {
+                                $(row).find('td:eq(5)').css('background-color', 'white');
+                                $(row).find('td:eq(5)').css('color', '404040');
+                                $(row).find('td:eq(5)').css('font-weight', '400');
+                            }
+                        })
+                        $(row).find('td:eq(6)').css('background-color', '#f1f1f1');
+                        $(row).find('td:eq(7)').css('background-color', '#f1f1f1');
+                        $(row).find('td:eq(8)').css('background-color', '#f1f1f1');
+                        $(row).find('td:eq(9)').css('background-color', '#f1f1f1');
+                        $(row).find('td:eq(10)').css('background-color', '#f1f1f1');
+                    },
                     order: [[0, 'asc']],
                     stripeClasses: [],
-                    // scrollY: '600px',
-                    // scrollCollapse: true,
                     info: false,
                     paging: false,
                     searching: false,
+                    // order: [[1, 'desc']],
                     columnDefs: [{
-                        targets: [8, 9, 10],
+                        targets: [3, 4, 5],
                         className: 'dt-body-right',
+                        type: 'html-num'
                     },
                     {
-                        targets: [8, 9, 10],
-                        className: 'dt-head-right'
-                    }],
+                        targets: [11, 12, 13],
+                        visible: false,
+                        searchable: true,
+                    },
+                    // {
+                    //     targets: [8, 9, 10],
+                    //     className: 'dt-head-right',
+                    // },
+                    {
+                        targets: [1],
+                        type: "customSortVulnerability"
+                    },
+                    {
+                        targets: [2],
+                        type: "customSortFoodSecurity"
+                    }
+                    ],
                     aoColumns: [
-                        null,
-                        null,
-                        { orderSequence: ['asc'] },
-                        { orderSequence: ['desc', 'asc', 'asc'] },
-                        { orderSequence: ['desc'] },
-                        null
+                        // null,
+                        // { orderSequence: ['asc'] },
+                        // { orderSequence: ['desc', 'asc', 'asc'] },
+                        // { orderSequence: ['desc'] }
                     ],
 
                 });
+
+                // Start with the vulnerability column sorted
+                // Sort the strings in a custom order, otherwise it goes alphabetical
+                $.fn.dataTable.ext.type.order['customSortVulnerability-pre'] = function (d) {
+                    switch (d) {
+                        case 'Low': return 3;
+                        case 'Monitor': return 2;
+                        case 'Concern': return 1;
+                    }
+                    return 0;
+                };
+
+                // Sort the strings in a custom order, otherwise it goes alphabetical
+                $.fn.dataTable.ext.type.order['customSortFoodSecurity-pre'] = function (d) {
+                    switch (d) {
+                        case 'Low': return 1;
+                        case 'Moderate': return 2;
+                        case 'High': return 3;
+                    }
+                    return 0;
+                };
+
+                // Sorter
+                $("#sortVulnerability").on('click', function () {
+                    oTable.order(1, 'asc').draw();
+                });
+                $("#sortFoodSecurity").on('click', function () {
+                    oTable.order(2).draw();
+                });
+                $("#sortInflation").on('click', function () {
+                    oTable.order(11).draw();
+                });
+                $("#sortFoodInflation").on('click', function () {
+                    oTable.order(12).draw();
+                });
+                $("#sortCurrency").on('click', function () {
+                    oTable.order(13, 'asc').draw();
+                });
+
+                oTable.order(1, 'asc').draw();
             });
         }
         populate();

@@ -17,16 +17,16 @@ mvam = pd.read_excel('data_entry.xlsx', 'mvam')
 summaries.describe()
 summaries.info()
 summaries.id.head()
-indicators.info()
 
 # Join
-df = summaries.join(indicators,
+df = summaries.merge(indicators,
                     how='left',
-                    lsuffix='id',
-                    rsuffix='id')
+                    left_on='id',
+                    right_on='ID')
 
 df = df.drop(['ID', 'Country'], axis=1)
-df.info()
+df[['Overall Vulnerability', 'id']]
+indicators[['Overall Vulnerability', 'ID']]
 
 colIds = list(df.columns[list(range(0, 20))])
 colVals = list(df.columns[list(range(20, 30))])
@@ -45,7 +45,7 @@ conditions = [
     (df['value'] == 'Concern'),
     (df['value'] == 'High'),
     (df['value'] == 'Monitor'),
-    (df['value'] == 'Mod'),
+    (df['value'] == 'Moderate'),
     (df['value'] == 'Low'),
     (df['value'] == None)
 ]
@@ -77,7 +77,7 @@ df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 # Then add a column of icons for the mvam data
 conditions = [
     (mvam['status'] == 'Active'),
-    (mvam['status'] == 'Setup')
+    (mvam['status'] == 'Upcoming')
 ]
 
 values = ["<span style='font-size:24px;color:#80bede'><i class='fas fa-wifi'></i>",
@@ -89,13 +89,12 @@ mvam['icon'] = np.select(conditions, values, default=mvam['status'])
 # View
 mvam.info()
 df.info()
-
+summaries.info()
 
 # Export
-df.to_json(path_or_buf="data2.json", orient='values')
+df.to_json(path_or_buf="data/main.json", orient='values')
+indicators.to_json(path_or_buf="data/indicators.json", orient='values')
+mvam.to_json(path_or_buf="data/mvam.json", orient='values')
+summaries.to_json(path_or_buf="data/summaries.json", orient='values')
 
-indicators.to_json(path_or_buf="dataIndicators.json", orient='values')
-
-mvam.to_json(path_or_buf="mvam/data.json", orient='values')
-
-df.to_csv("output2.csv", index=False, encoding='utf8')
+indicators.to_csv("output2.csv", index=False, encoding='utf8')

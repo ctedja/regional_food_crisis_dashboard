@@ -10,7 +10,6 @@ body {
     overflow: hidden;
 }
 
-
 #logo {
     overflow-y: auto;
     width: 42px;
@@ -46,7 +45,7 @@ header {
 /* Overwrite bootstrap's tabs a  bit */
 .mapTabButton {
     color: #767676 !important;
-    font-size:12px;
+    font-size: 12px;
 }
 
 .mapTabButton.active {
@@ -57,6 +56,7 @@ header {
 
 .tableTabButton {
     color: #767676 !important;
+    font-size: 12px;
 }
 
 .tableTabButton.active {
@@ -337,8 +337,8 @@ li {
     height: 200px;
     font: 'Open Sans', 'Helvetica Neue', sans-serif, 'FontAwesome';
     pointer-events: none;
-    border:none;
-    box-shadow:none;
+    border: none;
+    box-shadow: none;
 }
 
 .mapboxgl-popup-close-button {
@@ -367,7 +367,7 @@ li {
     margin: 0;
     padding-left: 12px;
     padding-right: 12px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
     font-size: 16px;
     pointer-events: none;
 }
@@ -392,24 +392,123 @@ li {
 
 
 
-
 /* TABLE */
+
 #tableTab {
     position: absolute;
-    overflow: auto;
-    height:100%;
-    width:95%;
+    height: 380px;
+    width: 95%;
+    overflow-y:scroll;
+}
+
+.btn-group {
+    font: 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #58adb3;
+    font-size: 14px !important;
+}
+
+
+/*Button */
+.btn-group .btn:not(:disabled):not(.disabled).active,
+.btn-group-toggle .btn:not(:disabled):not(.disabled):active,
+.show>.btn.dropdown-toggle {
+    color: #fff;
+    background-color: #58adb3;
+    border: solid 1px #58adb3;
+}
+
+/* Non-Selected Button */
+.btn-group .btn {
+    color: #4da4d0;
+    background-color: white;
+    border-color: white;
+    font-weight:600 !important;
+}
+
+.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: white;
+}
+
+.btn-outline-primary {
+    color: #58adb3;
+    border-color: #58adb3;
+    font-size: 14px !important;
+}
+
+.btn-outline-primary:active,
+.btn-outline-primary:hover,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: #58adb3 !important;
+}
+
+.btn-check:active+.btn-outline-primary,
+.btn-check:checked+.btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    color: #fff;
+    background-color: #58adb3 !important;
+    border-color: #58adb3;
+}
+
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #58adb3;
+}
+
+
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #58adb3;
+}
+
+
+a {
+    color: #58adb3;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #58adb3;
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.5;
 }
 
 th {
     cursor: pointer;
     font-size: 12px;
+    font-weight:400;
 }
 
+
 td.color {
-    color:red;
+    color: red;
 }
 
 #mydatatable {
     font-size: 12px;
+    overflow: auto;
+    width:100%;
+}
+
+table.dataTable thead th {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    font-weight: 400 !important;
+}
+
+table.dataTable.display tbody td {
+    border: 0px !important;
 }
