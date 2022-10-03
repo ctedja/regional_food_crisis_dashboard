@@ -189,7 +189,6 @@
                     $("#narrativeLink").html(narrativeTitle)
                     $("#narrativeText").html(data[4]);
                     $("#narrativeUpcoming").html("The next update is planned to be ready in " + data[7]);
-                    console.log('You clicked on ' + data[7]);
 
                     $("#narrativeTitle").addClass("elementToFadeIn");
                     setTimeout(function () { $("#narrativeTitle").removeClass("elementToFadeIn"); }, 1000);
@@ -204,7 +203,6 @@
 
                 // oTable.on('hover', 'tr', function () {
                 //     fi$(this).addClass("tableHover");
-
                 // });
 
                 // Newbie Selector
@@ -218,7 +216,7 @@
                     oTable.columns(2).search('Upcoming', true, false).draw();
                     console.log(oTable.columns(2))
                 });
-                // Function Selector
+                // Sorter
                 $("#sortStatus").on('click', function () {
                     oTable.order(2, 'asc').draw();
                 });

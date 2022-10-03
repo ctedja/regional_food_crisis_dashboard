@@ -3,9 +3,9 @@ body {
     font: 400 15px/22px 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0;
     -webkit-font-smoothing: antialiased;
-    min-width:864px;
-    height:550px;
-    overflow:hidden;
+    min-width: 864px;
+    height: 550px;
+    overflow: hidden;
 }
 
 * {
@@ -21,6 +21,7 @@ h1 {
     color: #007dbc;
     font-size: 20px;
 }
+
 /* 
 #intro {
     font-size: 12px;
@@ -29,27 +30,27 @@ h1 {
 .filters {
     position: fixed;
     /* height: 15%; */
-    width:100%;
+    width: 100%;
     overflow: hidden;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
     background-color: #f3f9fc;
-    z-index:3;
+    z-index: 3;
 }
 
 .main {
     position: absolute;
     overflow-y: auto;
-    overflow-x:hidden;
+    overflow-x: hidden;
     width: 50%;
     height: 450px;
     top: 100px;
-    left:0;
+    left: 0;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 20px;
-    z-index:1;
+    z-index: 1;
 }
 
 .narrative {
@@ -58,36 +59,43 @@ h1 {
     width: 50%;
     height: 420px;
     top: 130px;
-    right:0;
-    background-color:white;
-    font-size:12px;
+    right: 0;
+    background-color: white;
+    font-size: 12px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
-    z-index:2;
+    z-index: 2;
 }
 
 .btn-group {
-    font:'Open Sans', 'Helvetica Neue', sans-serif;
-    color:#4da4d0;
-    font-size:12px !important;
+    font: 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #4da4d0;
+    font-size: 12px !important;
 }
 
 .btn-outline-primary {
-    color:#4da4d0;
-    border-color:#4da4d0;
-    
-    font-size:12px !important;
-    font-weight:700 !important;
-} 
+    color: #4da4d0;
+    border-color: #4da4d0;
 
-.btn-outline-primary:active, .btn-outline-primary:hover, .btn-outline-primary:visited, .btn-outline-primary:focus {
-    background-color:#4da4d0 !important;
-} 
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
 
-.btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+.btn-outline-primary:active,
+.btn-outline-primary:hover,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus {
+    background-color: #4da4d0 !important;
+}
+
+.btn-check:active+.btn-outline-primary,
+.btn-check:checked+.btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
     color: #fff;
-    background-color: #4da4d0;
+    background-color: #4da4d0 !important;
     border-color: #4da4d0;
 }
 
@@ -139,8 +147,8 @@ thead {
     color: #007dbc;
     background-color: #e6f2f8;
     border-bottom: 0px;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -150,8 +158,8 @@ thead {
     font-size: 10px;
     color: #767676;
     background-color: #f1f1f1;
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
     border-bottom: 0px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -163,7 +171,8 @@ thead {
     color:red;
 } */
 
-table.dataTable tbody th, table.dataTable tbody td {
+table.dataTable tbody th,
+table.dataTable tbody td {
     padding-top: 25px;
 }
 
@@ -173,7 +182,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    font-weight:600;
+    font-weight: 600;
 }
 
 
@@ -181,15 +190,15 @@ table.dataTable tbody th, table.dataTable tbody td {
 #narrativeTitle {
     font-size: 16px;
     color: #007dbc;
-    font-weight:700;
+    font-weight: 700;
 }
 
 #narrativeLink {
     font-size: 12px;
-    font-weight:700;
-    line-height:400%;
-    padding-left:20px;
-    border:solid 0.5px #4da4d0;
+    font-weight: 700;
+    line-height: 400%;
+    padding-left: 20px;
+    border: solid 0.5px #4da4d0;
     /* background-color:#4da4d0; */
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -211,9 +220,14 @@ table.dataTable tbody th, table.dataTable tbody td {
     animation: fader 1s linear forwards;
 }
 
-@keyframes fader{
-    from {opacity:0;}
-    to {opacity:1}
+@keyframes fader {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 a {
