@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WFP Response</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+
+    <!-- For Bootstrap Select -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/f3135b3376.js" crossorigin="anonymous"></script>
+
+    <!-- Own Style Sheet -->
+    <link href="styles.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+
+
+    <div class="filters">
+        <div class="title">
+            <header>Evidence</header>
+            <p id="subheader">A SUMMARY OF WFP'S EVIDENCE ON THE GLOBAL FOOD CRISIS</p>
+        </div>
+        <br>
+        <table class="colHeaders">
+            <td class="colHeader1">Assessments and Research<br>
+            </td>
+            <td class="colHeader2">Market and Price Monitors<br>
+            </td>
+            <td class="colHeader3">Fill the Nutrient Gaps / Cost of the Diet<br>
+            </td>
+        </table>
+        <hr>
+    </div>
+
+    <div id="narrative">
+        <div id="col1"></div>
+        <div id="col2"></div>
+        <div id="col3"></div>
+    </div>
+    <script>
+        // Pull in the Data Tables via jQuery
+
+        const api_url = 'https://raw.githubusercontent.com/ctedja/regional_food_crisis_dashboard/main/data/summaries.json';
+
+        async function populate() {
+            const response = await fetch(api_url);
+            const summariesData = await response.json();
+            console.log(summariesData)
+
+            function buildCol1(data) {
+                var narrative = document.getElementById('col1')
+                narrative.innerHTML = data.map(function (row) {
+                    let [id, countryName, fsnNarrative, wfpNarrative, stakeholderNarrative, marketAssessment, marketLink, fng, fngLink, mvamFoodSecurity, mvamFoodSecurityLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming, overallVulnerability, centerLng, centerLat, zoom
+                    ] = row;
+
+                    let mvamText;
+                    if (mvamFoodSecurity == null) {
+                        mvamText = "";
+                    } else {
+                        mvamText = "<tr class=clickable-row data-href='" + mvamFoodSecurityLink +
+                            "'data-target='_blank'><td class='tableIcon'><i class='fas fa-wifi' style='font-size:24px;color:#80bede'></i><br></td><td class=tableText><span class='tableTitle'>" +
+                            countryName +
+                            "<br></span><span class='tableDetail'>mVAM: " + mvamFoodSecurity +
+                            "&nbsp;&nbsp;|</span><span class='tableLink'> <a href='" + mvamFoodSecurityLink +
+                            "' target='_blank'>Link&nbsp;&nbsp;</a></span></td></tr>"
+                    };
+
+                    let primaryHighlightText;
+                    if (primaryHighlight == null) {
+                        primaryHighlightText = "";
+                    } else {
+                        primaryHighlightText = "<tr class=clickable-row data-href='" + primaryHighlightLink +
+                            "'data-target='_blank'><td class='tableIcon'><i class='fa-solid fa-magnifying-glass-chart' style='font-size:24px;color:#80bede'></i><br></td><td class=tableText><span class='tableTitle'>" +
+                            countryName +
+                            "<br></span> <span class='tableDetail'>" + primaryHighlight +
+                            "&nbsp;&nbsp;|</span><span class='tableLink'> <a href='" + primaryHighlightLink +
+                            "' target='_blank'>Link&nbsp;&nbsp;</a></span></td></tr>"
+                    };
+                    console.log(primaryHighlightLink)
+
+                    let secondaryHighlightText;
+                    if (secondaryHighlight == null) {
+                        secondaryHighlightText = "";
+                    } else {
+                        secondaryHighlightText = "<tr class=clickable-row data-href='" + secondaryHighlightLink +
+                            "'data-target='_blank'><td class='tableIcon'><i class='fa-solid fa-magnifying-glass-chart' style='font-size:24px;color:#80bede'></i><br></td><td class=tableText><span class='tableTitle'>" +
+                            countryName +
+                            "<br></span> <span class='tableDetail'>" + secondaryHighlight +
+                            "&nbsp;&nbsp;|</span><span class='tableLink'> <a href='" + secondaryHighlightLink +
+                            "' target='_blank'>Link&nbsp;&nbsp;</a></span></td></tr>"
+                    };
+
+                    return `
+                    <table class='myDataTable'>
+                        ${mvamText}
+                        ${primaryHighlightText}
+                        ${secondaryHighlightText}
+                    </table>`;
+                }).join('');
+            }
+
+
+
+            function buildCol2(data) {
+                var narrative = document.getElementById('col2')
+                narrative.innerHTML = data.map(function (row) {
+                    let [id, countryName, fsnNarrative, wfpNarrative, stakeholderNarrative, marketAssessment, marketLink, fng, fngLink, mvamFoodSecurity, mvamFoodSecurityLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming, overallVulnerability, centerLng, centerLat, zoom
+                    ] = row;
+
+                    let marketAssessmentText;
+                    if (marketAssessment == null) {
+                        marketAssessmentText = "";
+                    } else {
+                        marketAssessmentText = "<tr class=clickable-row data-href='" + marketLink +
+                            "'data-target='_blank'><td class='tableIcon'><i class='fa-solid fa-shop' style='font-size:24px;color:#80bede'></i><br></td><td class=tableText><span class='tableTitle'>" +
+                            countryName +
+                            "<br></span><span class='tableDetail'>Latest Market/Price Monitor: " +
+                            marketAssessment + "&nbsp;&nbsp;|</span><span class='tableLink'> <a href='" + marketLink + "&nbsp;&nbsp;' target='_blank'>Link&nbsp;&nbsp;</a></span></td></tr>"
+                    };
+
+                    return `
+                    <table class='myDataTable'>
+                        ${marketAssessmentText}
+                    </table>`;
+                }).join('');
+            }
+
+
+            function buildCol3(data) {
+                var narrative = document.getElementById('col3')
+                narrative.innerHTML = data.map(function (row) {
+                    let [id, countryName, fsnNarrative, wfpNarrative, stakeholderNarrative, marketAssessment, marketLink, fng, fngLink, mvamFoodSecurity, mvamFoodSecurityLink, primaryHighlight, primaryHighlightLink, secondaryHighlight, secondaryHighlightLink, upcoming, overallVulnerability, centerLng, centerLat, zoom
+                    ] = row;
+
+                    let fngText;
+                    if (fng == null) {
+                        fngText = "";
+                    } else {
+                        fngText = "<tr class=clickable-row data-href='" + fngLink +
+                            "'data-target='_blank'><td class='tableIcon'><i class='fa-solid fa-bowl-food' style='font-size:24px;color:#80bede'></i><br></td><td class=tableText><span class='tableTitle'>" +
+                            countryName +
+                            "<br></span><span class='tableDetail'>Latest Market/Price Monitor: " + fng + "&nbsp;&nbsp;|</span><span class='tableLink'> <a href='" +
+                            fngLink + "&nbsp;&nbsp;' target='_blank'>Link&nbsp;&nbsp;</a></span></td></tr>"
+                    };
+
+                    return `
+                    <table class='myDataTable'>
+                        ${fngText}
+                    </table>`;
+                }).join('');
+            }
+
+
+            buildCol1(summariesData)
+            buildCol2(summariesData)
+            buildCol3(summariesData)
+
+            $(document).ready(function ($) {
+                $(".clickable-row").click(function () {
+                    window.open($(this).data("href"), $(this).data("target")); // Open new tab line
+                });
+            });
+
+        }
+
+        populate();
+
+    </script>
+</body>
+
+</html>
