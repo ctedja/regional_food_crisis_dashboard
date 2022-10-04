@@ -42,23 +42,24 @@ df.info()
 
 # Create a new column and use np.select to assign values to it using our lists as arguments
 conditions = [
-    (df['value'] == 'Concern'),
+    (df['value'] == 'Country of Concern'),
     (df['value'] == 'High'),
-    (df['value'] == 'Monitor'),
+    (df['value'] == 'Country to Monitor'),
     (df['value'] == 'Moderate'),
+    (df['value'] == 'Lower Vulnerability'),
     (df['value'] == 'Low'),
     (df['value'] == None)
 ]
 
-values = [1, 1, 2, 2, 3, None]
+values = [1, 1, 2, 2, 3, 3, None]
 
 df['valueInt'] = np.select(conditions, values, default=df['value'])
 df['valueInt'] = df['valueInt'].fillna(0)
 df['valueInt'] = pd.to_numeric(df['valueInt'])
 
-# Convert additional indicator valueInt column to discrete categorical variables for color scheme
+# Convert additional indicator valueInt column to discrete categorical variables for inflation color scheme
 subCondition = ((df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Inflation (%)') | (
-    df['indicator'] == 'Food Inflation (%)') | (df['indicator'] == 'Currency Exchange (YoY, %)'))
+    df['indicator'] == 'Food Inflation (%)'))
 
 conditions = [
     (df['valueInt'] > 30) & (df['valueInt'] < 100) & subCondition,
@@ -72,6 +73,21 @@ values = [1, 2, 3, 3, None]
 
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
+
+# Convert additional indicator valueInt column to discrete categorical variables for currency color scheme
+subCondition = ((df['indicator'] == 'Currency Exchange (YoY, %)'))
+
+conditions = [
+    (df['valueInt'] > -100) & (df['valueInt'] < -25) & subCondition,
+    (df['valueInt'] >= -25) & (df['valueInt'] < -15) & subCondition,
+    (df['valueInt'] >= -15) & (df['valueInt'] < 0) & subCondition,
+    (df['valueInt'] > 0) & (df['valueInt'] < 100) & subCondition,
+    (df['value'] == "")
+]
+
+values = [1, 2, 3, 3, None]
+
+df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
 
 # Then add a column of icons for the mvam data

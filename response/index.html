@@ -143,7 +143,13 @@
                             "' target='_blank'>LINK</a><br><br>"
                     };
 
-
+                    let stakeholderText;
+                    if (stakeholderNarrative == null) {
+                        stakeholderText = "";
+                    } else {
+                        stakeholderText = "<span style='font-weight:600'>Government and other Stakeholders: </span>" + stakeholderNarrative + "<br><br></span>"
+                    };
+                    
 
                     return `
                     <section id="${id}" class="section">
@@ -152,6 +158,7 @@
                                 <td class="col1">
                                     <span class="narrativeTitle">${countryName}<br></span>
                                     <span class="narrativeText">${wfpNarrative}<br><br></span>
+                                    <span class="narrativeText">${stakeholderText}</span>
                                 </td>
                                 <td class="col2">
                                     <span class="narrativeResearch"><br>${mvamText}${primaryText}${marketText}${fngText}${secondaryText}
