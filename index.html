@@ -110,7 +110,8 @@
                 <div id="narrativeBox">
                     <div id="narrativeTitle">Select Country</div>
                     <div id="narrativeIndicator"></div>
-                    <div id="narrativeText">The global food crisis is impacting each individual country differently.<br><br>
+                    <div id="narrativeText">The global food crisis is impacting each individual country
+                        differently.<br><br>
                         There are four countries of highest concern (Afghanistan, Myanmar, Pakistan and Sri Lanka) and
                         four countries marked as countries for close monitoring (Bangladesh, Laos, Kyrgyz Republic,
                         Tajikistan).
@@ -119,6 +120,7 @@
                         filter to learn more.
                     </div>
                 </div>
+                <div id="loading" class="loading">Loading...</div>
                 <div id="map" class="map"></div>
                 <div id="legend"></div>
                 <div id="research"></div>
@@ -205,7 +207,7 @@
             const indicatorData = await response2.json();
 
 
-            console.log(countryData)
+            
             // Proceed
             const countrySelector = document.getElementById('countrySelector')
             const indicatorSelector = document.getElementById('indicatorSelector')
@@ -214,8 +216,8 @@
             // Use the selectors to filter and fly
             countrySelector.addEventListener('change', function (e) {
                 const match = countryData.filter(countryArr => countryArr[0] === this.value);
-                console.log('You clicked a row containing the country of ' + this.value)
-                console.log('You clicked a match for the country of ' + match[1][0])
+                // console.log('You clicked a row containing the country of ' + this.value)
+                // console.log('You clicked a match for the country of ' + match[1][0])
                 document.getElementById("narrativeTitle").innerHTML = match[1][1];
                 // document.getElementById("narrativeText").innerHTML = match[1][2];
                 displayNarrative(match[1][2]);
@@ -233,7 +235,7 @@
 
             indicatorSelector.addEventListener('change', function (e) {
                 const match = countryData.filter(countryArr => countryArr[20] === this.value);
-                console.log('You clicked a row containing the indicator of ' + this.value)
+                // console.log('You clicked a row containing the indicator of ' + this.value)
                 displayChloro(match);
                 displayChloroSingle(match);
 
@@ -243,7 +245,7 @@
             mapboxgl.accessToken = 'pk.eyJ1IjoiY3RlZGphIiwiYSI6ImNraWk4OGd6aTA0dGQyeW1pbWF2Mm5qbTUifQ.H7qbJAdh988Vg7mq8Muvjw';
             const map = new mapboxgl.Map({
                 container: 'map',
-                style: 'mapbox://styles/ctedja/ckxf77dtjg8nx15o5bn7st070',
+                style: 'mapbox://styles/ctedja/ckxf77dtjg8nx15o5bn7st070?optimize=true',
                 center: [105, 20],
                 zoom: 2.25
             });
@@ -398,6 +400,8 @@
                         "type": "fill",
                         "source": "cbs",
                         "layout": {},
+                        "minzoom": 2,
+                        "maxzoom": 5,
                         "paint": {
                             "fill-color": addColor,
                             "fill-opacity": .25,
@@ -412,6 +416,8 @@
                         "type": "line",
                         "source": "cbs",
                         "layout": {},
+                        "minzoom": 2,
+                        "maxzoom": 5,
                         "paint": {
                             "line-color": 'white',
                             "line-width": .9
@@ -459,6 +465,8 @@
                         "type": "fill",
                         "source": "cbs",
                         "layout": {},
+                        "minzoom": 2,
+                        "maxzoom": 5,
                         "paint": {
                             "fill-color": addColor,
                             "fill-outline-color": "white",
@@ -523,7 +531,7 @@
 
                 // Create legend
                 var filteredIndicator = filteredRows[1][20]
-                console.log('you look for : ' + filteredIndicator)
+                // console.log('you look for : ' + filteredIndicator)
 
                 var layers;
                 if (filteredIndicator == "Overall Vulnerability")
@@ -594,6 +602,8 @@
                     "type": "line",
                     "source": "cbs",
                     "layout": {},
+                    "minzoom": 2,
+                    "maxzoom": 5,
                     "paint": {
                         "line-color": '#3b3b3b',
                         "line-width": 2

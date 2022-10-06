@@ -152,6 +152,19 @@ header {
     color: #ffffff00;
 }
 
+#loading {
+    position: absolute;
+    top: 320px;
+    text-align:center;
+    padding-left:40%;
+    padding-right:40%;
+    width: 100%;
+    font-size:20px;
+    color:#bbbbbb;
+    z-index: -2;
+}
+
+
 #legend {
     position: absolute;
     right: 20px;
