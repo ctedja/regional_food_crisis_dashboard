@@ -243,7 +243,12 @@
                 // console.log('You clicked a row containing the indicator of ' + this.value)
                 displayChloro(match);
                 displayChloroSingle(match);
-
+                map.flyTo({
+                    center: [105, 20],
+                    zoom: 2.25,
+                    speed: 0.4,
+                    curve: 2
+                })
             });
 
             // Load the map
