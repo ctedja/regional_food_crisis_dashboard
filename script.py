@@ -20,9 +20,9 @@ summaries.id.head()
 
 # Join
 df = summaries.merge(indicators,
-                    how='left',
-                    left_on='id',
-                    right_on='ID')
+                     how='left',
+                     left_on='id',
+                     right_on='ID')
 
 df = df.drop(['ID', 'Country'], axis=1)
 df[['Overall Vulnerability', 'id']]
@@ -90,6 +90,17 @@ values = [1, 2, 3, 3, None]
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
 
+# This is just to remove the extraneous indicators on the map
+df.info()
+
+
+df = df[~df['indicator'].isin(['Dependency on Russia or Ukraine',
+                               'Cereal Import Dependency',
+                               'Fertilizer Consumption',
+                               'Debt Distress',
+                               'GDP'])]
+
+
 # Then add a column of icons for the mvam data
 conditions = [
     (mvam['status'] == 'Active'),
@@ -113,4 +124,5 @@ indicators.to_json(path_or_buf="data/indicators.json", orient='values')
 mvam.to_json(path_or_buf="data/mvam.json", orient='values')
 summaries.to_json(path_or_buf="data/summaries.json", orient='values')
 
-indicators.to_csv("output2.csv", index=False, encoding='utf8')
+
+df.to_csv("test.csv", index=False, encoding='utf8')
