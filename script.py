@@ -4,10 +4,18 @@
 import pandas as pd
 import numpy as np
 import json
+import geojson
+import urllib.request
+
+
+with urllib.request.urlopen("https://raw.githubusercontent.com/ctedja/assets/main/ne_50m_admin_0_countries.geojson") as url:
+    data = json.load(url)
+    print(data)
+
 
 # For full head viewing options.
-pd.options.display.max_columns = None
-pd.options.display.max_rows = None
+# pd.options.display.max_columns = None
+# pd.options.display.max_rows = None
 
 summaries = pd.read_excel('data_entry.xlsx', 'summaries')
 indicators = pd.read_excel('data_entry.xlsx', 'indicators')
@@ -30,7 +38,6 @@ indicators[['Overall Vulnerability', 'ID']]
 
 colIds = list(df.columns[list(range(0, 20))])
 colVals = list(df.columns[list(range(20, 30))])
-
 
 # Pivot Longer
 df = pd.melt(df,
@@ -111,6 +118,11 @@ values = ["<span style='font-size:24px;color:#80bede'><i class='fas fa-wifi'></i
           "<span style='font-size:24px;color:#bbbbbb'><i class='fas fa-expand'></i>"]
 
 mvam['icon'] = np.select(conditions, values, default=mvam['status'])
+
+
+# Create a smaller version of our geojson data
+
+
 
 
 # View
