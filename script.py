@@ -22,9 +22,9 @@ indicators = pd.read_excel('data_entry.xlsx', 'indicators')
 mvam = pd.read_excel('data_entry.xlsx', 'mvam')
 
 # Inspect
-summaries.describe()
-summaries.info()
-summaries.id.head()
+# summaries.describe()
+# summaries.info()
+# summaries.id.head()
 
 # Join
 df = summaries.merge(indicators,
@@ -44,8 +44,6 @@ df = pd.melt(df,
              id_vars=colIds,
              value_vars=colVals,
              var_name="indicator")
-
-df.info()
 
 # Create a new column and use np.select to assign values to it using our lists as arguments
 conditions = [
