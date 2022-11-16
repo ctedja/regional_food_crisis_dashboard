@@ -10,7 +10,6 @@ import urllib.request
 
 with urllib.request.urlopen("https://raw.githubusercontent.com/ctedja/assets/main/ne_50m_admin_0_countries.geojson") as url:
     data = json.load(url)
-    print(data)
 
 
 # For full head viewing options.
@@ -20,6 +19,9 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/ctedja/assets/mai
 summaries = pd.read_excel('data_entry.xlsx', 'summaries')
 indicators = pd.read_excel('data_entry.xlsx', 'indicators')
 mvam = pd.read_excel('data_entry.xlsx', 'mvam')
+
+indicators.to_csv("temp1.csv", index=False, encoding='utf8')
+
 
 # Inspect
 # summaries.describe()
@@ -39,11 +41,15 @@ indicators[['Overall Vulnerability', 'ID']]
 colIds = list(df.columns[list(range(0, 20))])
 colVals = list(df.columns[list(range(20, 30))])
 
+
+
 # Pivot Longer
 df = pd.melt(df,
              id_vars=colIds,
              value_vars=colVals,
              var_name="indicator")
+
+df['indicator'].unique()
 
 # Create a new column and use np.select to assign values to it using our lists as arguments
 conditions = [
@@ -62,6 +68,7 @@ df['valueInt'] = np.select(conditions, values, default=df['value'])
 df['valueInt'] = df['valueInt'].fillna(0)
 df['valueInt'] = pd.to_numeric(df['valueInt'])
 
+
 # Convert additional indicator valueInt column to discrete categorical variables for inflation color scheme
 subCondition = ((df['indicator'] == 'Inflation (%)') | (df['indicator'] == 'Inflation (%)') | (
     df['indicator'] == 'Food Inflation (%)'))
@@ -79,8 +86,10 @@ values = [1, 2, 3, 3, None]
 df['valueInt'] = np.select(conditions, values, default=df['valueInt'])
 
 
+
 # Convert additional indicator valueInt column to discrete categorical variables for currency color scheme
 subCondition = ((df['indicator'] == 'Currency Exchange (YoY, %)'))
+
 
 conditions = [
     (df['valueInt'] > -100) & (df['valueInt'] < -25) & subCondition,
@@ -136,6 +145,3 @@ df.to_json(path_or_buf="data/main.json", orient='values')
 indicators.to_json(path_or_buf="data/indicators.json", orient='values')
 mvam.to_json(path_or_buf="data/mvam.json", orient='values')
 summaries.to_json(path_or_buf="data/summaries.json", orient='values')
-
-
-df.to_csv("test.csv", index=False, encoding='utf8')
