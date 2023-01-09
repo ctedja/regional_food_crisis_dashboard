@@ -11,7 +11,7 @@ import urllib.request
 with urllib.request.urlopen("https://raw.githubusercontent.com/ctedja/assets/main/ne_50m_admin_0_countries.geojson") as url:
     data = json.load(url)
 
-1+1
+
 # For full head viewing options.
 # pd.options.display.max_columns = None
 # pd.options.display.max_rows = None
