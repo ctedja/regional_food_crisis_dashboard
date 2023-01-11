@@ -136,7 +136,7 @@ mvam['icon'] = np.select(conditions, values, default=mvam['status'])
 mvam.info()
 df.info()
 summaries.info()
-
+indicators.info()
 
 # Export
 df.to_csv("test2.csv", index=False, encoding='utf8')
