@@ -139,7 +139,7 @@ summaries.info()
 indicators.info()
 
 # Export
-df.to_csv("test2.csv", index=False, encoding='utf8')
+# df.to_csv("test2.csv", index=False, encoding='utf8')
 
 df.to_json(path_or_buf="data/main.json", orient='values')
 indicators.to_json(path_or_buf="data/indicators.json", orient='values')
